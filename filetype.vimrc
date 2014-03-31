@@ -68,6 +68,7 @@ autocmd BufEnter * if &filetype == "php" |nmap <F5> :w<CR>:!time php "%"<CR>|end
 ":1 Markdown
 autocmd FileType markdown syn match CheckdownLabel "[^\[\]\(\)\ ]*:" containedin=TodoLine
 autocmd FileType markdown hi def link CheckdownLabel Float
+autocmd FileType markdown hi def link markdownCode Comment
 
 ":1 Javascript
 autocmd BufEnter *.js,*.json nmap <F5> :w<CR>:!time node %<CR>
