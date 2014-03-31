@@ -28,7 +28,6 @@ autocmd FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold
 
 ":1 C         C source file
 autocmd BufEnter *.c nmap <F9> :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>
-" todo: autocmd BufEnter *.c nmap <F5> :w<CR>:!time ./a < input.txt<CR>
 " autocmd BufEnter *.cpp nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt<CR>
 autocmd BufEnter *.c nmap <F5> :w<CR>:!time ./a<CR>
 
@@ -51,8 +50,11 @@ autocmd FileType cpp syn match	cComment /;/
 ":1 PHP       PHP source file
 autocmd BufEnter * if &filetype == "php" |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
+":1 Markdown
+autocmd FileType markdown syn match CheckdownLabel "[^\[\]\(\)\ ]*:" containedin=TodoLine
+autocmd FileType markdown hi def link CheckdownLabel Float
+
 ":1 Javascript
-" todo: review this
 autocmd BufEnter *.js,*.json nmap <F5> :w<CR>:!time node %<CR>
 autocmd BufEnter *.js,*.json nmap <F9> :w<CR>:!
       \ echo '====================================== JSHint ======================================' &&
@@ -72,12 +74,13 @@ function! SyntaxCheckers_javascript_GetLocList()
 endfunction
 
 ":1 HTML
-" todo: htmldjango
 autocmd BufEnter *.html setlocal filetype=htmldjango.html
 autocmd BufEnter *.html setlocal foldmethod=marker foldmarker=#\:,endfold
 
+":1 Shell script
+autocmd BufEnter * if &filetype == "sh" |nmap <F5> :w<CR>:!sh "%"<CR>| endif
+
 ":1 Stylus
-" todo: stylus fix
 " autocmd BufEnter *.styl nmap <F5> :w<CR>:!stylus -c "%"<CR>
 " autocmd BufEnter *.styl nmap <C-s> :w<CR>:silent ! stylus -c "%"<CR>
 " autocmd BufEnter *.styl imap <C-s> <ESC>:w<CR>:silent ! stylus -c "%"<CR>
