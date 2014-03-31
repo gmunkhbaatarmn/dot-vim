@@ -15,7 +15,6 @@ Bundle "scrooloose/nerdtree"
 
 " Fast toggle
 map <F2> :NERDTreeToggle<CR>
-" todo: imap <F2> <ESC>:w<CR>:NERDTreeToggle<CR>a
 
 " Dvorak fix
 let g:NERDTreeMapOpenInTab="<C-S-t>"
@@ -26,7 +25,6 @@ let g:NERDTreeMapOpenVSplit="a"
 " Common
 let g:NERDTreeCaseSensitiveSort=1
 let g:NERDTreeDirArrows=1
-" todo: osx stupid folders
 let g:NERDTreeIgnore=["\.pyc$"]
 let g:NERDTreeMouseMode=3
 let g:NERDTreeWinPos="right"
@@ -42,13 +40,10 @@ let g:syntastic_auto_loc_list  = 1
 let g:syntastic_python_checker = 'pyflakes'
 let g:syntastic_error_symbol   = '✗'
 let g:syntastic_warning_symbol = '⚠'
-" todo: review this
 let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [''],
       \ 'passive_filetypes': ['htmldjango'] }
-
-" todo: is this syntastic only?
-let b:shell='bash'
+let b:shell="bash"
 
 ":1 Plugins
 " Features
@@ -220,5 +215,5 @@ if has("gui_running")
 endif
 
 ":1 Some extension
-so $HOME/Vim/dvorak.vimrc
-so $HOME/Vim/filetype.vimrc
+so $HOME/.vim/dvorak.vimrc
+so $HOME/.vim/filetype.vimrc
