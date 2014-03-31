@@ -1,9 +1,24 @@
-":1 python    Python
+":1 Python
 autocmd FileType python setlocal foldmethod=marker foldmarker=\:#,endfold
 
 autocmd BufEnter * if &filetype == "python" |nmap <F5>   :w<CR>:!time python "%"            <CR>| endif
 autocmd BufEnter * if &filetype == "python" |nmap <S-F5> :w<CR>:!time python "%" < input.txt<CR>| endif
 autocmd BufEnter * if &filetype == "python" |nmap <F9>   :w<CR>:!pep8 "%"                   <CR>| endif
+
+" Highlight `CAPITALIZED:`
+autocmd FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
+" Highlight `:Regular-word`
+autocmd FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
+" Highlight `>>`
+autocmd FileType python syn match DocKeyword ">>" containedin=pythonString contained
+
+" Highlight `argument - `
+autocmd FileType python syn match DocArgument "\s*[A-Za-z0-9_\-&\*:]*\(\s*- \)"he=e-2 containedin=pythonString contained
+" Highlight `=>`
+autocmd FileType python syn match DocArgument "=>" containedin=pythonString contained
+
+autocmd FileType python hi default link DocArgument HELP
+autocmd FileType python hi default link DocKeyword Comment
 
 ":1 coffee    Coffeescript
 autocmd FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold
