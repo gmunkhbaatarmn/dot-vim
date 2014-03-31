@@ -1,7 +1,3 @@
-" noremap  <C-Space> <C-S-t>
-" inoremap <C-Space> <C-S-t>
-" cnoremap <C-Space> <C-S-t>
-
 ":1 python    Python
 autocmd FileType python setlocal foldmethod=marker foldmarker=\:#,endfold
 
