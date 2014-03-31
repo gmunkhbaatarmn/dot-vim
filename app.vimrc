@@ -197,8 +197,10 @@ autocmd BufEnter * silent! lcd %:p:h
 " Remove trailing spaces
 autocmd BufWritePre * :%s/\s\+$//e
 
-autocmd BufEnter * set visualbell t_vb=
+" Default file format is markdown
+autocmd BufEnter * if &filetype == "" |setlocal filetype=markdown| endif
 
+autocmd BufEnter * set visualbell t_vb=
 
 ":1 GUI only settings
 if has("gui_running")
