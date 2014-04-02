@@ -19,26 +19,23 @@ map <F2> :NERDTreeToggle<CR>
 " Dvorak fix
 let g:NERDTreeMapOpenInTab="<C-S-t>"
 let g:NERDTreeMapOpenInTabSilent="<C-S-D>"
-let g:NERDTreeMapOpenVSplit="a"
-" let g:NERDTreeMinimalUI=1
 
 " Common
-let g:NERDTreeCaseSensitiveSort=1
-let g:NERDTreeDirArrows=1
-let g:NERDTreeIgnore=["\.pyc$"]
-let g:NERDTreeMouseMode=3
-let g:NERDTreeWinPos="right"
-
-" Open a NERDTree automatically when vim starts up if no files were specified
-" autocmd vimenter * if !argc() | NERDTree | endif
+let g:NERDTreeMapOpenVSplit = "a"
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeCaseSensitiveSort = 1
+let g:NERDTreeMouseMode = 3
+let g:NERDTreeWinPos = "right"
+let g:NERDTreeIgnore = ['\.pyc$']
 
 ":1 Plugin - Syntastic
 Bundle "scrooloose/syntastic"
-let g:syntastic_error_symbol    = '✗'
-let g:syntastic_warning_symbol  = '⚠'
-let g:syntastic_mode_map        = {"passive_filetypes": ["html"]}
-let g:syntastic_python_checkers = ["pyflakes"]
-let g:syntastic_auto_loc_list   = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_mode_map = {'passive_filetypes': ['html']}
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_auto_loc_list = 1
 
 ":1 Plugins
 " Features
