@@ -90,7 +90,7 @@ function! SyntaxCheckers_javascript_GetLocList()
 endfunction
 
 ":1 HTML
-autocmd BufEnter *.html setlocal filetype=htmldjango.html
+autocmd BufEnter *.html setlocal filetype=html
 autocmd BufEnter *.html setlocal foldmethod=marker foldmarker=#\:,endfold
 
 ":1 Shell script
