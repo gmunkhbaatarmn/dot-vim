@@ -34,16 +34,11 @@ let g:NERDTreeWinPos="right"
 
 ":1 Plugin - Syntastic
 Bundle "scrooloose/syntastic"
-let g:syntastic_check_on_open  = 0
-let g:syntastic_enable_signs   = 1
-let g:syntastic_auto_loc_list  = 1
-let g:syntastic_python_checker = 'pyflakes'
-let g:syntastic_error_symbol   = '✗'
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_mode_map = { 'mode': 'active',
-      \ 'active_filetypes': [''],
-      \ 'passive_filetypes': ['htmldjango'] }
-let b:shell="bash"
+let g:syntastic_error_symbol    = '✗'
+let g:syntastic_warning_symbol  = '⚠'
+let g:syntastic_mode_map        = {"passive_filetypes": ["html"]}
+let g:syntastic_python_checkers = ["pyflakes"]
+let g:syntastic_auto_loc_list   = 1
 
 ":1 Plugins
 " Features
@@ -198,7 +193,7 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Default file format is markdown
-autocmd BufEnter * if &filetype == "" |setlocal filetype=markdown| endif
+autocmd BufEnter * if &filetype == "" || &filetype == "conf" |setlocal filetype=markdown| endif
 
 autocmd BufEnter * set visualbell t_vb=
 
