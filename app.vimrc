@@ -28,6 +28,16 @@ let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeIgnore = ['\.pyc$']
 
+function! NERDTreeCustomIgnoreFilter(path)
+  if b:NERDTreeShowHidden ==# 0
+    for ignored in ['Library', 'Downloads', 'Dropbox', 'Movies', 'Music', 'Pictures', 'Desktop', 'Documents', 'Public', 'contestapplet.conf', 'contestapplet.conf.bak']
+      if a:path.pathSegments == ['Users', 'mb', ignored]
+        return 1
+      endif
+    endfor
+  endif
+endfunction
+
 ":1 Plugin - Syntastic
 Bundle "scrooloose/syntastic"
 let g:syntastic_error_symbol = '✗'
