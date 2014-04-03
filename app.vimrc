@@ -183,8 +183,8 @@ map <F8> :call ToggleKeymap()<CR>
 " Save file
 " Need "stty -ixon" command in shell.
 " more: http://superuser.com/questions/227588/vim-command-line-imap-problem
-nmap <C-s> :w!<CR>
-imap <C-s> <ESC>:w!<CR>
+autocmd BufEnter * nmap <C-s> :w!<CR>
+autocmd BufEnter * imap <C-s> <ESC>:w!<CR>
 
 " Close file
 nmap <C-b> :close<CR>
