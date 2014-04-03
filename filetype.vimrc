@@ -27,6 +27,11 @@ autocmd BufEnter * if &filetype == "coffee" |nmap <F5>       :w<CR>:       !coff
 autocmd BufEnter * if &filetype == "coffee" |nmap <C-s>      :w<CR>:silent !coffee -c -b "%"<CR>| endif
 autocmd BufEnter * if &filetype == "coffee" |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b "%"<CR>| endif
 
+":1 Javascript
+autocmd FileType javascript setlocal foldmethod=marker foldmarker={,} autoindent
+
+autocmd BufEnter * if &filetype == "javascript" |nmap <F5> :w<CR>:!time node "%" <CR>| endif
+
 ":1 ruby      Ruby
 autocmd BufEnter * if &filetype == "ruby" |nmap <F5>   :w<CR>:!time ruby "%"            <CR>| endif
 autocmd BufEnter * if &filetype == "ruby" |nmap <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>| endif
@@ -69,25 +74,6 @@ autocmd BufEnter * if &filetype == "php" |nmap <F5> :w<CR>:!time php "%"<CR>|end
 autocmd FileType markdown syn match CheckdownLabel "[^\[\]\(\)\ ]*:" containedin=TodoLine
 autocmd FileType markdown hi def link CheckdownLabel Float
 autocmd FileType markdown hi def link markdownCode Comment
-
-":1 Javascript
-autocmd BufEnter *.js,*.json nmap <F5> :w<CR>:!time node %<CR>
-autocmd BufEnter *.js,*.json nmap <F9> :w<CR>:!
-      \ echo '====================================== JSHint ======================================' &&
-      \ jshint "%"<CR>
-autocmd BufEnter *.js,*.json setlocal foldmethod=indent textwidth=80
-autocmd BufEnter *.js,*.json command! ClosureCompile :!java -jar $HOME/local/opt/closure-compiler/compiler.jar --js "%" --js_output_file "%:r".min.js
-autocmd BufEnter *.js,*.json setlocal autoindent foldmarker={,} foldmethod=marker ft=javascript
-let loaded_javascript_syntax_checker = 1
-function! SyntaxCheckers_javascript_GetLocList()
-  if exists('s:config')
-    let makeprg = 'jshint ' . shellescape(expand("%")) . ' --config ' . s:config
-  else
-    let makeprg = 'jshint ' . shellescape(expand("%"))
-  endif
-  let errorformat = '%f: line %l\, col %c\, %m,%-G%.%#'
-  return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
-endfunction
 
 ":1 HTML
 autocmd BufEnter *.html setlocal filetype=htmljinja.html
