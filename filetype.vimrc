@@ -42,16 +42,16 @@ autocmd BufEnter * if &filetype == "java" |nmap <S-F5> :w<CR>:!javac "%"; java "
 autocmd FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold
 
 ":1 C         C source file
-autocmd BufEnter *.c nmap <F9> :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>
-" autocmd BufEnter *.cpp nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt<CR>
-autocmd BufEnter *.c nmap <F5> :w<CR>:!time ./a<CR>
+autocmd BufEnter * if &filetype == "c" |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
+autocmd BufEnter * if &filetype == "c" |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
+autocmd BufEnter * if &filetype == "c" |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
 
 ":1 C++       C++ source file
-autocmd BufEnter *.cpp nmap <F9> :w<CR>:!g++ "%" -Wall -o "%:p:h/a" -O3<CR>
-autocmd BufEnter *.cpp nmap <F5> :w<CR>:!time "%:p:h/a"<CR>
-autocmd BufEnter *.cpp nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt<CR>
-autocmd BufEnter *.cpp setlocal foldmethod=marker foldmarker=\/\/\ created\:,\/\/\ end
-" autocmd BufEnter *.cpp set foldmethod=marker foldmarker=\/\/\:,\/\/\ END
+autocmd FileType cpp setlocal foldmethod=marker foldmarker=\/\/\ created\:,\/\/\ end
+
+autocmd BufEnter * if &filetype == "cpp" |nmap <F9>   :w<CR>:!g++ "%" -Wall -o "%:p:h/a" -O3<CR>| endif
+autocmd BufEnter * if &filetype == "cpp" |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
+autocmd BufEnter * if &filetype == "cpp" |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
 
 autocmd FileType cpp syn keyword cType string
 autocmd FileType cpp syn keyword cType Vector
@@ -59,8 +59,8 @@ autocmd FileType cpp syn keyword cType Pair
 autocmd FileType cpp syn keyword cType Set
 autocmd FileType cpp syn keyword cType Long
 autocmd FileType cpp syn keyword cType stringstream
-autocmd FileType cpp syn keyword	cRepeat For Rep
-autocmd FileType cpp syn match	cComment /;/
+autocmd FileType cpp syn keyword cRepeat For Rep
+autocmd FileType cpp syn match cComment /;/
 
 ":1 PHP       PHP source file
 autocmd BufEnter * if &filetype == "php" |nmap <F5> :w<CR>:!time php "%"<CR>|endif
