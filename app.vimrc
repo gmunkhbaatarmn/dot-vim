@@ -112,8 +112,8 @@ set t_vb=                              " (CLI only) Visual bell
 colorscheme wombat256
 
 " Contrast reduce for brackets
-syn match Braces display '[{}()\[\]]'
-hi def link Braces comment
+autocmd BufEnter * syn match Braces display '[{}()\[\]]'
+autocmd BufEnter * hi def link Braces comment
 
 " Tab Configuration
 set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
