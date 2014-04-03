@@ -108,9 +108,12 @@ set t_vb=                              " (CLI only) Visual bell
 " set clipboard+=unnamed         " Clipboard fix
 " endfold
 
-
 ":1 Aestetic customizations
 colorscheme wombat256
+
+" Contrast reduce for brackets
+syn match Braces display '[{}()\[\]]'
+hi def link Braces comment
 
 " Tab Configuration
 set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
@@ -125,6 +128,8 @@ set fillchars=vert:\|,fold:\  " Make foldtext more clean
 set formatoptions+=n
 let $LC_ALL = "en_US.UTF-8"
 set clipboard=unnamed
+
+
 
 
 ":1 Keyboard mapping
