@@ -84,9 +84,17 @@ autocmd FileType markdown syn region markdownCode start=/\s*$$[^$]*/ end=/[^$]*$
 autocmd FileType markdown hi def link markdownCode Comment
 autocmd FileType markdown hi def link markdownCode String
 
-":1 HTML
-autocmd BufEnter *.html setlocal filetype=htmljinja.html
-autocmd BufEnter *.html setlocal foldmethod=marker foldmarker=#\:,endfold
+":1 HTML, HTML-jinja
+autocmd FileType html setlocal filetype=htmljinja
+autocmd FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold
+
+" Inline math. Example: Pythagorean $a^2 + b^2 = c^2$
+autocmd FileType htmljinja syn region mathjax start=/\s*$[^$]*/ end=/[^$]*$\s*/
+
+" Display math. Example: Quadratic Equations $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
+autocmd FileType htmljinja syn region mathjax start=/\s*$$[^$]*/ end=/[^$]*$$\s*/
+
+autocmd FileType htmljinja hi def link mathjax Comment
 
 ":1 Shell script
 autocmd BufEnter * if &filetype == "sh" |nmap <F5> :w<CR>:!sh "%"<CR>| endif
