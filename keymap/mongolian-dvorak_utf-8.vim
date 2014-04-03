@@ -7,7 +7,7 @@
 
 scriptencoding utf-8
 
-let b:keymap_name = "mn-dv"
+let b:keymap_name = 'mn-dv'
 
 loadkeymap
 J	Ё	CYRILLIC CAPITAL LETTER IO

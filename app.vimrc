@@ -3,29 +3,29 @@ set rtp+=~/.vim/bundle/vundle/
 set rtp+=/Applications/MacVim.app/Contents/Resources/vim/runtime
 call vundle#rc()
 
-Bundle "gmarik/vundle"
+Bundle 'gmarik/vundle'
 
 ":1 Plugin - Snipmate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
 
 ":1 Plugin - NERDTree
-Bundle "scrooloose/nerdtree"
+Bundle 'scrooloose/nerdtree'
 
 " Fast toggle
 map <F2> :NERDTreeToggle<CR>
 
 " Dvorak fix
-let g:NERDTreeMapOpenInTab="<C-S-t>"
-let g:NERDTreeMapOpenInTabSilent="<C-S-D>"
+let g:NERDTreeMapOpenInTab = '<C-S-t>'
+let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
 
 " Common
-let g:NERDTreeMapOpenVSplit = "a"
+let g:NERDTreeMapOpenVSplit = 'a'
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = 'right'
 let g:NERDTreeIgnore = ['\.pyc$']
 
 function! NERDTreeCustomIgnoreFilter(path)
@@ -39,7 +39,7 @@ function! NERDTreeCustomIgnoreFilter(path)
 endfunction
 
 ":1 Plugin - Syntastic
-Bundle "scrooloose/syntastic"
+Bundle 'scrooloose/syntastic'
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_mode_map = {'passive_filetypes': ['html']}
@@ -48,27 +48,25 @@ let g:syntastic_auto_loc_list = 1
 
 ":1 Plugins
 " Features
-Bundle "godlygeek/tabular"
-Bundle "tomtom/tcomment_vim"
-Bundle "gmunkhbaatarmn/vim-checkdown"
+Bundle 'godlygeek/tabular'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'gmunkhbaatarmn/vim-checkdown'
 
-Bundle "Lokaltog/vim-powerline"
-Bundle "duwanis/tomdoc.vim"
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'duwanis/tomdoc.vim'
 
 " Filetype supports
-Bundle "tpope/vim-cucumber"
-Bundle "kchmck/vim-coffee-script"
+Bundle 'tpope/vim-cucumber'
+Bundle 'kchmck/vim-coffee-script'
 
-Bundle "tpope/vim-markdown.git"
+Bundle 'tpope/vim-markdown.git'
 let g:markdown_folding = 1
 
-Bundle "vim-ruby/vim-ruby"
-Bundle "pangloss/vim-javascript"
-Bundle "wavded/vim-stylus"
-Bundle "hynek/vim-python-pep8-indent"
-Bundle "mitsuhiko/vim-jinja"
-
-" Bundle "gmunkhbaatarmn/vim-mongolian-dvorak"
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'pangloss/vim-javascript'
+Bundle 'wavded/vim-stylus'
+Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'mitsuhiko/vim-jinja'
 " endfold
 
 
@@ -102,10 +100,6 @@ set shellslash                         " Always use unix style slash /
 set nojoinspaces                       " no insert two spaces in line join
 set t_Co=256                           " (CLI only) Number of colors
 set t_vb=                              " (CLI only) Visual bell
-
-" set foldignore-=#            " Fix fold-indent
-" set backspace=2                " Backspace fix
-" set clipboard+=unnamed         " Clipboard fix
 " endfold
 
 ":1 Aestetic customizations
@@ -126,7 +120,7 @@ set linebreak showbreak=…     " Wrap long line
 set fillchars=vert:\|,fold:\  " Make foldtext more clean
 
 set formatoptions+=n
-let $LC_ALL = "en_US.UTF-8"
+let $LC_ALL = 'en_US.UTF-8'
 set clipboard=unnamed
 
 
@@ -134,19 +128,19 @@ set clipboard=unnamed
 
 ":1 Keyboard mapping
 " Change the leader map
-let mapleader = ","
-let g:mapleader = ","
-let maplocalleader = ","
-let g:maplocalleader = ","
+let mapleader = ','
+let g:mapleader = ','
+let maplocalleader = ','
+let g:maplocalleader = ','
 
 " Shortcut to fold method change
 nmap <leader>f :set foldmethod=indent<CR>
 nmap <leader>m :set foldmethod=marker<CR>
 
-" Shortcut to rapidly toggle "set list"
+" Shortcut to rapidly toggle 'set list'
 nmap <leader>l :set list!<CR>
 
-" Shortcut to rapidly toggle "set wrap"
+" Shortcut to rapidly toggle 'set wrap'
 nmap <leader>r :set wrap!<CR>
 
 " Easy indent
@@ -169,14 +163,14 @@ nmap .t :bn<CR>
 nmap .h :bp<CR>
 
 " Keymap switch
-let g:current_keymap=""
+let g:current_keymap = ''
 function! ToggleKeymap()
-  if (g:current_keymap=="")
+  if g:current_keymap == ''
     set keymap=mongolian-dvorak
-    let g:current_keymap="mongolian-dvorak"
+    let g:current_keymap = 'mongolian-dvorak'
   else
-    set keymap=""
-    let g:current_keymap=""
+    set keymap=''
+    let g:current_keymap = ''
   endif
 endfunction
 
@@ -186,7 +180,7 @@ imap <F8> <ESC>:call ToggleKeymap()<CR>a
 map <F8> :call ToggleKeymap()<CR>
 
 " Save file
-" Need "stty -ixon" command in shell.
+" Need 'stty -ixon' command in shell.
 " more: http://superuser.com/questions/227588/vim-command-line-imap-problem
 autocmd BufEnter * nmap <C-s> :w!<CR>
 autocmd BufEnter * imap <C-s> <ESC>:w!<CR>
@@ -204,21 +198,16 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Default file format is markdown
-autocmd BufEnter * if &filetype == "" || &filetype == "conf" |setlocal filetype=markdown| endif
+autocmd BufEnter * if &filetype == '' || &filetype == 'conf' |setlocal filetype=markdown| endif
 
 autocmd BufEnter * set visualbell t_vb=
 
 ":1 GUI only settings
-if has("gui_running")
+if has('gui_running')
   set guifont=Monaco:h12        " Change GUI font
-  set guioptions-=T           " Remove toolbar
-  " set cursorline              " Highlight cursorline
-
-  " Remove scroll
-  set guioptions-=l
+  set guioptions-=T             " Remove toolbar
+  set guioptions-=l             " Remove scroll
   set guioptions-=L
-  " set guioptions-=r
-  " set guioptions-=b
   colorscheme underwater
 endif
 

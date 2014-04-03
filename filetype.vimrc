@@ -1,9 +1,9 @@
 ":1 Python
 autocmd FileType python setlocal foldmethod=marker foldmarker=\:#,endfold
 
-autocmd BufEnter * if &filetype == "python" |nmap <F5>   :w<CR>:!time python "%"            <CR>| endif
-autocmd BufEnter * if &filetype == "python" |nmap <S-F5> :w<CR>:!time python "%" < input.txt<CR>| endif
-autocmd BufEnter * if &filetype == "python" |nmap <F9>   :w<CR>:!pep8 "%"                   <CR>| endif
+autocmd BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
+autocmd BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < input.txt<CR>| endif
+autocmd BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!pep8 '%'                   <CR>| endif
 
 " Highlight `CAPITALIZED:`
 autocmd FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
@@ -30,33 +30,33 @@ autocmd BufEnter * if &filetype == "coffee" |imap <C-s> <ESC>:w<CR>:silent !coff
 ":1 Javascript
 autocmd FileType javascript setlocal foldmethod=marker foldmarker={,} autoindent
 
-autocmd BufEnter * if &filetype == "javascript" |nmap <F5> :w<CR>:!time node "%" <CR>| endif
+autocmd BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time node "%" <CR>| endif
 
 ":1 ruby      Ruby
-autocmd BufEnter * if &filetype == "ruby" |nmap <F5>   :w<CR>:!time ruby "%"            <CR>| endif
-autocmd BufEnter * if &filetype == "ruby" |nmap <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>| endif
+autocmd BufEnter * if &filetype == 'ruby' |nmap <F5>   :w<CR>:!time ruby "%"            <CR>| endif
+autocmd BufEnter * if &filetype == 'ruby' |nmap <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>| endif
 
 ":1 java      Java source file
 autocmd FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HERE,END\ CUT\ HERE
 
-autocmd BufEnter * if &filetype == "java" |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
-autocmd BufEnter * if &filetype == "java" |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
+autocmd BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
+autocmd BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 " endif
 
 ":1 vim       Vimscript file
 autocmd FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold
 
 ":1 C         C source file
-autocmd BufEnter * if &filetype == "c" |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
-autocmd BufEnter * if &filetype == "c" |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
-autocmd BufEnter * if &filetype == "c" |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
+autocmd BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
+autocmd BufEnter * if &filetype == 'c' |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
+autocmd BufEnter * if &filetype == 'c' |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
 
 ":1 C++       C++ source file
 autocmd FileType cpp setlocal foldmethod=marker foldmarker=\/\/\ created\:,\/\/\ end
 
-autocmd BufEnter * if &filetype == "cpp" |nmap <F9>   :w<CR>:!g++ "%" -Wall -o "%:p:h/a" -O3<CR>| endif
-autocmd BufEnter * if &filetype == "cpp" |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
-autocmd BufEnter * if &filetype == "cpp" |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
+autocmd BufEnter * if &filetype == 'cpp' |nmap <F9>   :w<CR>:!g++ "%" -Wall -o "%:p:h/a" -O3<CR>| endif
+autocmd BufEnter * if &filetype == 'cpp' |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
+autocmd BufEnter * if &filetype == 'cpp' |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
 
 autocmd FileType cpp syn keyword cType string
 autocmd FileType cpp syn keyword cType Vector
@@ -68,10 +68,10 @@ autocmd FileType cpp syn keyword cRepeat For Rep
 autocmd FileType cpp syn match cComment /;/
 
 ":1 PHP       PHP source file
-autocmd BufEnter * if &filetype == "php" |nmap <F5> :w<CR>:!time php "%"<CR>|endif
+autocmd BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
 ":1 Markdown
-autocmd FileType markdown syn match CheckdownLabel "[^\[\]\(\)\ ]*:" containedin=TodoLine
+autocmd FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]*:' containedin=TodoLine
 autocmd FileType markdown hi def link CheckdownLabel Float
 autocmd FileType markdown hi def link markdownCode Comment
 
@@ -97,14 +97,14 @@ autocmd FileType htmljinja syn region mathjax start=/\s*$$[^$]*/ end=/[^$]*$$\s*
 autocmd FileType htmljinja hi def link mathjax Comment
 
 ":1 Shell script
-autocmd BufEnter * if &filetype == "sh" |nmap <F5> :w<CR>:!sh "%"<CR>| endif
+autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
 autocmd FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold
 
-autocmd BufEnter * if &filetype == "stylus" |nmap <C-s>      :w<CR>:silent !stylus -c --include-css "%"<CR>| endif
-autocmd BufEnter * if &filetype == "stylus" |imap <C-s> <ESC>:w<CR>:silent !stylus -c --include-css "%"<CR>| endif
-autocmd BufEnter * if &filetype == "stylus" |nmap <F5>       :w<CR>:       !stylus -c --include-css "%"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:silent !stylus -c --include-css "%"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:silent !stylus -c --include-css "%"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:       !stylus -c --include-css "%"<CR>| endif
 
 ":1 Other
 autocmd BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
