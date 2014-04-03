@@ -22,7 +22,6 @@ let g:NERDTreeMapOpenInTabSilent="<C-S-D>"
 
 " Common
 let g:NERDTreeMapOpenVSplit = "a"
-let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
