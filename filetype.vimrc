@@ -83,17 +83,11 @@ autocmd BufEnter *.html setlocal foldmethod=marker foldmarker=#\:,endfold
 autocmd BufEnter * if &filetype == "sh" |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
-" autocmd BufEnter *.styl nmap <F5> :w<CR>:!stylus -c "%"<CR>
-" autocmd BufEnter *.styl nmap <C-s> :w<CR>:silent ! stylus -c "%"<CR>
-" autocmd BufEnter *.styl imap <C-s> <ESC>:w<CR>:silent ! stylus -c "%"<CR>
-autocmd BufEnter *.styl nmap <F5> :w<CR>:!stylus -c --include-css `find "%:p:h" -name "*.styl" \! -name "-*" \! -name "_*"`; find . -name '*.css' \! -name '-*' \! -name '_*' -exec csso -i {} -o {} \;<CR>
-" autocmd BufEnter *.styl nmap <F9> :w<CR>:!stylus -c include-css "%"<CR>
-" autocmd BufEnter *.styl nmap <C-s> :w<CR>:silent !stylus -c --include-css *.styl<CR>
-" autocmd BufEnter *.styl imap <C-s> <ESC>:w<CR>:!stylus -c --include-css `find "%:p:h" -name "*.styl" \! -name "-*"`<CR>a
-" autocmd BufEnter *.styl nmap <C-s> :w<CR>:!stylus -c --include-css `find "%:p:h" -name "*.styl" \! -name "-*" \! -name "_*"`; find . -name '*.css' \! -name '-*' \! -name '_*' -exec csso -i {} -o {} \;<CR>
-autocmd BufEnter *.styl nmap <C-s> :w<CR>:!stylus -c --include-css "%"<CR>
-"`find "%:p:h" -name "*.styl" \! -name "-*" \! -name "_*"`; find . -name '*.css' \! -name '-*' \! -name '_*' -exec csso -i {} -o {} \;<CR>
-autocmd BufEnter *.styl setlocal foldmethod=marker foldmarker=\/\/\:,endfold
+autocmd FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold
+
+autocmd BufEnter * if &filetype == "stylus" |nmap <C-s>      :w<CR>:silent !stylus -c --include-css "%"<CR>| endif
+autocmd BufEnter * if &filetype == "stylus" |imap <C-s> <ESC>:w<CR>:silent !stylus -c --include-css "%"<CR>| endif
+autocmd BufEnter * if &filetype == "stylus" |nmap <F5>       :w<CR>:       !stylus -c --include-css "%"<CR>| endif
 
 ":1 Other
 autocmd BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
