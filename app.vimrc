@@ -35,6 +35,12 @@ function! NERDTreeCustomIgnoreFilter(path)
         return 1
       endif
     endfor
+
+    for pattern in ['\._\.js$', '\._\.css']
+      if a:path.getLastPathComponent(0) =~# pattern
+        return 1
+      endif
+    endfor
   endif
 endfunction
 
