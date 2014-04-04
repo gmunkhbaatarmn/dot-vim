@@ -23,9 +23,9 @@ autocmd FileType python hi default link DocKeyword Comment
 ":1 coffee    Coffeescript
 autocmd FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold
 
-autocmd BufEnter * if &filetype == "coffee" |nmap <F5>       :w<CR>:       !coffee -c -b "%"<CR>| endif
-autocmd BufEnter * if &filetype == "coffee" |nmap <C-s>      :w<CR>:silent !coffee -c -b "%"<CR>| endif
-autocmd BufEnter * if &filetype == "coffee" |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b "%"<CR>| endif
+autocmd BufEnter * if &filetype == "coffee" |nmap <F5>       :w<CR>:       !coffee -c -b -p "%" > "%:r._.js"<CR>| endif
+autocmd BufEnter * if &filetype == "coffee" |nmap <C-s>      :w<CR>:silent !coffee -c -b -p "%" > "%:r._.js"<CR>| endif
+autocmd BufEnter * if &filetype == "coffee" |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b -p "%" > "%:r._.js"<CR>| endif
 
 ":1 Javascript
 autocmd FileType javascript setlocal foldmethod=marker foldmarker={,} autoindent
@@ -102,9 +102,9 @@ autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 ":1 Stylus
 autocmd FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold
 
-autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:silent !stylus -c --include-css "%"<CR>| endif
-autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:silent !stylus -c --include-css "%"<CR>| endif
-autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:       !stylus -c --include-css "%"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus --include-css -p "%" > "%:r._.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus --include-css -p "%" > "%:r._.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus --include-css -p "%" > "%:r._.css"<CR>| endif
 
 ":1 Other
 autocmd BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
