@@ -175,7 +175,7 @@ function! ToggleKeymap()
     set keymap=mongolian-dvorak
     let g:current_keymap = 'mongolian-dvorak'
   else
-    set keymap=''
+    set keymap=""
     let g:current_keymap = ''
   endif
 endfunction
