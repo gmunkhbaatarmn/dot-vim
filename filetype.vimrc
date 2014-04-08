@@ -103,9 +103,9 @@ autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 ":1 Stylus
 autocmd FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold
 
-autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus --include-css -p "%" > "%:r.min.css"<CR>| endif
-autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus --include-css -p "%" > "%:r.min.css"<CR>| endif
-autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus --include-css -p "%" > "%:r.min.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
 
 ":1 Other
 autocmd BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
