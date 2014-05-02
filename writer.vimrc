@@ -13,6 +13,9 @@ function! Writer()
   set guifont=Menlo:h13
   set textwidth=80
 
+  syn match Quote '^\s*> .*$'
+  hi Quote guifg=#888888
+
   hi FoldColumn               guibg=white
   hi Normal                   guibg=gray95
   hi NonText                  guifg=gray95
