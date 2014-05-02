@@ -85,6 +85,10 @@ autocmd FileType markdown syn region markdownCode start=/\s*$$[^$]*/ end=/[^$]*$
 autocmd FileType markdown hi def link markdownCode Comment
 autocmd FileType markdown hi def link markdownCode String
 
+" Underline fix
+syn match markdownError "\w\@<=_\w\@="
+autocmd FileType markdown hi def link markdownError Text
+
 ":1 HTML, HTML-jinja
 autocmd FileType html setlocal filetype=htmljinja
 autocmd FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold
