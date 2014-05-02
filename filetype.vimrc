@@ -1,4 +1,3 @@
-
 ":1 Python
 autocmd FileType python setlocal foldmethod=marker foldmarker=\:#,endfold
 
