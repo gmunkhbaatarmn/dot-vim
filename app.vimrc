@@ -30,14 +30,36 @@ let g:NERDTreeIgnore = ['\.pyc$']
 
 function! NERDTreeCustomIgnoreFilter(path)
   if b:NERDTreeShowHidden ==# 0
-    for ignored in ['Library', 'Downloads', 'Dropbox', 'Movies', 'Music', 'Pictures', 'Desktop', 'Documents', 'Public', 'contestapplet.conf', 'contestapplet.conf.bak']
-      if a:path.pathSegments == ['Users', 'mb', ignored]
+    let patterns = ['\.min\.js$', '\.min\.css$']
+
+    let pathlist = [
+          \ 'Users/mb/Library',
+          \ 'Users/mb/Downloads',
+          \ 'Users/mb/Dropbox',
+          \ 'Users/mb/Movies',
+          \ 'Users/mb/Music',
+          \ 'Users/mb/Pictures',
+          \ 'Users/mb/Desktop',
+          \ 'Users/mb/Documents',
+          \ 'Users/mb/Public',
+          \ 'Users/mb/contestapplet.conf',
+          \ 'Users/mb/contestapplet.conf.bak',
+          \ 'Users/mb/dot-js/Dotjs.js',
+          \ 'Users/mb/dot-js/Icon.png',
+          \ 'Users/mb/dot-js/Server',
+          \ 'Users/mb/dot-js/manifest.json',
+          \ 'Users/mb/dot-js/jquery.js',
+          \ 'Users/mb/dot-js/blank.js',
+          \]
+
+    for p in pathlist
+      if a:path.pathSegments == split(p, "/")
         return 1
       endif
     endfor
 
-    for pattern in ['\.min\.js$', '\.min\.css$']
-      if a:path.getLastPathComponent(0) =~# pattern
+    for p in patterns
+      if a:path.getLastPathComponent(0) =~# p
         return 1
       endif
     endfor
