@@ -246,3 +246,4 @@ endif
 ":1 Some extension
 so $HOME/.vim/dvorak.vimrc
 so $HOME/.vim/filetype.vimrc
+so $HOME/.vim/writer.vimrc
