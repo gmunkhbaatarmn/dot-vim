@@ -209,6 +209,11 @@ map <C-l> :call ToggleKeymap()<CR>
 imap <F8> <ESC>:call ToggleKeymap()<CR>a
 map <F8> :call ToggleKeymap()<CR>
 
+" Identify the syntax hightlighting group used at the cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " Save file
 " Need 'stty -ixon' command in shell.
 " more: http://superuser.com/questions/227588/vim-command-line-imap-problem
