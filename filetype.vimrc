@@ -101,8 +101,13 @@ autocmd FileType markdown hi def link markdownCode Comment
 autocmd FileType markdown hi def link markdownCode String
 
 " Underline fix
-syn match markdownError "\w\@<=_\w\@="
+autocmd FileType markdown syn match markdownError "\w\@<=_\w\@="
 autocmd FileType markdown hi def link markdownError Text
+
+" Markdown syntax bug fix
+autocmd FileType markdown syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end="\S\@<=\*\*\|\*\*\S\@=" keepend contains=markdownLineStart
+autocmd FileType markdown syn region markdownBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend contains=markdownLineStart
+autocmd FileType markdown syn region markdownBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart
 
 ":1 HTML, HTML-jinja
 autocmd FileType html setlocal filetype=htmljinja
