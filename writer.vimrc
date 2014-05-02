@@ -13,8 +13,8 @@ function! Writer()
   set guifont=Menlo:h13
   set textwidth=80
 
-  syn match Quote '^\s*> .*$'
-  hi Quote guifg=#888888
+  autocmd FileType markdown syn match Quote '^\s*> .*$'
+  autocmd Filetype markdown hi Quote guifg=#888888
 
   hi FoldColumn               guibg=white
   hi Normal                   guibg=gray95
