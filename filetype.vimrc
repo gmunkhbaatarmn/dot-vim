@@ -100,8 +100,7 @@ autocmd FileType markdown hi def link markdownCode Comment
 autocmd FileType markdown hi def link markdownCode String
 
 " Underline fix
-autocmd FileType markdown syn match markdownError "\w\@<=_\w\@="
-autocmd FileType markdown hi def link markdownError Text
+autocmd FileType markdown syn match Text "\w\@<=_\w\@="
 
 " Markdown syntax bug fix
 autocmd FileType markdown syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end="\S\@<=\*\*\|\*\*\S\@=" keepend contains=markdownLineStart
