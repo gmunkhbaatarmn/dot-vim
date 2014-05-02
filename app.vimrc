@@ -80,7 +80,6 @@ Bundle 'godlygeek/tabular'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'gmunkhbaatarmn/vim-checkdown'
 
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'duwanis/tomdoc.vim'
 
 " Filetype supports
@@ -117,9 +116,9 @@ set hidden                             " Undo history save when changing buffers
 set wildmenu                           " Show autocomplete menus
 set splitbelow                         " New (split) window opens on bottom
 set splitright                         " New (split) window opens on right
-set laststatus=2                       " Status line always show
 set autoread                           " Auto update if changed outside of Vim
 set noerrorbells novisualbell          " No sound on errors
+set ruler laststatus=0                 " Use ruler instead of status line
 
 ":1 Configurations may change
 set numberwidth=4                      " Line number width
@@ -136,6 +135,9 @@ colorscheme wombat256
 " Contrast reduce for brackets
 autocmd BufEnter * syn match Braces display '[{}()\[\]]'
 autocmd BufEnter * hi def link Braces comment
+
+" Ruler format
+set rulerformat=%30(%=%y%m%r%w\ %l,%c%V\ %P%)
 
 " Tab Configuration
 set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
