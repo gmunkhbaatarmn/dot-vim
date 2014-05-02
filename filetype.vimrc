@@ -123,7 +123,7 @@ autocmd FileType php
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
 " use tab. tabsize = 2
-autocmd FileType cpp,c,java,snippets
+autocmd FileType cpp,c,java,snippets,make
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 " no tab use. tab = 4 space
