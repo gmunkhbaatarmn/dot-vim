@@ -7,6 +7,12 @@ autocmd BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!pep8 '%'       
 
 " Highlight `CAPITALIZED:`
 autocmd FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
+" Highlight `{Regular-word}`
+autocmd FileType python syn match DocKeyword "{[a-zA-Z0-9_-]\+}"hs=s+0,he=e-0 containedin=pythonString contained
+" Highlight `%(word)s`
+autocmd FileType python syn match DocKeyword "%([a-zA-Z0-9_]\+)s"hs=s+1,he=e-1 containedin=pythonString contained
+" Highlight `%s`
+autocmd FileType python syn match DocKeyword "%s"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `:Regular-word`
 autocmd FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `>>`
