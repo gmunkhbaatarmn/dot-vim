@@ -72,6 +72,11 @@ autocmd FileType cpp syn match cComment /;/
 autocmd BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
 ":1 Markdown
+autocmd BufEnter Greatness setlocal filetype=markdown
+autocmd BufEnter Notes     setlocal filetype=markdown
+autocmd BufEnter Issues    setlocal filetype=markdown
+autocmd BufEnter Todos     setlocal filetype=markdown
+
 autocmd FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
 autocmd FileType markdown hi def link CheckdownLabel Float
 
