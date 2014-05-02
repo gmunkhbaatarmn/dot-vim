@@ -72,9 +72,8 @@ autocmd FileType cpp syn match cComment /;/
 autocmd BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
 ":1 Markdown
-autocmd FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]*:' containedin=TodoLine
+autocmd FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
 autocmd FileType markdown hi def link CheckdownLabel Float
-autocmd FileType markdown hi def link markdownCode Comment
 
 " Inline math. Example: Pythagorean $a^2 + b^2 = c^2$
 autocmd FileType markdown syn region markdownCode start=/\s*$[^$]*/ end=/[^$]*$\s*/
