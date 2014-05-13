@@ -1,5 +1,49 @@
 ":1 Python
-autocmd FileType python setlocal foldmethod=marker foldmarker=\:#,endfold
+function! PythonFold()
+  let line = getline(v:lnum)
+  let prevline = getline(v:lnum-1)
+  let nextline = getline(v:lnum+1)
+
+  if line =~ '^from ' || line =~ '^import '
+    if prevline == "" && getline(v:lnum-2) == ""
+      return ">1"
+    endif
+  endif
+
+  if prevline =~ '^from ' || prevline =~ '^import '
+    if nextline == "" && line == ""
+      return "0"
+    endif
+  endif
+
+  " Level 0
+  if line =~ '^$' && nextline =~ '^$'
+    return "0"
+  endif
+
+  " Level 1
+  if line =~ '^class ' || line =~ '^def '
+    return ">1"
+  endif
+
+  " Level 2
+  if line =~ '^    class ' || line =~ '^    def '
+    return ">2"
+  endif
+
+  " Level 3
+  if line =~ '^        class ' || line =~ '^        def '
+    return ">3"
+  endif
+
+  if line =~ "endfold"
+    return "0"
+  endif
+
+  return "="
+endfunction
+
+autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFold()
 
 autocmd BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
 autocmd BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < input.txt<CR>| endif
@@ -124,6 +168,7 @@ autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
 autocmd FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold
+autocmd FileType stylus setlocal iskeyword-=#,-
 
 autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
 autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
@@ -153,6 +198,6 @@ autocmd FileType python,sh
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " no tab use. tab = 2 space
-autocmd FileType cucumber,css,vim,javascript,stylus,yaml,markdown,ruby,coffee,html
+autocmd FileType cucumber,css,vim,javascript,stylus,yaml,markdown,ruby,coffee,html,xhtml,htmljinja
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " endfold
