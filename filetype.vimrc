@@ -183,6 +183,7 @@ autocmd FileType help nnoremap <buffer> <BS> <C-T>
 
 ":1 Filetype detection
 autocmd BufEnter *.gitignore setlocal filetype=gitconfig
+autocmd BufEnter *.conf setlocal filetype=dosini
 
 ":1 Tab configuration for filetypes
 " use tab. tabsize = 4
