@@ -5,7 +5,7 @@ function! PythonFold()
   let nextline = getline(v:lnum+1)
 
   if line =~ '^from ' || line =~ '^import '
-    if prevline == "" && getline(v:lnum-2) == ""
+    if prevline !~ '^from ' && prevline !~ '^import ' && getline(v:lnum-2) !~ '^from ' && getline(v:lnum-2) !~ '^import '
       return ">1"
     endif
   endif
