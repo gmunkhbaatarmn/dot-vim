@@ -151,6 +151,34 @@ autocmd FileType markdown syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end=
 autocmd FileType markdown syn region markdownBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend contains=markdownLineStart
 autocmd FileType markdown syn region markdownBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart
 
+function! MyMarkdownFold()
+  let line = getline(v:lnum)
+
+  " Regular headers
+  let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
+  if depth > 0
+    return ">" . depth
+  endif
+
+  " Setext style headings
+  let nextline = getline(v:lnum + 1)
+  if (line =~ '^.\+$') && (nextline =~ '^=\+$')
+    return ">1"
+  endif
+
+  if (line =~ '^.\+$') && (nextline =~ '^-\+$')
+    return ">2"
+  endif
+
+  if (getline(v:lnum - 0) =~ "endfold")
+    return "0"
+  endif
+
+  return "="
+endfunction
+
+autocmd Filetype markdown setlocal foldexpr=MyMarkdownFold()
+
 ":1 HTML, HTML-jinja
 autocmd FileType html setlocal filetype=htmljinja
 autocmd FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold
