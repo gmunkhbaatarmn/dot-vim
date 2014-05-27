@@ -20,6 +20,3 @@ noremap s :
 noremap S :
 noremap - $
 noremap _ ^
-
-" Dvorak: Backspace in normal mode
-nmap k X
