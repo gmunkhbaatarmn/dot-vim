@@ -153,7 +153,7 @@ function! PythonFoldText()
   if strpart(trimmed, 0, 1) == '@'
     let nextline = getline(v:foldstart+1)
     let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
-    let fillcharcount = 48 - len(prefix) - len(trimmed)
+    let fillcharcount = 80 - len(prefix) - len(trimmed)
 
     return prefix . trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
   endif
