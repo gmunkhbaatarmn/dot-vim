@@ -29,7 +29,14 @@ let g:NERDTreeIgnore = ['\.pyc$']
 
 function! NERDTreeCustomIgnoreFilter(path)
   if b:NERDTreeShowHidden ==# 0
-    let patterns = ['\.min\.js$', '\.styl\.css$']
+    let patterns = [
+          \ '\.min\.js$',
+          \ '\.min\.css$',
+          \ '\.eot$',
+          \ '\.svg$',
+          \ '\.ttf$',
+          \ '\.woff$',
+          \]
 
     let pathlist = [
           \ 'Users/mb/Applications',
