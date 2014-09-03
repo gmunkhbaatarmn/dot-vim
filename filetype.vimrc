@@ -197,6 +197,10 @@ autocmd BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%'
 autocmd BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!pep8 '%'                   <CR>| endif
 autocmd FileType python syn match DocKeyword "Returns" containedin=pythonString contained
 
+" Show line in 80th column
+autocmd BufEnter * if &filetype == 'python' |let &colorcolumn=join(range(80,80),",") | endif
+autocmd BufEnter * if &filetype != 'python' |let &colorcolumn=""                     | endif
+
 " Highlight `CAPITALIZED:`
 autocmd FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
 " Highlight `{Regular-word}`
