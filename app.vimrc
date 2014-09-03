@@ -53,6 +53,8 @@ function! NERDTreeCustomIgnoreFilter(path)
           \ 'home/qlio/Public',
           \ 'home/qlio/Templates',
           \ 'home/qlio/Videos',
+          \ 'home/qlio/VirtualBox VMs',
+          \ 'home/qlio/opt',
           \]
 
     for p in pathlist
