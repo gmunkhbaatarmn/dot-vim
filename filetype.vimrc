@@ -129,13 +129,10 @@ function! PythonFoldText()
   let foldedlinecount = v:foldend - v:foldstart
 
   if strpart(trimmed, 0, 3) == '"""'
-    return prefix . "..." . strpart(trimmed, 3)
+    return prefix . "✎ …" . strpart(trimmed, 3)
     return prefix . "⚑  " . strpart(trimmed, 3)
+    return prefix . "..." . strpart(trimmed, 3)
     return prefix . "⋮  " . strpart(trimmed, 3)
-    return prefix . "⋮ ⚑" . strpart(trimmed, 3)
-    return prefix . "… ⚑" . strpart(trimmed, 3)
-    " return prefix . "..." . strpart(trimmed, 3)
-    " return prefix . "⋮ ⚑⚐ " . strpart(trimmed, 3)
   endif
 
   if strpart(trimmed, 0, 12) == '@classmethod'
