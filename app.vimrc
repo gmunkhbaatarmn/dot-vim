@@ -233,6 +233,10 @@ if has('gui_running')
   set guioptions-=L             " Remove scroll in splitted window
   colorscheme underwater
 endif
+
+if system("uname -s") == 'Linux'
+  set guifont=Monaco:h10        " Change GUI font
+endif
 " endfold
 
 so $HOME/.vim/dvorak.vimrc
