@@ -292,12 +292,12 @@ autocmd FileType cpp syn match cComment /;/
 autocmd BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
 ":1 Markdown
-" autocmd BufEnter Greatness nmap <F9> :w<CR>:!$HOME.'/.greatness' <CR><CR>:echo "Book updated"<CR>
-" autocmd BufEnter Greatness setlocal filetype=markdown
-nmap <F7> :e $HOME/Notes<CR>
+autocmd BufEnter Greatness nmap <F9> :w<CR>:!'/Users/mb/.greatness' <CR><CR>:echo "Book updated"<CR>
+autocmd BufEnter Greatness setlocal filetype=markdown
 
-autocmd BufEnter ?[0-9]\ * setlocal filetype=markdown
+nmap <F7> :e $HOME/Notes<CR>
 autocmd BufEnter Notes     setlocal filetype=markdown
+
 autocmd FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
 autocmd FileType markdown hi def link CheckdownLabel Float
 
