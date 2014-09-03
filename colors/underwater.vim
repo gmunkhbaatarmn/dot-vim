@@ -33,14 +33,14 @@ hi Normal 		guifg=#dfeff6 guibg=#102235 gui=none
  " e.g. tildes at the end of file
 hi NonText 		guifg=#96defa guibg=#122538 gui=none
 hi LineNr 		guifg=#2F577C guibg=#0C1926 gui=none
-hi StatusLine 	guifg=#96defa guibg=#0C1926 gui=italic
+hi StatusLine 	guifg=#96defa guibg=#0C1926 gui=none
 hi StatusLineNC guifg=#68CEE8 guibg=#0C1926  gui=none
 hi VertSplit 	guifg=#1A3951 guibg=#1A3951 gui=none
 hi Folded 		guifg=#68CEE8 guibg=#1A3951 gui=none
 hi FoldColumn   guifg=#1E415E guibg=#1A3951 gui=none
 hi Title		guifg=#dfeff6 guibg=NONE	gui=bold
 " hi Title		guifg=#dfeff6 guibg=NONE	gui=bold
-hi Title    guifg=#89e14b gui=italic
+hi Title    guifg=#89e14b gui=none
  " Selected text color
 hi Visual		guifg=#dfeff6 guibg=#24557A gui=none
 hi SpecialKey	guifg=#3e71a1 guibg=#102235 gui=none
@@ -48,10 +48,10 @@ hi SpecialKey	guifg=#3e71a1 guibg=#102235 gui=none
 "
 " Syntax highlighting
 "
-hi Comment 		guifg=#3e71a1 gui=italic
+hi Comment 		guifg=#3e71a1 gui=none
 hi Todo 		guifg=#ADED80 guibg=#579929 gui=bold
 hi Constant 	guifg=#96defa gui=none
-hi String 		guifg=#89e14b gui=italic
+hi String 		guifg=#89e14b gui=none
  " names of variables in PHP
 hi Identifier 	guifg=#8ac6f2 gui=none
  " Function names as in python. currently purleish
@@ -61,7 +61,7 @@ hi Type 		guifg=#41B2EA gui=none
  " statement, such as 'hi' right here
 hi Statement 	guifg=#68CEE8 gui=none
 hi Keyword		guifg=#8ac6f2 gui=none
- "  specified preprocessed words (like bold, italic etc. above)
+ "  specified preprocessed words (like bold etc. above)
 hi PreProc 		guifg=#EF6145 gui=none
 hi Title	guifg=#EF6145 gui=none
 hi Number		guifg=#96defa gui=none
