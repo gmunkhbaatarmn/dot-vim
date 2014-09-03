@@ -44,6 +44,15 @@ function! NERDTreeCustomIgnoreFilter(path)
           \ 'Users/mb/Public',
           \ 'Users/mb/contestapplet.conf',
           \ 'Users/mb/contestapplet.conf.bak',
+          \ 'home/qlio/Desktop',
+          \ 'home/qlio/Documents',
+          \ 'home/qlio/Downloads',
+          \ 'home/qlio/ISO',
+          \ 'home/qlio/Music',
+          \ 'home/qlio/Pictures',
+          \ 'home/qlio/Public',
+          \ 'home/qlio/Templates',
+          \ 'home/qlio/Videos',
           \]
 
     for p in pathlist
