@@ -1,53 +1,201 @@
 ":1 Python
+let $PYTHONDONTWRITEBYTECODE=1
+let $PYTHONIOENCODING='utf-8'
+let $PYTHONPATH='/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
+
 function! PythonFold()
+  ":2
+  if v:lnum == 1
+    let s:python_fold_state = "normal"  " (docstring, normal)
+    let s:python_fold_level = 0
+  endif
+
   let line = getline(v:lnum)
   let prevline = getline(v:lnum-1)
   let nextline = getline(v:lnum+1)
+  let prevline2 = getline(v:lnum-2)
+  let nextline2 = getline(v:lnum+2)
+  let prevline3 = getline(v:lnum-3)
+  let nextline3 = getline(v:lnum+3)
+  " endfold
 
-  if line =~ '^from ' || line =~ '^import '
-    if prevline !~ '^from ' && prevline !~ '^import ' && getline(v:lnum-2) !~ '^from ' && getline(v:lnum-2) !~ '^import '
-      return ">1"
+  " if line == "" && prevline == ""
+  "   return "="
+  " endif
+
+  if line == "" && nextline == ""
+    return "="
+  endif
+
+  ":2 if python_fold_state == "docstring"
+  if s:python_fold_state == "docstring"
+    if prevline =~ '^"""$'
+      let s:python_fold_state = "normal"
+      return '0'  " closing
+    endif
+
+    if prevline =~ '^[ ]\{4}"""$'
+      let s:python_fold_state = "normal"
+      return '1'  " closing
+    endif
+
+    if prevline =~ '^[ ]\{8}"""$'
+      let s:python_fold_state = "normal"
+      return '2'  " closing
+    endif
+
+    return '='
+  endif
+  " endfold
+
+  ":2 normal
+  " imports - first line
+  if prevline2 !~ '^\(from\|import\) '
+    if prevline !~ '^\(from\|import\) '
+      if line =~ '^\(from\|import\) '
+        return '>1'  " entering
+      endif
     endif
   endif
 
-  if prevline =~ '^from ' || prevline =~ '^import '
-    if nextline == "" && line == ""
-      return "0"
+  " level:1 - docstring
+  if line =~ '^""".'
+    let s:python_fold_state = "docstring"
+    return '>1'  " entering
+  endif
+
+  " level:1 - begin
+  if prevline !~ '^@'
+    if line =~ '^\(class \|def \|if \|@\)'
+      return '>1'  " entering
     endif
   endif
 
-  " Level 0
-  if line =~ '^$' && nextline =~ '^$'
-    return "0"
+  " imports - last line
+  if prevline2 =~ '^\(from\|import\) '
+    if prevline !~ '^\(from\|import\) '
+      if line !~ '^\(from\|import\) '
+        return '0'  " closing
+      endif
+    endif
   endif
 
-  " Level 1
-  if line =~ '^class ' || line =~ '^def '
-    return ">1"
+  " level:1 - comment separator
+  if line == ''
+    if nextline =~ '^\S' && nextline !~ '^\(class \|def \|@\)'
+      return '0'  " closing
+    endif
   endif
 
-  " Level 2
-  if line =~ '^    class ' || line =~ '^    def '
-    return ">2"
+  if line =~ '^[ ]\{4}""".'
+    let s:python_fold_state = "docstring"
+    return '>2'  " entering
   endif
 
-  " Level 3
-  if line =~ '^        class ' || line =~ '^        def '
-    return ">3"
+  ":2 level:2 - begin with decorator
+  if prevline !~ '^[ ]\{4}\(class \|def \|@\)'
+    if line =~ '^[ ]\{4}\(class \|def \|@\|# - \)'
+      return '>2'  " entering
+    endif
   endif
 
-  if line =~ "endfold"
-    return "0"
+  if line == '' && nextline == ''
+    return '1'  " closing
   endif
 
-  return "="
+  " level:2 - end
+  if line == ''
+    if nextline =~ '^[ ]\{4}\S' && nextline !~ '^[ ]\{4}\(class \|def \|@\)'
+      return '1'  " closing
+    endif
+  endif
+  " endfold
+
+  ":2 level:3 - docstring
+  if line =~ '^[ ]\{8}""".'
+    let s:python_fold_state = "docstring"
+    return '>3'  " entering
+  endif
+  " endfold
+
+  return '='
 endfunction
 
-autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFold()
+function! PythonFoldText()
+  let line = getline(v:foldstart)
+  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let leading_spaces = stridx(line, trimmed)
+  let prefix = repeat(" ", leading_spaces)
+  let foldedlinecount = v:foldend - v:foldstart
+
+  if strpart(trimmed, 0, 3) == '"""'
+    return prefix . "..." . strpart(trimmed, 3)
+    return prefix . "⚑  " . strpart(trimmed, 3)
+    return prefix . "⋮  " . strpart(trimmed, 3)
+    return prefix . "⋮ ⚑" . strpart(trimmed, 3)
+    return prefix . "… ⚑" . strpart(trimmed, 3)
+    " return prefix . "..." . strpart(trimmed, 3)
+    " return prefix . "⋮ ⚑⚐ " . strpart(trimmed, 3)
+  endif
+
+  if strpart(trimmed, 0, 12) == '@classmethod'
+    let nextline = getline(v:foldstart+1)
+    let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
+    let fillcharcount = 48 - len(prefix) - len(trimmed)
+
+    return prefix . substitute(nextline_trimmed, ':', '', '') . " (classmethod)"
+  endif
+
+  if strpart(trimmed, 0, 12) == '@property'
+    let nextline = getline(v:foldstart+1)
+    let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
+    let fillcharcount = 48 - len(prefix) - len(trimmed)
+    return prefix . 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
+  endif
+
+  if strpart(trimmed, 0, 1) == '@'
+    let nextline = getline(v:foldstart+1)
+    let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
+    let fillcharcount = 48 - len(prefix) - len(trimmed)
+
+    return prefix . trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
+  endif
+
+  if strpart(trimmed, 0, 4) == 'def '
+    let suffix = strpart(trimmed, 4)
+    return prefix . "def " . substitute(suffix, ':', '', '')
+  endif
+
+  if strpart(trimmed, 0, 6) == 'class '
+    let suffix = strpart(trimmed, 6)
+    return prefix . "class " . substitute(suffix, ':', '', '')
+  endif
+
+  return foldtext()
+
+  " let line = getline(v:foldstart)
+  " let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  " let leading_spaces = stridx(line, trimmed)
+  "
+  " let nucolwidth = &fdc + &number * &numberwidth
+  " let windowwidth = winwidth(0) - nucolwidth - 3
+  " let foldedlinecount = v:foldend - v:foldstart
+  "
+  " " expand tabs into spaces
+  " let onetab = strpart('          ', 0, &tabstop)
+  " let line = substitute(line, '\t', onetab, 'g')
+  "
+  " let line = strpart(line, leading_spaces * &tabstop + 12, windowwidth - 2 -len(foldedlinecount))
+  " let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+  " return repeat(onetab, leading_spaces). '▸' . printf("%3s", foldedlinecount) . ' lines ' . line . '' . repeat(" ",fillcharcount) . '(' . foldedlinecount . ')' . ' '
+endfunction
+
+autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFold() foldtext=PythonFoldText()
 
 autocmd BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
 autocmd BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < input.txt<CR>| endif
 autocmd BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!pep8 '%'                   <CR>| endif
+autocmd FileType python syn match DocKeyword "Returns" containedin=pythonString contained
 
 " Highlight `CAPITALIZED:`
 autocmd FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
@@ -59,6 +207,8 @@ autocmd FileType python syn match DocKeyword "%([a-zA-Z0-9_]\+)s"hs=s+1,he=e-1 c
 autocmd FileType python syn match DocKeyword "%s"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `:Regular-word`
 autocmd FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
+" Highlight `#Regular-word`
+autocmd FileType python syn match DocKeyword "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `>>`
 autocmd FileType python syn match DocKeyword ">>" containedin=pythonString contained
 
@@ -145,6 +295,7 @@ autocmd BufEnter Notes     nmap <F9> :w<CR>:!/Users/mb/.reminders &<CR><CR>:echo
 autocmd BufEnter Todos     nmap <F9> :w<CR>:!/Users/mb/.todos      <CR><CR>:echo "Todos updated"<CR>
 autocmd BufEnter Greatness nmap <F9> :w<CR>:!/Users/mb/.greatness  <CR><CR>:echo "Book updated"<CR>
 
+autocmd BufEnter ?[0-9]\ * setlocal filetype=markdown
 autocmd BufEnter Notes     setlocal filetype=markdown
 autocmd BufEnter Todos     setlocal filetype=markdown
 autocmd BufEnter Greatness setlocal filetype=markdown
@@ -214,12 +365,26 @@ autocmd FileType htmljinja hi def link mathjax Comment
 autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
-autocmd FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold
+function! StylusFoldText()
+  let line = getline(v:foldstart)
+  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let leading_spaces = stridx(line, trimmed)
+  let prefix = repeat(" ", leading_spaces)
+  let foldedlinecount = v:foldend - v:foldstart
+
+  if strpart(trimmed, 0, 5) == '//:1 '
+    return prefix . "+" . foldedlinecount . ":" . strpart(trimmed, 4)
+  endif
+
+  return foldtext()
+endfunction
+
+autocmd FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold foldtext=StylusFoldText()
 autocmd FileType stylus setlocal iskeyword-=#,-
 
-autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
-autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
-autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus -u nib --include-css -p "%" > "%:r.min.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib -u jeet -u normalize.stylus --include-css -p "%" > "%:r.styl.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus -u nib -u jeet -u normalize.stylus --include-css -p "%" > "%:r.styl.css"<CR>| endif
+autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus -u nib -u jeet -u normalize.stylus --include-css -p "%" > "%:r.styl.css"<CR>| endif
 
 ":1 Other
 autocmd BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
