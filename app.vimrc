@@ -227,15 +227,15 @@ autocmd BufEnter * set visualbell t_vb=
 
 ":1 GUI only settings
 if has('gui_running')
-  set guifont=Monaco:h14        " Change GUI font
+  set guifont=Monaca\ 10        " Change GUI font
   set guioptions-=T             " Remove toolbar
   set guioptions-=l             " Remove scroll
   set guioptions-=L             " Remove scroll in splitted window
   colorscheme underwater
 endif
 
-if system("uname -s") == 'Linux'
-  set guifont=Monaco:h10        " Change GUI font
+if system("uname") =~ 'Darwin'
+  set guifont=Monaco:h14        " Change GUI font
 endif
 " endfold
 
