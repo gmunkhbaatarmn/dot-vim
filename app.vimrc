@@ -148,7 +148,6 @@ set fillchars=vert:\|,fold:\  " Make foldtext more clean
 
 set formatoptions+=n
 let $LC_ALL = 'en_US.UTF-8'
-set clipboard=unnamed
 
 ":1 Keyboard mapping
 " Change the leader map
@@ -236,6 +235,7 @@ endif
 
 if system("uname") =~ 'Darwin'
   set guifont=Monaco:h14        " Change GUI font
+  set clipboard=unnamed         " Copy to GUI clipboard
 endif
 " endfold
 
