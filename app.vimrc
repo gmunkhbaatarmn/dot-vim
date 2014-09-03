@@ -22,7 +22,6 @@ let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
 
 " Common
 let g:NERDTreeMapOpenVSplit = 'a'
-let g:NERDTreeDirArrows = 1
 let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
@@ -30,9 +29,10 @@ let g:NERDTreeIgnore = ['\.pyc$']
 
 function! NERDTreeCustomIgnoreFilter(path)
   if b:NERDTreeShowHidden ==# 0
-    let patterns = ['\.min\.js$', '\.min\.css$']
+    let patterns = ['\.min\.js$', '\.styl\.css$']
 
     let pathlist = [
+          \ 'Users/mb/Applications',
           \ 'Users/mb/Library',
           \ 'Users/mb/Downloads',
           \ 'Users/mb/Dropbox',
@@ -44,12 +44,6 @@ function! NERDTreeCustomIgnoreFilter(path)
           \ 'Users/mb/Public',
           \ 'Users/mb/contestapplet.conf',
           \ 'Users/mb/contestapplet.conf.bak',
-          \ 'Users/mb/dot-js/Dotjs.js',
-          \ 'Users/mb/dot-js/Icon.png',
-          \ 'Users/mb/dot-js/Server',
-          \ 'Users/mb/dot-js/manifest.json',
-          \ 'Users/mb/dot-js/jquery.js',
-          \ 'Users/mb/dot-js/blank.js',
           \]
 
     for p in pathlist
@@ -96,7 +90,6 @@ Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'mitsuhiko/vim-jinja'
 " endfold
 
-
 ":1 Standard (frozen) configurations
 syntax on                              " Enable syntax hightlight
 filetype on                            " Enable file type detection
@@ -127,6 +120,9 @@ set shellslash                         " Always use unix style slash /
 set nojoinspaces                       " no insert two spaces in line join
 set t_Co=256                           " (CLI only) Number of colors
 set t_vb=                              " (CLI only) Visual bell
+
+nmap <Space> za
+nmap <CR> za
 " endfold
 
 ":1 Aestetic customizations
@@ -144,6 +140,7 @@ set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
 " Define list characters
 set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<
+" set listchars=tab:⋮\ ,eol:¬,trail:~,extends:>,precedes:<
 
 " Define line break
 set linebreak showbreak=…     " Wrap long line
@@ -152,9 +149,6 @@ set fillchars=vert:\|,fold:\  " Make foldtext more clean
 set formatoptions+=n
 let $LC_ALL = 'en_US.UTF-8'
 set clipboard=unnamed
-
-
-
 
 ":1 Keyboard mapping
 " Change the leader map
@@ -184,13 +178,9 @@ nmap <leader>t <C-w><UP>
 nmap <leader>h <C-w><DOWN>
 
 " Tab next, prev, new
-nmap eh :tabnext<CR>
-nmap et :tabprev<CR>
-nmap en :tabnew<CR>
-
-" Buffer next, prev
-nmap .t :bn<CR>
-nmap .h :bp<CR>
+nmap .h :tabnext<CR>
+nmap .t :tabprev<CR>
+nmap .n :tabnew<CR>
 
 " Keymap switch
 let g:current_keymap = ''
@@ -226,12 +216,13 @@ imap <C-b> <ESC>:close<CR>
 " endfold
 
 ":1 Automatic commands
-" change to the directory of the current file
+" Change to the directory of the current file
 autocmd BufEnter * silent! lcd %:p:h
 
 " Remove trailing spaces
 autocmd BufWritePre * :%s/\s\+$//e
 
+" No bell sound in erratic action
 autocmd BufEnter * set visualbell t_vb=
 
 ":1 GUI only settings
@@ -239,11 +230,11 @@ if has('gui_running')
   set guifont=Monaco:h14        " Change GUI font
   set guioptions-=T             " Remove toolbar
   set guioptions-=l             " Remove scroll
-  set guioptions-=L
+  set guioptions-=L             " Remove scroll in splitted window
   colorscheme underwater
 endif
+" endfold
 
-":1 Some extension
 so $HOME/.vim/dvorak.vimrc
 so $HOME/.vim/filetype.vimrc
 so $HOME/.vim/writer.vimrc
