@@ -20,6 +20,7 @@ if version >= 700
   hi MatchParen guifg=#ffffff guibg=#439ea9 gui=bold
   hi Pmenu 		guifg=#dfeff6 guibg=#1E415E
   hi PmenuSel 	guifg=#dfeff6 guibg=#2D7889
+  hi ColorColumn guibg=#18374F
 
   " Search
   hi IncSearch  gui=BOLD      guifg=#E2DAEF   guibg=#AF81F4
