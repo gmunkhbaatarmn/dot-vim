@@ -292,16 +292,12 @@ autocmd FileType cpp syn match cComment /;/
 autocmd BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
 ":1 Markdown
-autocmd BufEnter Notes     nmap <F9> :w<CR>:!/Users/mb/.reminders &<CR><CR>:echo "Reminder syncing"<CR>
-autocmd BufEnter Todos     nmap <F9> :w<CR>:!/Users/mb/.todos      <CR><CR>:echo "Todos updated"<CR>
-autocmd BufEnter Greatness nmap <F9> :w<CR>:!/Users/mb/.greatness  <CR><CR>:echo "Book updated"<CR>
+" autocmd BufEnter Greatness nmap <F9> :w<CR>:!$HOME.'/.greatness' <CR><CR>:echo "Book updated"<CR>
+" autocmd BufEnter Greatness setlocal filetype=markdown
+nmap <F7> :e $HOME/Notes<CR>
 
 autocmd BufEnter ?[0-9]\ * setlocal filetype=markdown
 autocmd BufEnter Notes     setlocal filetype=markdown
-autocmd BufEnter Todos     setlocal filetype=markdown
-autocmd BufEnter Greatness setlocal filetype=markdown
-autocmd BufEnter Issues    setlocal filetype=markdown
-
 autocmd FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
 autocmd FileType markdown hi def link CheckdownLabel Float
 
@@ -347,7 +343,6 @@ function! MarkdownFold()
 
   return "="
 endfunction
-
 autocmd Filetype markdown setlocal foldexpr=MarkdownFold()
 
 ":1 HTML, HTML-jinja
