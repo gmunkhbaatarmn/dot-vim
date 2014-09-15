@@ -12,6 +12,16 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 
+":1 Plugin - Ultisnips
+
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="horizontal"
+
 ":1 Plugin - NERDTree
 Bundle 'scrooloose/nerdtree'
 
