@@ -186,7 +186,13 @@ nmap <leader>n <C-w><RIGHT>
 nmap <leader>t <C-w><UP>
 nmap <leader>h <C-w><DOWN>
 
-" todo: alt+1 alt+2 for tab number choose
+" Window tab settings
+nnoremap gk gt
+nmap <C-t> :tabnew<CR>
+map <M-1> 1gt
+map <M-2> 2gt
+map <M-3> 3gt
+map <M-4> 4gt
 
 " Keymap switch
 let g:current_keymap = ''
