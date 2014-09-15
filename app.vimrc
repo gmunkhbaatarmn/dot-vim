@@ -6,6 +6,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 ":1 Plugin - Snipmate
+" todo: snipmate vs ultisnips?
+" todo: maybe convert snipmate snippets
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
@@ -16,16 +18,11 @@ Bundle 'scrooloose/nerdtree'
 " Fast toggle
 map <F2> :NERDTreeToggle<CR>
 
-" Dvorak fix
-let g:NERDTreeMapOpenInTab = '<C-S-t>'
-let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
-
 " Common
 let g:NERDTreeMapOpenVSplit = 'a'
 let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
-let g:NERDTreeIgnore = ['\.pyc$']
 
 function! NERDTreeCustomIgnoreFilter(path)
   if b:NERDTreeShowHidden ==# 0
@@ -36,8 +33,10 @@ function! NERDTreeCustomIgnoreFilter(path)
           \ '\.svg$',
           \ '\.ttf$',
           \ '\.woff$',
+          \ '\.pyc$',
           \]
 
+    " todo: no user name. use ~/ or $HOME
     let pathlist = [
           \ 'Users/mb/Applications',
           \ 'Users/mb/Library',
@@ -82,6 +81,7 @@ endfunction
 Bundle 'scrooloose/syntastic'
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
+" todo: don't validate html
 let g:syntastic_mode_map = {'passive_filetypes': ['html']}
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_auto_loc_list = 1
@@ -91,7 +91,6 @@ let g:syntastic_auto_loc_list = 1
 Bundle 'godlygeek/tabular'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'gmunkhbaatarmn/vim-checkdown'
-
 Bundle 'duwanis/tomdoc.vim'
 
 " Filetype supports
@@ -105,6 +104,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'pangloss/vim-javascript'
 Bundle 'wavded/vim-stylus'
 Bundle 'hynek/vim-python-pep8-indent'
+" todo: html filetype always htmljinja
 Bundle 'mitsuhiko/vim-jinja'
 " endfold
 
@@ -120,9 +120,8 @@ set autoindent                         " Enable auto indent
 set nobackup nowritebackup noswapfile  " Disable backup
 
 set hlsearch                           " Highlight search result
-set encoding=utf-8                     " Unicode text encoding
-set fileformats=unix                   " Default file types
-set fileformat=unix                    " Default file type
+set encoding=utf-8                     " Preferred encoding
+set fileformats=unix fileformat=unix   " Preferred filetype
 set hidden                             " Undo history save when changing buffers
 set wildmenu                           " Show autocomplete menus
 set splitbelow                         " New (split) window opens on bottom
@@ -133,7 +132,6 @@ set ruler laststatus=0                 " Use ruler instead of status line
 
 ":1 Configurations may change
 set numberwidth=4                      " Line number width
-set textwidth=80                       " Default text width
 set shellslash                         " Always use unix style slash /
 set nojoinspaces                       " no insert two spaces in line join
 set t_Co=256                           " (CLI only) Number of colors
@@ -141,6 +139,7 @@ set t_vb=                              " (CLI only) Visual bell
 
 nmap <Space> za
 nmap <CR> za
+nmap e za
 " endfold
 
 ":1 Aestetic customizations
@@ -151,6 +150,7 @@ autocmd BufEnter * syn match Braces display '[{}()\[\]]'
 autocmd BufEnter * hi def link Braces comment
 
 " Ruler format
+" todo: include filename in ruler
 set rulerformat=%30(%=%y%m%r%w\ %l,%c%V\ %P%)
 
 " Tab Configuration
@@ -158,14 +158,13 @@ set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
 " Define list characters
 set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<
-" set listchars=tab:⋮\ ,eol:¬,trail:~,extends:>,precedes:<
 
 " Define line break
 set linebreak showbreak=…     " Wrap long line
 set fillchars=vert:\|,fold:\  " Make foldtext more clean
 
+" todo: documentate next line formatoptions+=n
 set formatoptions+=n
-let $LC_ALL = 'en_US.UTF-8'
 
 ":1 Keyboard mapping
 " Change the leader map
@@ -194,10 +193,7 @@ nmap <leader>n <C-w><RIGHT>
 nmap <leader>t <C-w><UP>
 nmap <leader>h <C-w><DOWN>
 
-" Tab next, prev, new
-nmap .h :tabnext<CR>
-nmap .t :tabprev<CR>
-nmap .n :tabnew<CR>
+" todo: alt+1 alt+2 for tab number choose
 
 " Keymap switch
 let g:current_keymap = ''
@@ -222,7 +218,7 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Save file
-" Need 'stty -ixon' command in shell.
+" Need 'stty -ixon' command in shell (CLI).
 " more: http://superuser.com/questions/227588/vim-command-line-imap-problem
 autocmd BufEnter * nmap <C-s> :w!<CR>
 autocmd BufEnter * imap <C-s> <ESC>:w!<CR>

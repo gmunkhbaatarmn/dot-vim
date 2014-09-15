@@ -3,6 +3,7 @@ let $PYTHONDONTWRITEBYTECODE=1
 let $PYTHONIOENCODING='utf-8'
 let $PYTHONPATH='/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
 
+" todo: python fold function. has lot of bug. fix them all.
 function! PythonFold()
   ":2
   if v:lnum == 1
@@ -121,6 +122,7 @@ function! PythonFold()
   return '='
 endfunction
 
+" todo: refactor python fold text
 function! PythonFoldText()
   let line = getline(v:foldstart)
   let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -188,6 +190,7 @@ function! PythonFoldText()
 endfunction
 
 autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFold() foldtext=PythonFoldText()
+autocmd FileType python setlocal textwidth=79
 
 autocmd BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
 autocmd BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < input.txt<CR>| endif
@@ -221,7 +224,7 @@ autocmd FileType python syn match DocArgument "=>" containedin=pythonString cont
 autocmd FileType python hi default link DocArgument HELP
 autocmd FileType python hi default link DocKeyword Comment
 
-":1 coffee    Coffeescript
+":1 Coffeescript
 autocmd FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold
 
 autocmd BufEnter * if &filetype == "coffee" |nmap <F9>       :w<CR>:       !coffee "%" --nodejs               <CR>| endif
@@ -234,26 +237,25 @@ autocmd FileType javascript setlocal foldmethod=marker foldmarker={,} autoindent
 
 autocmd BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time node "%" <CR>| endif
 
-":1 ruby      Ruby
+":1 Ruby
 autocmd BufEnter * if &filetype == 'ruby' |nmap <F5>   :w<CR>:!time ruby "%"            <CR>| endif
 autocmd BufEnter * if &filetype == 'ruby' |nmap <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>| endif
 
-":1 java      Java source file
+":1 Java
 autocmd FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HERE,END\ CUT\ HERE
 
 autocmd BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 autocmd BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
-" endif
 
-":1 vim       Vimscript file
+":1 Vim (Vimscript)
 autocmd FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold
 
-":1 C         C source file
+":1 C
 autocmd BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
 autocmd BufEnter * if &filetype == 'c' |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
 autocmd BufEnter * if &filetype == 'c' |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
 
-":1 C++       C++ source file
+":1 C++
 function! CppFoldText()
   let line = getline(v:foldstart)
   let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -288,7 +290,7 @@ autocmd FileType cpp syn keyword cType stringstream
 autocmd FileType cpp syn keyword cRepeat For Rep
 autocmd FileType cpp syn match cComment /;/
 
-":1 PHP       PHP source file
+":1 PHP
 autocmd BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
 ":1 Markdown
@@ -346,6 +348,7 @@ endfunction
 autocmd Filetype markdown setlocal foldexpr=MarkdownFold()
 
 ":1 HTML, HTML-jinja
+" todo: bug fix. force to htmljinja filetype
 autocmd FileType html setlocal filetype=htmljinja
 autocmd FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold
 
@@ -361,6 +364,7 @@ autocmd FileType htmljinja hi def link mathjax Comment
 autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
+" todo: improve stylus fold line text
 function! StylusFoldText()
   let line = getline(v:foldstart)
   let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -369,7 +373,7 @@ function! StylusFoldText()
   let foldedlinecount = v:foldend - v:foldstart
 
   if strpart(trimmed, 0, 5) == '//:1 '
-    return prefix . "+" . foldedlinecount . ":" . strpart(trimmed, 4)
+    return prefix . '+' . foldedlinecount . ':' . strpart(trimmed, 4)
   endif
 
   return foldtext()

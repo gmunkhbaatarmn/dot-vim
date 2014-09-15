@@ -20,3 +20,7 @@ noremap s :
 noremap S :
 noremap - $
 noremap _ ^
+
+" Dvorak: NERDTree
+let g:NERDTreeMapOpenInTab = '<C-S-t>'
+let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
