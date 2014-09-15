@@ -6,7 +6,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 ":1 Plugin - Snipmate
-" todo: snipmate vs ultisnips?
 " todo: maybe convert snipmate snippets
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
