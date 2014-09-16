@@ -348,8 +348,7 @@ endfunction
 autocmd Filetype markdown setlocal foldexpr=MarkdownFold()
 
 ":1 HTML, HTML-jinja
-" html filetype always htmljinja
-autocmd BufNewFile,BufRead *.html set filetype=htmljinja
+autocmd BufNewFile,BufRead *.html setlocal filetype=htmljinja
 
 autocmd FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold
 
