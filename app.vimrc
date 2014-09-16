@@ -207,10 +207,17 @@ nmap <leader>h <C-w><DOWN>
 " Window tab settings
 nnoremap gk gt
 nmap <C-t> :tabnew<CR>
-map <M-1> 1gt
-map <M-2> 2gt
-map <M-3> 3gt
-map <M-4> 4gt
+map <M-1> 1gk
+map <M-2> 2gk
+map <M-3> 3gk
+map <M-4> 4gk
+
+if system("uname") =~ 'Darwin'
+  map <D-1> 1gk
+  map <D-2> 2gk
+  map <D-3> 3gk
+  map <D-4> 4gk
+endif
 
 " Keymap switch
 let g:current_keymap = ''
