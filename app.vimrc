@@ -109,9 +109,6 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'wavded/vim-stylus'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'mitsuhiko/vim-jinja'
-"
-" html filetype always htmljinja
-autocmd BufNewFile,BufRead *.html set filetype=htmljinja
 " endfold
 
 ":1 Standard (frozen) configurations

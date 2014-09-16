@@ -348,8 +348,9 @@ endfunction
 autocmd Filetype markdown setlocal foldexpr=MarkdownFold()
 
 ":1 HTML, HTML-jinja
-" todo: bug fix. force to htmljinja filetype
-autocmd FileType html setlocal filetype=htmljinja
+" html filetype always htmljinja
+autocmd BufNewFile,BufRead *.html set filetype=htmljinja
+
 autocmd FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold
 
 " Inline math. Example: Pythagorean $a^2 + b^2 = c^2$
