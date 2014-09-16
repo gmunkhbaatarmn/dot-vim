@@ -20,6 +20,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="horizontal"
+let g:UltiSnipsSnippetsDir="~/.vim/ultisnippets"
 
 ":1 Plugin - NERDTree
 Bundle 'scrooloose/nerdtree'
@@ -204,16 +205,16 @@ nmap <leader>h <C-w><DOWN>
 " Window tab settings
 nnoremap gk gt
 nmap <C-t> :tabnew<CR>
-map <D-1> 1gk
-map <D-2> 2gk
-map <D-3> 3gk
-map <D-4> 4gk
+map <M-1> 1gk
+map <M-2> 2gk
+map <M-3> 3gk
+map <M-4> 4gk
 
 if system("uname") =~ 'Darwin'
-  map <M-1> 1gk
-  map <M-2> 2gk
-  map <M-3> 3gk
-  map <M-4> 4gk
+  map <D-1> 1gk
+  map <D-2> 2gk
+  map <D-3> 3gk
+  map <D-4> 4gk
 endif
 
 " Keymap switch
