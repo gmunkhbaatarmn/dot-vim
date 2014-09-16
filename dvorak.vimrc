@@ -8,6 +8,7 @@ noremap h j
 noremap t k
 noremap n l
 noremap j d
+noremap k t
 noremap l n
 noremap L N
 noremap H 6<Down>
