@@ -163,7 +163,7 @@ set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<
 set linebreak showbreak=…     " Wrap long line
 set fillchars=vert:\|,fold:\  " Make foldtext more clean
 
-" todo: documentate next line formatoptions+=n
+" Recognize numbered list in text formatting
 set formatoptions+=n
 
 ":1 Keyboard mapping
