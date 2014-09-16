@@ -159,8 +159,7 @@ autocmd BufEnter * syn match Braces display '[{}()\[\]]'
 autocmd BufEnter * hi def link Braces comment
 
 " Ruler format
-" todo: include filename in ruler
-set rulerformat=%30(%=%y%m%r%w\ %l,%c%V\ %P%)
+set rulerformat=%40(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
 
 " Tab Configuration
 set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
