@@ -5,24 +5,15 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-":1 Plugin - Snipmate
-" todo: snipmate vs ultisnips?
-" todo: maybe convert snipmate snippets
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-
 ":1 Plugin - Ultisnips
-
-" Track the engine.
 Plugin 'SirVer/ultisnips'
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsEditSplit="horizontal"
-let g:UltiSnipsSnippetsDir="~/.vim/ultisnippets"
-let g:UltiSnipsSnippetDirectories=["ultisnippets"]
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsEditSplit = 'horizontal'
+let g:UltiSnipsSnippetsDir = '~/.vim/ultisnippets'
+let g:UltiSnipsSnippetDirectories = ['ultisnippets']
 
 ":1 Plugin - NERDTree
 Bundle 'scrooloose/nerdtree'
