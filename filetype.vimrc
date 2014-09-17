@@ -331,16 +331,12 @@ autocmd FileType htmljinja hi def link mathjax Comment
 autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
-" todo: improve stylus fold line text
 function! StylusFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
-  let prefix = repeat(" ", leading_spaces)
-  let foldedlinecount = v:foldend - v:foldstart
+  let suffix = substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', '')
+  let prefix = repeat(" ", stridx(getline(v:foldstart), suffix))
 
-  if strpart(trimmed, 0, 5) == '//:1 '
-    return prefix . '+' . foldedlinecount . ':' . strpart(trimmed, 4)
+  if strpart(suffix, 0, 5) == '//:1 '
+    return prefix . '|' . printf("%2s", v:foldend - v:foldstart) . '| ' . strpart(suffix, 5)
   endif
 
   return foldtext()
