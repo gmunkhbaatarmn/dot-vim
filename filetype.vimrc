@@ -3,123 +3,66 @@ let $PYTHONDONTWRITEBYTECODE=1
 let $PYTHONIOENCODING='utf-8'
 let $PYTHONPATH='/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
 
-" todo: python fold function. has lot of bug. fix them all.
 function! PythonFold()
   ":2
   if v:lnum == 1
-    let s:python_fold_state = "normal"  " (docstring, normal)
-    let s:python_fold_level = 0
+    let s:doc_level = -1 " is docstring closed
   endif
 
-  let line = getline(v:lnum)
-  let prevline = getline(v:lnum-1)
-  let nextline = getline(v:lnum+1)
-  let prevline2 = getline(v:lnum-2)
-  let nextline2 = getline(v:lnum+2)
-  let prevline3 = getline(v:lnum-3)
-  let nextline3 = getline(v:lnum+3)
-  " endfold
+  function! IsNotLevel(line)
+    let lt = getline(a:line)
+    return lt !~? '^[ ]*@' && lt !~? '^[ ]*def ' && lt !~? '^[ ]*class'
+  endfunction
 
-  " if line == "" && prevline == ""
-  "   return "="
-  " endif
+  function! IndentLevel(lnum)
+    let current = a:lnum
 
-  if line == "" && nextline == ""
-    return "="
-  endif
-
-  ":2 if python_fold_state == "docstring"
-  if s:python_fold_state == "docstring"
-    if prevline =~ '^"""$'
-      let s:python_fold_state = "normal"
-      return '0'  " closing
-    endif
-
-    if prevline =~ '^[ ]\{4}"""$'
-      let s:python_fold_state = "normal"
-      return '1'  " closing
-    endif
-
-    if prevline =~ '^[ ]\{8}"""$'
-      let s:python_fold_state = "normal"
-      return '2'  " closing
-    endif
-
-    return '='
-  endif
-  " endfold
-
-  ":2 normal
-  " imports - first line
-  if prevline2 !~ '^\(from\|import\) '
-    if prevline !~ '^\(from\|import\) '
-      if line =~ '^\(from\|import\) '
-        return '>1'  " entering
+    while current > 1
+      if !IsNotLevel(current) && IsNotLevel(current - 1)
+        break
       endif
+      let current -= 1
+    endwhile
+
+    return indent(current) / &shiftwidth + 1
+  endfunction
+
+  let lt = getline(v:lnum)
+  let this_indent = indent(v:lnum) / &shiftwidth + 1
+
+
+  if lt =~? '^[ ]*@' && getline(v:lnum) !~? '^[ ]*@'
+    return '>' . this_indent
+
+  elseif lt =~? '^[ ]*def ' && getline(v:lnum - 1) !~? '^[ ]*@'
+    return '>' . this_indent
+
+  elseif lt =~? '^[ ]*class'
+    return '>' . this_indent
+
+  elseif lt =~? '^[ ]*"""' && lt !~? '""".\+"""$'
+    if s:doc_level < 0
+      let s:doc_level = this_indent
+      return '>' . this_indent
+    else
+      let indent = s:doc_level
+      let s:doc_level = -1
+      return indent
     endif
+
+  elseif s:doc_level >= 0
+    return s:doc_level
+
+  elseif lt =~? '\v\S' && getline(v:lnum - 1) !~? '\v\S'
+    return '>' . this_indent
+
+  elseif lt !~? '\v\S' && getline(v:lnum + 1) =~? '^#'
+    return '0'
+
+  else
+    return IndentLevel(v:lnum - 1)
   endif
 
-  " level:1 - docstring
-  if line =~ '^""".'
-    let s:python_fold_state = "docstring"
-    return '>1'  " entering
-  endif
-
-  " level:1 - begin
-  if prevline !~ '^@'
-    if line =~ '^\(class \|def \|if \|@\)'
-      return '>1'  " entering
-    endif
-  endif
-
-  " imports - last line
-  if prevline2 =~ '^\(from\|import\) '
-    if prevline !~ '^\(from\|import\) '
-      if line !~ '^\(from\|import\) '
-        return '0'  " closing
-      endif
-    endif
-  endif
-
-  " level:1 - comment separator
-  if line == ''
-    if nextline =~ '^\S' && nextline !~ '^\(class \|def \|@\)'
-      return '0'  " closing
-    endif
-  endif
-
-  if line =~ '^[ ]\{4}""".'
-    let s:python_fold_state = "docstring"
-    return '>2'  " entering
-  endif
-
-  ":2 level:2 - begin with decorator
-  if prevline !~ '^[ ]\{4}\(class \|def \|@\)'
-    if line =~ '^[ ]\{4}\(class \|def \|@\|# - \)'
-      return '>2'  " entering
-    endif
-  endif
-
-  if line == '' && nextline == ''
-    return '1'  " closing
-  endif
-
-  " level:2 - end
-  if line == ''
-    if nextline =~ '^[ ]\{4}\S' && nextline !~ '^[ ]\{4}\(class \|def \|@\)'
-      return '1'  " closing
-    endif
-  endif
-  " endfold
-
-  ":2 level:3 - docstring
-  if line =~ '^[ ]\{8}""".'
-    let s:python_fold_state = "docstring"
-    return '>3'  " entering
-  endif
-  " endfold
-
-  return '='
 endfunction
 
 " todo: refactor python fold text
