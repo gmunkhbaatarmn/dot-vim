@@ -331,6 +331,7 @@ autocmd FileType htmljinja hi def link mathjax Comment
 autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
+" todo: refactor python fold text
 function! StylusFoldText()
   let line = getline(v:foldstart)
   let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -340,7 +341,7 @@ function! StylusFoldText()
   let foldedlinecount = v:foldend - v:foldstart
 
   if strpart(trimmed, 0, 5) == '//:1 '
-    return prefix . strpart(trimmed, 4) . repeat(" ", fillcharcount) . '⋮ ' . foldedlinecount
+    return prefix . '+' . foldedlinecount . ':' . strpart(trimmed, 4)
   endif
 
   return foldtext()
