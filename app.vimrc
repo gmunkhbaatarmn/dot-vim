@@ -77,8 +77,6 @@ endfunction
 Bundle 'scrooloose/syntastic'
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
-" todo: don't validate html
-let g:syntastic_mode_map = {'passive_filetypes': ['html']}
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_auto_loc_list = 1
 
@@ -132,9 +130,14 @@ set nojoinspaces                       " no insert two spaces in line join
 set t_Co=256                           " (CLI only) Number of colors
 set t_vb=                              " (CLI only) Visual bell
 
+" Easy fold toggle
 nmap <Space> za
 nmap <CR> za
 nmap e za
+
+" Easy fold toggle for enter key. (Exclude `quickfix` filetype)
+autocmd BufEnter * if &filetype == 'qf' |unmap <CR>|    endif
+autocmd BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 " endfold
 
 ":1 Aestetic customizations

@@ -65,71 +65,38 @@ function! PythonFold()
 
 endfunction
 
-" todo: refactor python fold text
 function! PythonFoldText()
   let line = getline(v:foldstart)
   let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
   let leading_spaces = stridx(line, trimmed)
   let prefix = repeat(" ", leading_spaces)
   let foldedlinecount = v:foldend - v:foldstart
+  let nextline = getline(v:foldstart + 1)
+  let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
 
-  if strpart(trimmed, 0, 3) == '"""'
-    return prefix . "✎ …" . strpart(trimmed, 3)
-    return prefix . "⚑  " . strpart(trimmed, 3)
-    return prefix . "..." . strpart(trimmed, 3)
-    return prefix . "⋮  " . strpart(trimmed, 3)
-  endif
+  if trimmed =~ '"""'
+    let custom_text = '✎ …' . strpart(trimmed, 3)
 
-  if strpart(trimmed, 0, 12) == '@classmethod'
-    let nextline = getline(v:foldstart+1)
-    let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
-    let fillcharcount = 48 - len(prefix) - len(trimmed)
+  elseif trimmed =~ '@classmethod'
+    let custom_text = substitute(nextline_trimmed, ':', '', '') . ' (classmethod)'
 
-    return prefix . substitute(nextline_trimmed, ':', '', '') . " (classmethod)"
-  endif
+  elseif trimmed =~ '@property'
+    let custom_text = 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
 
-  if strpart(trimmed, 0, 12) == '@property'
-    let nextline = getline(v:foldstart+1)
-    let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
-    let fillcharcount = 48 - len(prefix) - len(trimmed)
-    return prefix . 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
-  endif
-
-  if strpart(trimmed, 0, 1) == '@'
-    let nextline = getline(v:foldstart+1)
-    let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
+  elseif trimmed =~ '@'
     let fillcharcount = 80 - len(prefix) - len(trimmed)
+    let custom_text = trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
 
-    return prefix . trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
+  elseif trimmed =~ 'def '
+    let custom_text = 'def ' . substitute(strpart(trimmed, 4), ':', '', '')
+
+  elseif trimmed =~ 'class '
+    let custom_text = 'class ' . substitute(strpart(trimmed, 6), ':', '', '')
+  else
+    return foldtext()
   endif
 
-  if strpart(trimmed, 0, 4) == 'def '
-    let suffix = strpart(trimmed, 4)
-    return prefix . "def " . substitute(suffix, ':', '', '')
-  endif
-
-  if strpart(trimmed, 0, 6) == 'class '
-    let suffix = strpart(trimmed, 6)
-    return prefix . "class " . substitute(suffix, ':', '', '')
-  endif
-
-  return foldtext()
-
-  " let line = getline(v:foldstart)
-  " let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  " let leading_spaces = stridx(line, trimmed)
-  "
-  " let nucolwidth = &fdc + &number * &numberwidth
-  " let windowwidth = winwidth(0) - nucolwidth - 3
-  " let foldedlinecount = v:foldend - v:foldstart
-  "
-  " " expand tabs into spaces
-  " let onetab = strpart('          ', 0, &tabstop)
-  " let line = substitute(line, '\t', onetab, 'g')
-  "
-  " let line = strpart(line, leading_spaces * &tabstop + 12, windowwidth - 2 -len(foldedlinecount))
-  " let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-  " return repeat(onetab, leading_spaces). '▸' . printf("%3s", foldedlinecount) . ' lines ' . line . '' . repeat(" ",fillcharcount) . '(' . foldedlinecount . ')' . ' '
+  return prefix . custom_text
 endfunction
 
 autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFold() foldtext=PythonFoldText()
@@ -307,16 +274,12 @@ autocmd FileType htmljinja hi def link mathjax Comment
 autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
 ":1 Stylus
-" todo: improve stylus fold line text
 function! StylusFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
-  let prefix = repeat(" ", leading_spaces)
-  let foldedlinecount = v:foldend - v:foldstart
+  let suffix = substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', '')
+  let prefix = repeat(" ", stridx(getline(v:foldstart), suffix))
 
-  if strpart(trimmed, 0, 5) == '//:1 '
-    return prefix . '+' . foldedlinecount . ':' . strpart(trimmed, 4)
+  if strpart(suffix, 0, 5) == '//:1 '
+    return prefix . '|' . printf("%2s", v:foldend - v:foldstart) . '| ' . strpart(suffix, 5)
   endif
 
   return foldtext()
