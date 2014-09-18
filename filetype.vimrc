@@ -99,7 +99,6 @@ function! PythonFoldExpr()
     return '='
   endif
 endfunction
-" endfold
 
 ":2 PythonFoldText
 function! PythonFoldText()
@@ -150,12 +149,13 @@ autocmd BufWritePost,InsertLeave *.py setlocal filetype=python
 autocmd BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
 autocmd BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < input.txt<CR>| endif
 autocmd BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!pep8 '%'                   <CR>| endif
-autocmd FileType python syn match DocKeyword "Returns" containedin=pythonString contained
 
 " Show line in 80th column
 autocmd BufEnter * if &filetype == 'python' |let &colorcolumn=join(range(80,80),",") | endif
 autocmd BufEnter * if &filetype != 'python' |let &colorcolumn=""                     | endif
 
+":2 Python custom hightlights
+autocmd FileType python syn match DocKeyword "Returns" containedin=pythonString contained
 " Highlight `CAPITALIZED:`
 autocmd FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
 " Highlight `{Regular-word}`
@@ -178,14 +178,15 @@ autocmd FileType python syn match DocArgument "=>" containedin=pythonString cont
 
 autocmd FileType python hi default link DocArgument HELP
 autocmd FileType python hi default link DocKeyword Comment
+" endfold
 
 ":1 Coffeescript
 autocmd FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold
 
-autocmd BufEnter * if &filetype == "coffee" |nmap <F9>       :w<CR>:       !coffee "%" --nodejs               <CR>| endif
-autocmd BufEnter * if &filetype == "coffee" |nmap <F5>       :w<CR>:       !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
-autocmd BufEnter * if &filetype == "coffee" |nmap <C-s>      :w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
-autocmd BufEnter * if &filetype == "coffee" |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
+autocmd BufEnter * if &filetype == 'coffee' |nmap <F9>       :w<CR>:       !coffee "%" --nodejs               <CR>| endif
+autocmd BufEnter * if &filetype == 'coffee' |nmap <F5>       :w<CR>:       !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
+autocmd BufEnter * if &filetype == 'coffee' |nmap <C-s>      :w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
+autocmd BufEnter * if &filetype == 'coffee' |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
 
 ":1 Javascript
 autocmd FileType javascript setlocal foldmethod=marker foldmarker={,} autoindent
@@ -226,7 +227,7 @@ function! CppFoldText()
 
   let line = strpart(line, leading_spaces * &tabstop + 12, windowwidth - 2 -len(foldedlinecount))
   let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-  return repeat(onetab, leading_spaces). '▸' . printf("%3s", foldedlinecount) . ' lines ' . line . '' . repeat(" ",fillcharcount) . '(' . foldedlinecount . ')' . ' '
+  return repeat(onetab, leading_spaces). '▸' . printf('%3s', foldedlinecount) . ' lines ' . line . '' . repeat(' ', fillcharcount) . '(' . foldedlinecount . ')' . ' '
 endfunction
 
 autocmd FileType cpp setlocal foldmethod=marker foldmarker=\/\/\ created\:,\/\/\ end
@@ -275,33 +276,6 @@ autocmd FileType markdown syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end=
 autocmd FileType markdown syn region markdownBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend contains=markdownLineStart
 autocmd FileType markdown syn region markdownBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart
 
-function! MarkdownFold()
-  let line = getline(v:lnum)
-
-  " Regular headers
-  let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
-  if depth > 0
-    return ">" . depth
-  endif
-
-  " Setext style headings
-  let nextline = getline(v:lnum + 1)
-  if (line =~ '^.\+$') && (nextline =~ '^=\+$')
-    return ">1"
-  endif
-
-  if (line =~ '^.\+$') && (nextline =~ '^-\+$')
-    return ">2"
-  endif
-
-  if (getline(v:lnum - 0) =~ "endfold")
-    return "0"
-  endif
-
-  return "="
-endfunction
-autocmd Filetype markdown setlocal foldexpr=MarkdownFold()
-
 ":1 HTML, HTML-jinja
 autocmd BufNewFile,BufRead *.html setlocal filetype=htmljinja
 
@@ -324,7 +298,7 @@ function! StylusFoldText()
   let prefix = repeat(" ", stridx(getline(v:foldstart), suffix))
 
   if strpart(suffix, 0, 5) == '//:1 '
-    return prefix . '|' . printf("%2s", v:foldend - v:foldstart) . '| ' . strpart(suffix, 5)
+    return prefix . printf('|%2s| ', v:foldend - v:foldstart) . strpart(suffix, 5)
   endif
 
   return foldtext()
@@ -336,6 +310,9 @@ autocmd FileType stylus setlocal iskeyword-=#,-
 autocmd BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib -u jeet -u normalize.stylus --include-css -p "%" > "%:r.styl.css"<CR>| endif
 autocmd BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus -u nib -u jeet -u normalize.stylus --include-css -p "%" > "%:r.styl.css"<CR>| endif
 autocmd BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus -u nib -u jeet -u normalize.stylus --include-css -p "%" > "%:r.styl.css"<CR>| endif
+
+":1 Snippets
+autocmd FileType snippets setlocal foldmethod=expr foldtext=getline(v:foldstart) foldexpr=((getline(v:lnum)=~?'snippet\ ')?'>1':'1')
 
 ":1 Other
 autocmd BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
@@ -362,6 +339,6 @@ autocmd FileType python,sh
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " no tab use. tab = 2 space
-autocmd FileType cucumber,css,vim,javascript,stylus,yaml,markdown,ruby,coffee,html,xhtml,htmljinja
+autocmd FileType cucumber,css,vim,javascript,stylus,yaml,markdown,ruby,coffee,htmljinja
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " endfold
