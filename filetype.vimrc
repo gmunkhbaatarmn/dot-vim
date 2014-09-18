@@ -8,6 +8,7 @@ function! PythonFoldExpr()
   if v:lnum == 1
     let s:in_docstring = 0
     let s:current_indent = 0
+    let s:manual_fold = 0
   endif
 
   " if docstring started
@@ -53,9 +54,10 @@ function! PythonFoldExpr()
     endif
 
     ":3 Case: close current indent. (exclude not empty line)
-    if getline(v:lnum + 1) =~? '\v\S' && indent(v:lnum + 1) / &shiftwidth < s:current_indent
+    if getline(v:lnum + 1) =~? '\v\S' && indent(v:lnum + 1) / &shiftwidth + s:manual_fold < s:current_indent
       let return_indent = s:current_indent
       let s:current_indent -= 1
+      let s:manual_fold = 0
 
       return '<' . return_indent
     endif
@@ -65,11 +67,23 @@ function! PythonFoldExpr()
       return '='
     endif
 
-    ":3 Case: start with '@', 'class', 'def', 'if'
-    if getline(v:lnum) =~? '^[ ]*\(class \|def \|if \|@\)'
+    ":3 Case: start with '# - '
+    if getline(v:lnum) =~? '^[ ]*# -'
+      let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
+      let s:manual_fold = 1
+      return '>' . s:current_indent
+    endif
+
+    ":3 Case: start with '@', 'class', 'def'
+    if getline(v:lnum) =~? '^[ ]*\(class \|def \|@\)'
       let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
 
       return '>' . s:current_indent
+    endif
+
+    ":3 Case: 'if' 'for' only start a line
+    if getline(v:lnum) =~? '^\(if \|for \)'
+      return '>1'
     endif
 
     ":3 Case: import lines indent open
@@ -109,6 +123,12 @@ function! PythonFoldText()
   elseif trimmed =~ '@'
     let fillcharcount = 80 - len(prefix) - len(trimmed)
     let custom_text = trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
+
+  elseif trimmed =~ 'if '
+    let custom_text = 'if ' . substitute(strpart(trimmed, 3), ':', '', '')
+
+  elseif trimmed =~ 'for '
+    let custom_text = 'for ' . substitute(strpart(trimmed, 4), ':', '', '')
 
   elseif trimmed =~ 'def '
     let custom_text = 'def ' . substitute(strpart(trimmed, 4), ':', '', '')
