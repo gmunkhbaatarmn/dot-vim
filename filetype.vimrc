@@ -1,7 +1,7 @@
 ":1 Python
-let $PYTHONDONTWRITEBYTECODE=1
-let $PYTHONIOENCODING='utf-8'
-let $PYTHONPATH='/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
+let $PYTHONDONTWRITEBYTECODE = 1
+let $PYTHONIOENCODING = 'utf-8'
+let $PYTHONPATH = '/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
 
 ":2 PythonFoldExpr
 function! PythonFoldExpr()
