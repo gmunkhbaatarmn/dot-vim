@@ -3,123 +3,59 @@ let $PYTHONDONTWRITEBYTECODE=1
 let $PYTHONIOENCODING='utf-8'
 let $PYTHONPATH='/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
 
-" todo: python fold function. has lot of bug. fix them all.
 function! PythonFold()
-  ":2
   if v:lnum == 1
-    let s:python_fold_state = "normal"  " (docstring, normal)
-    let s:python_fold_level = 0
+    let s:is_doc = 0 " is docstring closed
+    let s:doc_level = 0
   endif
 
-  let line = getline(v:lnum)
-  let prevline = getline(v:lnum-1)
-  let nextline = getline(v:lnum+1)
-  let prevline2 = getline(v:lnum-2)
-  let nextline2 = getline(v:lnum+2)
-  let prevline3 = getline(v:lnum-3)
-  let nextline3 = getline(v:lnum+3)
-  " endfold
+  let current_line = getline(v:lnum)
+  let current_indent = indent(v:lnum) / &shiftwidth + 1
 
-  " if line == "" && prevline == ""
-  "   return "="
-  " endif
+  " if docstring started
+  if s:is_doc
+    if current_line =~? '^[ ]*"""' && current_line !~? '""".\+"""$'
+      " docstring closing
+      let s:is_doc = 0
+    endif
+    return s:doc_level
 
-  if line == "" && nextline == ""
-    return "="
-  endif
-
-  ":2 if python_fold_state == "docstring"
-  if s:python_fold_state == "docstring"
-    if prevline =~ '^"""$'
-      let s:python_fold_state = "normal"
-      return '0'  " closing
+  " if not in docstring
+  else
+    if current_line =~? '^[ ]*"""' && current_line !~? '""".\+"""$'
+      " docstring starting
+      let s:is_doc = 1
+      let s:doc_level = current_indent
+      return '>' . s:doc_level
     endif
 
-    if prevline =~ '^[ ]\{4}"""$'
-      let s:python_fold_state = "normal"
-      return '1'  " closing
-    endif
+    " if starts with `@` or `class` or `def`
+    if current_line =~? '^[ ]*@' || current_line =~? '^[ ]*def ' || current_line =~? '^[ ]*class '
+      if getline(v:lnum - 1) =~? '^[ ]*@'
+        return current_indent       " closing
+      else
+        return '>' . current_indent " entering
+      endif
 
-    if prevline =~ '^[ ]\{8}"""$'
-      let s:python_fold_state = "normal"
-      return '2'  " closing
+    " if starts with `from` or `import`
+    elseif current_line =~? '^\(from\|import\) '
+      if getline(v:lnum - 1) =~? '^\(from\|import\) ' && v:lnum != 1
+        return current_indent       " closing
+      else
+        return '>' . current_indent " entering
+      endif
+
+    " if non blank not indented line
+    elseif current_line =~? '\v\S' && current_indent == 1
+      return '0'
+
+    " if not indented and next line is comment
+    elseif current_line !~? '\v\S' && getline(v:lnum + 1) =~? '^#'
+      return '0'
     endif
 
     return '='
   endif
-  " endfold
-
-  ":2 normal
-  " imports - first line
-  if prevline2 !~ '^\(from\|import\) '
-    if prevline !~ '^\(from\|import\) '
-      if line =~ '^\(from\|import\) '
-        return '>1'  " entering
-      endif
-    endif
-  endif
-
-  " level:1 - docstring
-  if line =~ '^""".'
-    let s:python_fold_state = "docstring"
-    return '>1'  " entering
-  endif
-
-  " level:1 - begin
-  if prevline !~ '^@'
-    if line =~ '^\(class \|def \|if \|@\)'
-      return '>1'  " entering
-    endif
-  endif
-
-  " imports - last line
-  if prevline2 =~ '^\(from\|import\) '
-    if prevline !~ '^\(from\|import\) '
-      if line !~ '^\(from\|import\) '
-        return '0'  " closing
-      endif
-    endif
-  endif
-
-  " level:1 - comment separator
-  if line == ''
-    if nextline =~ '^\S' && nextline !~ '^\(class \|def \|@\)'
-      return '0'  " closing
-    endif
-  endif
-
-  if line =~ '^[ ]\{4}""".'
-    let s:python_fold_state = "docstring"
-    return '>2'  " entering
-  endif
-
-  ":2 level:2 - begin with decorator
-  if prevline !~ '^[ ]\{4}\(class \|def \|@\)'
-    if line =~ '^[ ]\{4}\(class \|def \|@\|# - \)'
-      return '>2'  " entering
-    endif
-  endif
-
-  if line == '' && nextline == ''
-    return '1'  " closing
-  endif
-
-  " level:2 - end
-  if line == ''
-    if nextline =~ '^[ ]\{4}\S' && nextline !~ '^[ ]\{4}\(class \|def \|@\)'
-      return '1'  " closing
-    endif
-  endif
-  " endfold
-
-  ":2 level:3 - docstring
-  if line =~ '^[ ]\{8}""".'
-    let s:python_fold_state = "docstring"
-    return '>3'  " entering
-  endif
-  " endfold
-
-  return '='
 endfunction
 
 function! PythonFoldText()
