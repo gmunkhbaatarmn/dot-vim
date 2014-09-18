@@ -3,125 +3,91 @@ let $PYTHONDONTWRITEBYTECODE=1
 let $PYTHONIOENCODING='utf-8'
 let $PYTHONPATH='/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
 
-" todo: python fold function. has lot of bug. fix them all.
-function! PythonFold()
-  ":2
+":2 PythonFoldExpr
+function! PythonFoldExpr()
   if v:lnum == 1
-    let s:python_fold_state = "normal"  " (docstring, normal)
-    let s:python_fold_level = 0
+    let s:in_docstring = 0
+    let s:current_indent = 0
   endif
 
-  let line = getline(v:lnum)
-  let prevline = getline(v:lnum-1)
-  let nextline = getline(v:lnum+1)
-  let prevline2 = getline(v:lnum-2)
-  let nextline2 = getline(v:lnum+2)
-  let prevline3 = getline(v:lnum-3)
-  let nextline3 = getline(v:lnum+3)
-  " endfold
+  " if docstring started
+  if s:in_docstring
+    ":3 Case: docstring close
+    if getline(v:lnum) =~? '"""'
+      let s:in_docstring = 0
+      let return_indent = s:current_indent
+      let s:current_indent -= 1
 
-  " if line == "" && prevline == ""
-  "   return "="
-  " endif
-
-  if line == "" && nextline == ""
-    return "="
-  endif
-
-  ":2 if python_fold_state == "docstring"
-  if s:python_fold_state == "docstring"
-    if prevline =~ '^"""$'
-      let s:python_fold_state = "normal"
-      return '0'  " closing
+      return '<' . return_indent
     endif
 
-    if prevline =~ '^[ ]\{4}"""$'
-      let s:python_fold_state = "normal"
-      return '1'  " closing
+    ":3 Case: still in docstring
+    return '='
+
+    " endfold
+  " if not in docstring
+  else
+    ":3 Case: docstring start
+    if getline(v:lnum) =~? '"""' && getline(v:lnum) !~? '""".*"""$'
+      let s:in_docstring = 1
+      let s:current_indent += 1
+
+      return '>' . s:current_indent
     endif
 
-    if prevline =~ '^[ ]\{8}"""$'
-      let s:python_fold_state = "normal"
-      return '2'  " closing
+    ":3 Case: 2 emply line trailing line
+    if getline(v:lnum - 1) !~? '\v\S' && getline(v:lnum) !~? '\v\S' && getline(v:lnum + 1) !~? '^\(class \|def \|@\)'
+      return '0'
     endif
 
+    ":3 Case: 2 empty line allowed in zero indent
+    if s:current_indent > 0 && getline(v:lnum) =~? '\v\S' && getline(v:lnum) !~ '\v\S' && getline(v:lnum + 1) !~ '\v\S'
+      return '1'
+    endif
+
+    ":3 Case: next 2 line is empty
+    if s:current_indent > 0 && getline(v:lnum + 1) !~? '\v\S' && getline(v:lnum + 2) !~? '\v\S'
+      let s:current_indent = 1
+
+      return '<2'
+    endif
+
+    ":3 Case: close current indent. (exclude not empty line)
+    if getline(v:lnum + 1) =~? '\v\S' && indent(v:lnum + 1) / &shiftwidth < s:current_indent
+      let return_indent = s:current_indent
+      let s:current_indent -= 1
+
+      return '<' . return_indent
+    endif
+
+    ":3 Case: if previous line is decorator
+    if getline(v:lnum - 1) =~? '^[ ]*@'
+      return '='
+    endif
+
+    ":3 Case: start with '@', 'class', 'def', 'if'
+    if getline(v:lnum) =~? '^[ ]*\(class \|def \|if \|@\)'
+      let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
+
+      return '>' . s:current_indent
+    endif
+
+    ":3 Case: import lines indent open
+    if getline(v:lnum) =~? '^\(from\|import\) '
+      return '1'
+    endif
+
+    ":3 Case: import lines indent close
+    if getline(v:lnum - 2) =~? '^\(from\|import\) ' && getline(v:lnum-1) !~? '^\(from\|import\) '
+      return '0'
+    endif
+    " endfold
     return '='
   endif
-  " endfold
-
-  ":2 normal
-  " imports - first line
-  if prevline2 !~ '^\(from\|import\) '
-    if prevline !~ '^\(from\|import\) '
-      if line =~ '^\(from\|import\) '
-        return '>1'  " entering
-      endif
-    endif
-  endif
-
-  " level:1 - docstring
-  if line =~ '^""".'
-    let s:python_fold_state = "docstring"
-    return '>1'  " entering
-  endif
-
-  " level:1 - begin
-  if prevline !~ '^@'
-    if line =~ '^\(class \|def \|if \|@\)'
-      return '>1'  " entering
-    endif
-  endif
-
-  " imports - last line
-  if prevline2 =~ '^\(from\|import\) '
-    if prevline !~ '^\(from\|import\) '
-      if line !~ '^\(from\|import\) '
-        return '0'  " closing
-      endif
-    endif
-  endif
-
-  " level:1 - comment separator
-  if line == ''
-    if nextline =~ '^\S' && nextline !~ '^\(class \|def \|@\)'
-      return '0'  " closing
-    endif
-  endif
-
-  if line =~ '^[ ]\{4}""".'
-    let s:python_fold_state = "docstring"
-    return '>2'  " entering
-  endif
-
-  ":2 level:2 - begin with decorator
-  if prevline !~ '^[ ]\{4}\(class \|def \|@\)'
-    if line =~ '^[ ]\{4}\(class \|def \|@\|# - \)'
-      return '>2'  " entering
-    endif
-  endif
-
-  if line == '' && nextline == ''
-    return '1'  " closing
-  endif
-
-  " level:2 - end
-  if line == ''
-    if nextline =~ '^[ ]\{4}\S' && nextline !~ '^[ ]\{4}\(class \|def \|@\)'
-      return '1'  " closing
-    endif
-  endif
-  " endfold
-
-  ":2 level:3 - docstring
-  if line =~ '^[ ]\{8}""".'
-    let s:python_fold_state = "docstring"
-    return '>3'  " entering
-  endif
-  " endfold
-
-  return '='
 endfunction
+" endfold
 
+":2 PythonFoldText
 function! PythonFoldText()
   let line = getline(v:foldstart)
   let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -155,9 +121,11 @@ function! PythonFoldText()
 
   return prefix . custom_text
 endfunction
+" endfold
 
-autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFold() foldtext=PythonFoldText()
+autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFoldExpr() foldtext=PythonFoldText()
 autocmd FileType python setlocal textwidth=79
+autocmd BufWritePost,InsertLeave *.py setlocal filetype=python
 
 autocmd BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
 autocmd BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < input.txt<CR>| endif
