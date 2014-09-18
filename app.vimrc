@@ -148,7 +148,7 @@ autocmd BufEnter * syn match Braces display '[{}()\[\]]'
 autocmd BufEnter * hi def link Braces comment
 
 " Ruler format
-set rulerformat=%40(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
+set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
 
 " Tab Configuration
 set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
@@ -260,7 +260,7 @@ if has('gui_running')
   colorscheme underwater
 endif
 
-if system("uname") =~ 'Darwin'
+if system('uname') =~ 'Darwin'
   set guifont=Monaco:h14        " Change GUI font
   set clipboard=unnamed         " Copy to GUI clipboard
 endif
