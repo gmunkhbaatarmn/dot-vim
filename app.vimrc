@@ -184,6 +184,9 @@ nmap <leader>r :set wrap!<CR>
 nmap > >>
 nmap < <<
 
+" Easy ESC (compatible with LeaveInsert)
+imap <C-c> <ESC>
+
 " Window move
 nmap <leader>d <C-w><LEFT>
 nmap <leader>n <C-w><RIGHT>
