@@ -4,65 +4,58 @@ let $PYTHONIOENCODING='utf-8'
 let $PYTHONPATH='/usr/local/google_appengine:/usr/local/lib/python2.7/site-packages'
 
 function! PythonFold()
-  ":2
   if v:lnum == 1
-    let s:doc_level = -1 " is docstring closed
+    let s:is_doc = 0 " is docstring closed
+    let s:doc_level = 0
   endif
 
-  function! IsNotLevel(line)
-    let lt = getline(a:line)
-    return lt !~? '^[ ]*@' && lt !~? '^[ ]*def ' && lt !~? '^[ ]*class'
-  endfunction
+  let current_line = getline(v:lnum)
+  let current_indent = indent(v:lnum) / &shiftwidth + 1
 
-  function! IndentLevel(lnum)
-    let current = a:lnum
-
-    while current > 1
-      if !IsNotLevel(current) && IsNotLevel(current - 1)
-        break
-      endif
-      let current -= 1
-    endwhile
-
-    return indent(current) / &shiftwidth + 1
-  endfunction
-
-  let lt = getline(v:lnum)
-  let this_indent = indent(v:lnum) / &shiftwidth + 1
-
-
-  if lt =~? '^[ ]*@' && getline(v:lnum) !~? '^[ ]*@'
-    return '>' . this_indent
-
-  elseif lt =~? '^[ ]*def ' && getline(v:lnum - 1) !~? '^[ ]*@'
-    return '>' . this_indent
-
-  elseif lt =~? '^[ ]*class'
-    return '>' . this_indent
-
-  elseif lt =~? '^[ ]*"""' && lt !~? '""".\+"""$'
-    if s:doc_level < 0
-      let s:doc_level = this_indent
-      return '>' . this_indent
-    else
-      let indent = s:doc_level
-      let s:doc_level = -1
-      return indent
+  " if docstring started
+  if s:is_doc
+    if current_line =~? '^[ ]*"""' && current_line !~? '""".\+"""$'
+      " docstring closing
+      let s:is_doc = 0
     endif
-
-  elseif s:doc_level >= 0
     return s:doc_level
 
-  elseif lt =~? '\v\S' && getline(v:lnum - 1) !~? '\v\S'
-    return '>' . this_indent
-
-  elseif lt !~? '\v\S' && getline(v:lnum + 1) =~? '^#'
-    return '0'
-
+  " if not in docstring
   else
-    return IndentLevel(v:lnum - 1)
-  endif
+    if current_line =~? '^[ ]*"""' && current_line !~? '""".\+"""$'
+      " docstring starting
+      let s:is_doc = 1
+      let s:doc_level = current_indent
+      return '>' . s:doc_level
+    endif
 
+    " if starts with `@` or `class` or `def`
+    if current_line =~? '^[ ]*@' || current_line =~? '^[ ]*def ' || current_line =~? '^[ ]*class '
+      if getline(v:lnum - 1) =~? '^[ ]*@'
+        return current_indent       " closing
+      else
+        return '>' . current_indent " entering
+      endif
+
+    " if starts with `from` or `import`
+    elseif current_line =~? '^\(from\|import\) '
+      if getline(v:lnum - 1) =~? '^\(from\|import\) ' && v:lnum != 1
+        return current_indent       " closing
+      else
+        return '>' . current_indent " entering
+      endif
+
+    " if non blank not indented line
+    elseif current_line =~? '\v\S' && current_indent == 1
+      return '0'
+
+    " if not indented and next line is comment
+    elseif current_line !~? '\v\S' && getline(v:lnum + 1) =~? '^#'
+      return '0'
+    endif
+
+    return '='
+  endif
 endfunction
 
 function! PythonFoldText()
