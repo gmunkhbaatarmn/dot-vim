@@ -292,6 +292,9 @@ autocmd FileType htmljinja hi def link mathjax Comment
 ":1 Shell script
 autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
 
+":1 CSS
+autocmd FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
+
 ":1 Stylus
 function! StylusFoldText()
   let suffix = substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', '')
