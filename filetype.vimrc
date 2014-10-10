@@ -189,7 +189,7 @@ autocmd BufEnter * if &filetype == 'coffee' |nmap <C-s>      :w<CR>:silent !coff
 autocmd BufEnter * if &filetype == 'coffee' |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
 
 ":1 Javascript
-autocmd FileType javascript setlocal foldmethod=marker foldmarker={,} autoindent
+autocmd FileType javascript setlocal foldmethod=marker foldmarker=\/\/\:,\/\/\ endfold autoindent
 
 autocmd BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time node "%" <CR>| endif
 
