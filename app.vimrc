@@ -54,8 +54,6 @@ function! NERDTreeCustomIgnoreFilter(path)
           \ $HOME . '/contestapplet.conf',
           \ $HOME . '/contestapplet.conf.bak',
           \ $HOME . '/Templates',
-          \ $HOME . '/ISO',
-          \ $HOME . '/VirtualBox VMs',
           \ $HOME . '/opt',
           \]
 
@@ -269,3 +267,17 @@ endif
 so $HOME/.vim/dvorak.vimrc
 so $HOME/.vim/filetype.vimrc
 so $HOME/.vim/writer.vimrc
+
+
+function! SourcePrint()
+  :colo macvim
+  :set background=light
+  :TOhtml
+  :w! ~/vim-source.html
+  :bdelete!
+  :!open ~/vim-source.html
+  :color underwater
+  :set background=dark
+endfunction
+
+command! SourcePrint :call SourcePrint()

@@ -74,6 +74,14 @@ function! PythonFoldExpr()
       return '>' . s:current_indent
     endif
 
+    ":3 Case: start with '# endfold'
+    if s:manual_fold > 0 && getline(v:lnum) =~? '^[ ]*# endfold'
+      let return_indent = s:current_indent
+      let s:current_indent -= 1
+      let s:manual_fold = 0
+      return '<' . return_indent
+    endif
+
     ":3 Case: start with '@', 'class', 'def'
     if getline(v:lnum) =~? '^[ ]*\(class \|def \|@\)'
       let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
@@ -120,7 +128,7 @@ function! PythonFoldText()
     let custom_text = 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
 
   elseif trimmed =~ '@'
-    let fillcharcount = 80 - len(prefix) - len(trimmed)
+    let fillcharcount = 80 - len(prefix) - len(substitute(trimmed, ".", "-", "g"))
     let custom_text = trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
 
   elseif trimmed =~ 'if '
@@ -170,6 +178,8 @@ autocmd FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 co
 autocmd FileType python syn match DocKeyword "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `>>`
 autocmd FileType python syn match DocKeyword ">>" containedin=pythonString contained
+" Highlight `self.`
+autocmd FileType python syn match Keyword "self\."
 
 " Highlight `argument - `
 autocmd FileType python syn match DocArgument "\s*[A-Za-z0-9_\-&\*:]*\(\s*- \)"he=e-2 containedin=pythonString contained
@@ -189,7 +199,7 @@ autocmd BufEnter * if &filetype == 'coffee' |nmap <C-s>      :w<CR>:silent !coff
 autocmd BufEnter * if &filetype == 'coffee' |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
 
 ":1 Javascript
-autocmd FileType javascript setlocal foldmethod=marker foldmarker={,} autoindent
+autocmd FileType javascript setlocal foldmethod=marker foldmarker=\/\/\:,\/\/\ endfold autoindent
 
 autocmd BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time node "%" <CR>| endif
 
@@ -291,6 +301,9 @@ autocmd FileType htmljinja hi def link mathjax Comment
 
 ":1 Shell script
 autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
+
+":1 CSS
+autocmd FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
 
 ":1 Stylus
 function! StylusFoldText()

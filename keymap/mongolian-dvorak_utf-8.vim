@@ -86,7 +86,7 @@ R	Ү	CYRILLIC SMALL LETTER Oе
 1	№	NUMERO SIGN
 2	-
 3	"
-4	T
+4	₮
 5	:
 7	?
 6	.

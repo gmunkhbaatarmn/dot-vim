@@ -2,6 +2,7 @@ snippet if
 if ${1:True}:
 	${0:${VISUAL:pass}}
 endsnippet
+
 snippet for
 for ${1:i} in ${2:data}:
 	${0:print i}
@@ -21,6 +22,11 @@ snippet utf
 # coding: utf-8
 endsnippet
 
+snippet log
+import logging
+logging.error(${0:${VISUAL:'logging'}})
+endsnippet
+
 snippet main
 if __name__ == "__main__":
 	${0:${VISUAL:main()}}
@@ -32,25 +38,30 @@ class ${1:Foo}(${2:object}):
 		${0:pass}
 endsnippet
 
-snippet from
-from ${1:${VISUAL:modlue}} import ${2:${VISUAL:*}}
+snippet fr
+from ${1} import ${2}
+endsnippet
+
+snippet fro
+from ${1} import ${2}
 endsnippet
 
 snippet imp
-import ${0:${VISUAL:datetime}}
+import ${1}
 endsnippet
 
 snippet frein
-sys.stdin = open("${0:${VISUAL:input.txt}}")
+sys.stdin = open("input.txt")
 endsnippet
 
 snippet freout
-sys.stdout = open("${0:${VISUAL:output.txt}}", "w+")
+sys.stdout = open("output.txt", "w+")
 endsnippet
 
-snippet lambda
+snippet la
 ${1:var} = lambda ${2:x}: ${0:${VISUAL:value}}
 endsnippet
+
 snippet try
 try:
 	${1:${VISUAL:pass}}

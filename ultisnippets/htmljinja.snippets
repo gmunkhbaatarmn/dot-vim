@@ -1,3 +1,5 @@
+# todo: improve snippets foldexpr. show comments in fold enabled
+# todo: add description to all (at least most) snippets
 snippet html
 <!DOCTYPE html>
 <html>
@@ -44,21 +46,22 @@ endsnippet
 
 snippet nbsp
 &nbsp;
+endsnippet
+
 # --------------------------------------
 #             Jinja snippets
 # --------------------------------------
+
+snippet {             "jinja print statement" i
+{{ ${0:${VISUAL}} }}
 endsnippet
 
-snippet { "jinja print statement" i
-{{ ${0:${VISUAL:"pass"}} }}
+snippet %             "jinja block" i
+{% ${0:${VISUAL}} %}
 endsnippet
 
-snippet % "jinja block" i
-{% ${0:${VISUAL:"pass"}} %}
-endsnippet
-
-snippet # "jinja comment" i
-{# ${0:${VISUAL:"pass"}} #}
+snippet #             "jinja comment" i
+{# ${0:${VISUAL}} #}
 endsnippet
 
 snippet extends
@@ -96,6 +99,7 @@ snippet for
 ${3}
 {% endfor %}
 endsnippet
+
 # --------------------------------------
 #          Simple HTML elements
 # --------------------------------------
