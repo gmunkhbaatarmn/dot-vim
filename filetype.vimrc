@@ -170,6 +170,8 @@ autocmd FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 co
 autocmd FileType python syn match DocKeyword "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `>>`
 autocmd FileType python syn match DocKeyword ">>" containedin=pythonString contained
+" Highlight `self.`
+autocmd FileType python syn match Keyword "self\."
 
 " Highlight `argument - `
 autocmd FileType python syn match DocArgument "\s*[A-Za-z0-9_\-&\*:]*\(\s*- \)"he=e-2 containedin=pythonString contained
