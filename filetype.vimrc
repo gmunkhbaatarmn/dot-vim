@@ -74,6 +74,14 @@ function! PythonFoldExpr()
       return '>' . s:current_indent
     endif
 
+    ":3 Case: start with '# endfold'
+    if s:manual_fold > 0 && getline(v:lnum) =~? '^[ ]*# endfold'
+      let return_indent = s:current_indent
+      let s:current_indent -= 1
+      let s:manual_fold = 0
+      return '<' . return_indent
+    endif
+
     ":3 Case: start with '@', 'class', 'def'
     if getline(v:lnum) =~? '^[ ]*\(class \|def \|@\)'
       let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
