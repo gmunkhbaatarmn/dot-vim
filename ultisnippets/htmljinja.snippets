@@ -49,16 +49,16 @@ snippet nbsp
 # --------------------------------------
 endsnippet
 
-snippet {
-{{ ${1} }}
+snippet { "jinja print statement" i
+{{ ${0:${VISUAL:"pass"}} }}
 endsnippet
 
-snippet %
-{% ${1} %}
+snippet % "jinja block" i
+{% ${0:${VISUAL:"pass"}} %}
 endsnippet
 
-snippet #
-{# ${1} #}
+snippet # "jinja comment" i
+{# ${0:${VISUAL:"pass"}} #}
 endsnippet
 
 snippet extends
@@ -95,10 +95,10 @@ snippet for
 {% for ${1} in ${2} %}
 ${3}
 {% endfor %}
+endsnippet
 # --------------------------------------
 #          Simple HTML elements
 # --------------------------------------
-endsnippet
 
 snippet br
 <br>
@@ -128,6 +128,8 @@ snippet form
 <form method="post" action="${1}">
 	<button type="submit">submit</button>
 </form>
+endsnippet
+
 # --------------------------------------
 #             HTML elements
 # {el}    - element
@@ -136,8 +138,6 @@ snippet form
 # {el}*id - with id
 # {el}*st - with style
 # --------------------------------------
-endsnippet
-
 snippet a
 <a href="${1}">
 </a>
