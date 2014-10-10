@@ -1,3 +1,5 @@
+# todo: improve snippets foldexpr. show comments in fold enabled
+# todo: add description to all (at least most) snippets
 snippet html
 <!DOCTYPE html>
 <html>
@@ -49,15 +51,15 @@ snippet nbsp
 # --------------------------------------
 endsnippet
 
-snippet {
+snippet {             " Jinja variable  " i
 {{ ${1} }}
 endsnippet
 
-snippet %
+snippet %             " Jinja operation " i
 {% ${1} %}
 endsnippet
 
-snippet #
+snippet #             " Jinja comment   " i
 {# ${1} #}
 endsnippet
 
@@ -95,10 +97,11 @@ snippet for
 {% for ${1} in ${2} %}
 ${3}
 {% endfor %}
+endsnippet
+
 # --------------------------------------
 #          Simple HTML elements
 # --------------------------------------
-endsnippet
 
 snippet br
 <br>
@@ -128,6 +131,8 @@ snippet form
 <form method="post" action="${1}">
 	<button type="submit">submit</button>
 </form>
+endsnippet
+
 # --------------------------------------
 #             HTML elements
 # {el}    - element
@@ -136,7 +141,6 @@ snippet form
 # {el}*id - with id
 # {el}*st - with style
 # --------------------------------------
-endsnippet
 
 snippet a
 <a href="${1}">
