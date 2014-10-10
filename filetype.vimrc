@@ -128,7 +128,7 @@ function! PythonFoldText()
     let custom_text = 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
 
   elseif trimmed =~ '@'
-    let fillcharcount = 80 - len(prefix) - len(trimmed)
+    let fillcharcount = 80 - len(prefix) - len(substitute(trimmed, ".", "-", "g"))
     let custom_text = trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
 
   elseif trimmed =~ 'if '
