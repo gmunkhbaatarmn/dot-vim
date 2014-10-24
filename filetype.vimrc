@@ -121,26 +121,29 @@ function! PythonFoldText()
   if trimmed =~ '"""'
     let custom_text = '✎ …' . strpart(trimmed, 3)
 
-  elseif trimmed =~ '@classmethod'
+  elseif trimmed =~ '^@classmethod'
     let custom_text = substitute(nextline_trimmed, ':', '', '') . ' (classmethod)'
 
-  elseif trimmed =~ '@property'
+  elseif trimmed =~ '^@property'
     let custom_text = 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
 
   elseif trimmed =~ '@'
     let fillcharcount = 80 - len(prefix) - len(substitute(trimmed, ".", "-", "g"))
     let custom_text = trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
 
-  elseif trimmed =~ 'if '
+  elseif trimmed =~ '^# - '
+    let custom_text = printf('▸%2s ', v:foldend - v:foldstart) . strpart(trimmed, 4)
+
+  elseif trimmed =~ '^if '
     let custom_text = 'if ' . substitute(strpart(trimmed, 3), ':', '', '')
 
-  elseif trimmed =~ 'for '
+  elseif trimmed =~ '^for '
     let custom_text = 'for ' . substitute(strpart(trimmed, 4), ':', '', '')
 
-  elseif trimmed =~ 'def '
+  elseif trimmed =~ '^def '
     let custom_text = 'def ' . substitute(strpart(trimmed, 4), ':', '', '')
 
-  elseif trimmed =~ 'class '
+  elseif trimmed =~ '^class '
     let custom_text = 'class ' . substitute(strpart(trimmed, 6), ':', '', '')
   else
     return foldtext()
@@ -300,7 +303,7 @@ autocmd FileType htmljinja syn region mathjax start=/\s*$$[^$]*/ end=/[^$]*$$\s*
 autocmd FileType htmljinja hi def link mathjax Comment
 
 ":1 Shell script
-autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!sh "%"<CR>| endif
+autocmd BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!bash "%"<CR>| endif
 
 ":1 CSS
 autocmd FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
