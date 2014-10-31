@@ -1,65 +1,62 @@
-snippet if
+snippet if            "if expression"            b
 if ${1:True}:
 	${0:${VISUAL:pass}}
 endsnippet
 
-snippet for
-for ${1:i} in ${2:data}:
-	${0:print i}
+snippet try           "try except"               b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception}:
+	${0:${VISUAL:pass}}
+endsnippet
+snippet for           "for loop"                 b
+for $1 in $2:
+	$0
 endsnippet
 
-snippet log
-import logging
-logging.error(${0:${VISUAL:"logging"}})
-endsnippet
-
-snippet env
+snippet env           "environment"              b
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 endsnippet
 
-snippet utf
+snippet utf           "coding utf-8"             b
 # coding: utf-8
 endsnippet
 
-snippet main
+snippet main          "main funtion"             b
 if __name__ == "__main__":
 	${0:${VISUAL:main()}}
 endsnippet
 
-snippet cl
+snippet "log[ing]*"   "logging error"            r
+import logging
+logging.error(${0:${VISUAL:"logging"}})
+endsnippet
+
+snippet "cl[as]*"     "class"                    r
 class ${1:Foo}(${2:object}):
 	def ${3:__init__}(self):
 		${0:pass}
 endsnippet
 
-snippet fr
-from ${1} import ${2}
+snippet "fr[om]*"     "from * import *"          r
+from $1 import $0
 endsnippet
 
-snippet fro
-from ${1} import ${2}
+snippet "imp[ort]*"   "import"                   r
+import $0
 endsnippet
 
-snippet imp
-import ${1}
-endsnippet
-
-snippet frein
+priority 2
+snippet "fre[in]*"    "input.txt to stdin"       r
 sys.stdin = open("input.txt")
 endsnippet
 
-snippet freout
+priority 1
+snippet "fre[out]*"   "input.txt to stdout"      r
 sys.stdout = open("output.txt", "w+")
 endsnippet
 
-snippet la
+snippet "la[mbda]*"   "lambda function"          r
 ${1:var} = lambda ${2:x}: ${0:${VISUAL:value}}
-endsnippet
-
-snippet try
-try:
-	${1:${VISUAL:pass}}
-except ${2:Exception}:
-	${0:${VISUAL:pass}}
 endsnippet
