@@ -1,0 +1,60 @@
+snippet contest
+	// created: `strftime("%Y-%m-%d")`
+	#include <map>
+	#include <set>
+	#include <list>
+	#include <cmath>
+	#include <stack>
+	#include <queue>
+	#include <vector>
+	#include <cstdio>
+	#include <cstdlib>
+	#include <cstring>
+	#include <utility>
+	#include <sstream>
+	#include <iostream>
+	#include <algorithm>
+	#define Pair   pair<int,int>
+	#define Push   push_back
+	#define Eps    (1e-9)
+	#define px     first
+	#define py     second
+	#define length size()
+
+	#define For(i, a, b) for (int i = (a); i <= (int)(b); ++i)
+	#define Rep(i, a)    for (int i = 0; i < (int)(a); ++i)
+	#define All(c)       c.begin(), c.end()
+	#define Equal(a, b)  (abs((a)-(b)) < eps)
+	#define Sqr(x)       ((x)*(x))
+
+	using namespace std;
+
+	typedef vector<int>  Vector;
+	typedef    set<int>  Set;
+	typedef   long long  Long;
+
+	template<class Type> string toString(Type x) { stringstream out; out << x; return out.str(); }
+	template<class Type> Long   toNumber(Type s) { stringstream in(s); Long x; in >> x; return x; }
+
+	int dx[8] = {0,  0,  1, -1,  1,  1, -1, -1};
+	int dy[8] = {1, -1,  0,  0, -1,  1, -1,  1};
+	int kx[8] = {1,  1, -1, -1,  2,  2, -2, -2};
+	int ky[8] = {2, -2,  2, -2,  1, -1,  1, -1};
+	// end
+
+	int main() {
+		ios_base::sync_with_stdio(false);
+
+		${1}
+		return 0;
+	}
+snippet ct
+	cout << ${1} << "\n";
+snippet cti
+	cout << ${1};
+snippet ctl
+	cout << "\n";
+snippet std
+	using namespace std;
+snippet getline
+	getline(cin, ${1:name});
