@@ -1,0 +1,255 @@
+snippet html
+	<!DOCTYPE html>
+	<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>Page title</title>
+	</head>
+	<body>
+	</body>
+	</html>
+snippet title
+	<title>${1:`substitute(Filename('', 'Page Title'), '^.', '\u&', '')`}</title>
+snippet meta
+	<meta name="${1:name}" content="${2:content}"/>
+snippet css
+	<link rel="stylesheet" href="${1}">
+snippet cssi
+	<style>
+	  ${1}
+	</style>
+snippet js
+	<script src="${1}"></script>
+snippet jsi
+	<script>
+	  ${1}
+	</script>
+snippet clr
+	<div style="clear:both"></div>
+snippet nbsp
+	&nbsp;
+# --------------------------------------
+#             Jinja snippets
+# --------------------------------------
+snippet {
+	{{ ${1} }}
+snippet %
+	{% ${1} %}
+snippet #
+	{# ${1} #}
+snippet extends
+	{% extends ${1:"Layout.html"} %}
+snippet include
+	{% include "${1}" %}
+snippet block
+	{% block ${1} %}
+	${2}
+	{% endblock %}
+snippet if
+	{% if ${1} %}
+	${2}
+	{% endif %}
+snippet elif
+	{% elif ${1} %}
+	${2}
+snippet else
+	{% else %}
+	${1}
+snippet for
+	{% for ${1} in ${2} %}
+	${3}
+	{% endfor %}
+# --------------------------------------
+#          Simple HTML elements
+# --------------------------------------
+snippet br
+	<br>
+snippet hr
+	<hr>
+snippet img
+	<img src="${1}">
+snippet input
+	<input type="text" name="${1}" value="${2}">
+snippet hidden
+	<input type="hidden" name="${1}" value="${2}">
+snippet textarea
+	<textarea>${1}</textarea>
+snippet form
+	<form method="post" action="${1}">
+	  <button type="submit">submit</button>
+	</form>
+# --------------------------------------
+#             HTML elements
+# {el}    - element
+# {el}*i  - one line
+# {el}*cl - with class
+# {el}*id - with id
+# {el}*st - with style
+# --------------------------------------
+snippet a
+	<a href="${1}">
+	</a>
+snippet ai
+	<a href="${1}">${2}</a>
+snippet acl
+	<a href="${1}" class="${2}">
+	</a>
+snippet acli
+	<a href="${1}" class="${2}">${3}</a>
+snippet div
+	<div>
+	  ${1}
+	</div>
+snippet divi
+	<div>${1}</div>
+snippet divcl
+	<div class="${1}">
+	</div>
+snippet divcli
+	<div class="${1}">${2}</div>
+snippet divid
+	<div id="${1}">
+	</div>
+snippet dividi
+	<div id="${1}">${2}</div>
+snippet divst
+	<div style="${1}">
+	</div>
+snippet divsti
+	<div style="${1}">${2}</div>
+snippet p
+	<p>
+	  ${1}
+	</p>
+snippet pi
+	<p>${1}</p>
+snippet pcl
+	<p class="${1}">
+	  ${2}
+	</p>
+snippet pcli
+	<p class="${1}">${2}</p>
+snippet span
+	<span>
+	  ${1}
+	</span>
+snippet spani
+	<span>${1}</span>
+snippet spancl
+	<span class="${1}">
+	</span>
+snippet spancli
+	<span class="${1}">${2}</span>
+snippet label
+	<label>
+	  ${1}
+	</label>
+snippet labeli
+	<label>${1}</label>
+snippet h1
+	<h1>
+	  ${1}
+	</h1>
+snippet h1i
+	<h1>${1}</h1>
+snippet h2
+	<h2>
+	  ${1}
+	</h2>
+snippet h2i
+	<h2>${1}</h2>
+snippet h3
+	<h3>
+	  ${1}
+	</h3>
+snippet h3i
+	<h3>${1}</h3>
+snippet h4
+	<h4>
+	  ${1}
+	</h4>
+snippet h4i
+	<h4>${1}</h4>
+snippet ul
+	<ul>
+	  ${1}
+	</ul>
+snippet ulcl
+	<ul class="${1}">
+	  ${2}
+	</ul>
+snippet ulcli
+	<ul class="${1}">${2}</ul>
+snippet li
+	<li>
+	  ${1}
+	</li>
+snippet lii
+	<li>${1}</li>
+snippet licl
+	<li class="${1}">
+	  ${2}
+	</li>
+snippet licli
+	<li class="${1}">${2}</li>
+snippet table
+	<table>
+	</table>
+snippet tablecl
+	<table class="${1}">
+	</table>
+snippet thead
+	<thead>
+	  ${1}
+	</thead>
+snippet tbody
+	<tbody>
+	  ${1}
+	</tbody>
+snippet tr
+	<tr>
+	  ${1}
+	</tr>
+snippet tri
+	<tr>${1}</tr>
+snippet th
+	<th>
+	  ${1}
+	</th>
+snippet thi
+	<th>${1}</th>
+snippet thcl
+	<th class="${1}">
+	</th>
+snippet thcli
+	<th class="${1}">${2}</th>
+snippet td
+	<td>
+	  ${1}
+	</td>
+snippet tdi
+	<td>${1}</td>
+snippet tdcl
+	<td class="${1}">
+	</td>
+snippet tdcli
+	<td class="${1}">${2}</td>
+
+snippet btn
+	<button>
+		${0:${VISUAL}}
+	</button>
+
+snippet btni
+	<button>${0:${VISUAL}}</button>
+
+snippet btncl
+	<button class="${1}">
+		${0:${VISUAL}}
+	</button>
+
+snippet btncli
+	<button class="${1}">${0:${VISUAL}}</button>
+
+snippet cl
+	class="${0:${VISUAL}}"
