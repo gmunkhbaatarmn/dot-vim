@@ -79,8 +79,8 @@ ${2}
 endsnippet
 
 snippet if
-{% if ${1} %}
-${2}
+{% if $1 %}
+${0:${VISUAL}}
 {% endif %}
 endsnippet
 
@@ -91,12 +91,12 @@ endsnippet
 
 snippet else
 {% else %}
-${1}
+	${0}
 endsnippet
 
 snippet for
 {% for ${1} in ${2} %}
-${3}
+${0:${VISUAL}}
 {% endfor %}
 endsnippet
 
@@ -117,7 +117,7 @@ snippet img
 endsnippet
 
 snippet input
-<input type="text" name="${1}" value="${2}">
+<input type="${1:text}" name="${2}" value="${0}">
 endsnippet
 
 snippet hidden
@@ -129,7 +129,8 @@ snippet textarea
 endsnippet
 
 snippet form
-<form method="post" action="${1}">
+<form method="${1:post}" action="${2}">
+	${0:${VISUAL}}
 	<button type="submit">submit</button>
 </form>
 endsnippet
@@ -162,39 +163,42 @@ endsnippet
 
 snippet div
 <div>
-	${1}
+	${0:${VISUAL}}
 </div>
 endsnippet
 
 snippet divi
-<div>${1}</div>
+<div>${0:${VISUAL}}</div>
 endsnippet
 
 snippet divcl
 <div class="${1}">
+	${0:${VISUAL}}
 </div>
 endsnippet
 
 snippet divcli
-<div class="${1}">${2}</div>
+<div class="${1}">${0:${VISUAL}}</div>
 endsnippet
 
 snippet divid
 <div id="${1}">
+	${0:${VISUAL}}
 </div>
 endsnippet
 
 snippet dividi
-<div id="${1}">${2}</div>
+<div id="${1}">${0:${VISUAL}}</div>
 endsnippet
 
 snippet divst
 <div style="${1}">
+	${0:${VISUAL}}
 </div>
 endsnippet
 
 snippet divsti
-<div style="${1}">${2}</div>
+<div style="${1}">${0:${VISUAL}}</div>
 endsnippet
 
 snippet p
@@ -324,6 +328,7 @@ endsnippet
 
 snippet table
 <table>
+	${0:${VISUAL}}
 </table>
 endsnippet
 
@@ -334,13 +339,13 @@ endsnippet
 
 snippet thead
 <thead>
-	${1}
+	${0:${VISUAL}}
 </thead>
 endsnippet
 
 snippet tbody
 <tbody>
-	${1}
+	${0:${VISUAL}}
 </tbody>
 endsnippet
 
@@ -375,19 +380,44 @@ endsnippet
 
 snippet td
 <td>
-	${1}
+	${0:${VISUAL}}
 </td>
 endsnippet
 
 snippet tdi
-<td>${1}</td>
+<td>${0:${VISUAL}}</td>
 endsnippet
 
 snippet tdcl
 <td class="${1}">
+	${0:${VISUAL}}
 </td>
 endsnippet
 
 snippet tdcli
-<td class="${1}">${2}</td>
+<td class="${1}">${0:${VISUAL}}</td>
+endsnippet
+
+snippet btn
+<button>
+	${0:${VISUAL}}
+</button>
+endsnippet
+
+snippet btni
+<button>${0:${VISUAL}}</button>
+endsnippet
+
+snippet btncl
+<button class="${1}">
+	${0:${VISUAL}}
+</button>
+endsnippet
+
+snippet btncli
+<button class="${1}">${0:${VISUAL}}</button>
+endsnippet
+
+snippet cl
+class="${0:${VISUAL}}"
 endsnippet
