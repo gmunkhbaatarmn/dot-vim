@@ -112,6 +112,7 @@ set nobackup nowritebackup noswapfile  " Disable backup
 
 set hlsearch                           " Highlight search result
 set encoding=utf-8                     " Preferred encoding
+set nobomb                             " Unicode without BOM (Byte Order Mark)
 set fileformats=unix fileformat=unix   " Preferred filetype
 set hidden                             " Undo history save when changing buffers
 set wildmenu                           " Show autocomplete menus
@@ -127,11 +128,13 @@ set shellslash                         " Always use unix style slash /
 set nojoinspaces                       " no insert two spaces in line join
 set t_Co=256                           " (CLI only) Number of colors
 set t_vb=                              " (CLI only) Visual bell
+set gdefault                           " Add the g flag to search/replace by default
 
 " Easy fold toggle
 nmap <Space> za
 nmap <CR> za
 nmap e za
+
 
 " Easy fold toggle for enter key. (Exclude `quickfix` filetype)
 autocmd BufEnter * if &filetype == 'qf' |unmap <CR>|    endif
@@ -260,7 +263,7 @@ endif
 
 if system('uname') =~ 'Darwin'
   set guifont=Monaco:h14        " Change GUI font
-  set clipboard=unnamed         " Copy to GUI clipboard
+  set clipboard=unnamed         " Use the OS clipboard by default
 endif
 " endfold
 
