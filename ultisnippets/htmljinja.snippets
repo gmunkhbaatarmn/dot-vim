@@ -5,38 +5,39 @@ snippet html
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Page title</title>
+	<title>${1:Page title}</title>
 </head>
 <body>
+$0
 </body>
 </html>
 endsnippet
 
 snippet title
-<title>${1:`substitute(Filename('', 'Page Title'), '^.', '\u&', '')`}</title>
+<title>${0:`!v substitute(Filename('', 'Page Title'), '^.', '\u&', '')`}</title>
 endsnippet
 
 snippet meta
-<meta name="${1:name}" content="${2:content}"/>
+<meta name="${1:name}" content="${0:content}"/>
 endsnippet
 
 snippet css
-<link rel="stylesheet" href="${1}">
+<link rel="stylesheet" href="$0">
 endsnippet
 
 snippet cssi
 <style>
-	${1}
+	$0
 </style>
 endsnippet
 
 snippet js
-<script src="${1}"></script>
+<script src="$0"></script>
 endsnippet
 
 snippet jsi
 <script>
-	${1}
+	$0
 </script>
 endsnippet
 
@@ -65,16 +66,16 @@ snippet #             " Jinja comment   " i
 endsnippet
 
 snippet extends
-{% extends ${1:"Layout.html"} %}
+{% extends ${0:"Layout.html"} %}
 endsnippet
 
 snippet include
-{% include "${1}" %}
+{% include "$0" %}
 endsnippet
 
 snippet block
-{% block ${1} %}
-${2}
+{% block ${1:content} %}
+${0:${VISUAL}}
 {% endblock %}
 endsnippet
 
@@ -85,17 +86,17 @@ ${0:${VISUAL}}
 endsnippet
 
 snippet elif
-{% elif ${1} %}
-${2}
+{% elif $1 %}
+$0
 endsnippet
 
 snippet else
 {% else %}
-	${0}
+	$0
 endsnippet
 
 snippet for
-{% for ${1} in ${2} %}
+{% for $1 in $2 %}
 ${0:${VISUAL}}
 {% endfor %}
 endsnippet
@@ -113,23 +114,23 @@ snippet hr
 endsnippet
 
 snippet img
-<img src="${1}">
+<img src="$0">
 endsnippet
 
 snippet input
-<input type="${1:text}" name="${2}" value="${0}">
+<input type="${1:text}" name="$2" value="$0">
 endsnippet
 
 snippet hidden
-<input type="hidden" name="${1}" value="${2}">
+<input type="hidden" name="$1" value="$0">
 endsnippet
 
 snippet textarea
-<textarea>${1}</textarea>
+<textarea>${0:${VISUAL}}</textarea>
 endsnippet
 
 snippet form
-<form method="${1:post}" action="${2}">
+<form method="${1:post}" action="$2">
 	${0:${VISUAL}}
 	<button type="submit">submit</button>
 </form>
@@ -144,21 +145,23 @@ endsnippet
 # {el}*st - with style
 # --------------------------------------
 snippet a
-<a href="${1}">
+<a href="$1">
+	${0:${VISUAL}}
 </a>
 endsnippet
 
 snippet ai
-<a href="${1}">${2}</a>
+<a href="$1">${0:${VISUAL}}</a>
 endsnippet
 
 snippet acl
-<a href="${1}" class="${2}">
+<a href="$1" class="$2">
+	${0:${VISUAL}}
 </a>
 endsnippet
 
 snippet acli
-<a href="${1}" class="${2}">${3}</a>
+<a href="$1" class="$2">${0:${VISUAL}}</a>
 endsnippet
 
 snippet div
@@ -172,158 +175,159 @@ snippet divi
 endsnippet
 
 snippet divcl
-<div class="${1}">
+<div class="$1">
 	${0:${VISUAL}}
 </div>
 endsnippet
 
 snippet divcli
-<div class="${1}">${0:${VISUAL}}</div>
+<div class="$1">${0:${VISUAL}}</div>
 endsnippet
 
 snippet divid
-<div id="${1}">
+<div id="$1">
 	${0:${VISUAL}}
 </div>
 endsnippet
 
 snippet dividi
-<div id="${1}">${0:${VISUAL}}</div>
+<div id="$1">${0:${VISUAL}}</div>
 endsnippet
 
 snippet divst
-<div style="${1}">
+<div style="$1">
 	${0:${VISUAL}}
 </div>
 endsnippet
 
 snippet divsti
-<div style="${1}">${0:${VISUAL}}</div>
+<div style="$1">${0:${VISUAL}}</div>
 endsnippet
 
 snippet p
 <p>
-	${1}
+	${0:${VISUAL}}
 </p>
 endsnippet
 
 snippet pi
-<p>${1}</p>
+<p>${0:${VISUAL}}</p>
 endsnippet
 
 snippet pcl
-<p class="${1}">
-	${2}
+<p class="$1">
+	${0:${VISUAL}}
 </p>
 endsnippet
 
 snippet pcli
-<p class="${1}">${2}</p>
+<p class="$1">${0:${VISUAL}}</p>
 endsnippet
 
 snippet span
 <span>
-	${1}
+	${0:${VISUAL}}
 </span>
 endsnippet
 
 snippet spani
-<span>${1}</span>
+<span>${0:${VISUAL}}</span>
 endsnippet
 
 snippet spancl
 <span class="${1}">
+	${0:${VISUAL}}
 </span>
 endsnippet
 
 snippet spancli
-<span class="${1}">${2}</span>
+<span class="${1}">${0:${VISUAL}}</span>
 endsnippet
 
 snippet label
 <label>
-	${1}
+	${0:${VISUAL}}
 </label>
 endsnippet
 
 snippet labeli
-<label>${1}</label>
+<label>${0:${VISUAL}}</label>
 endsnippet
 
 snippet h1
 <h1>
-	${1}
+	${0:${VISUAL}}
 </h1>
 endsnippet
 
 snippet h1i
-<h1>${1}</h1>
+<h1>${0:${VISUAL}}</h1>
 endsnippet
 
 snippet h2
 <h2>
-	${1}
+	${0:${VISUAL}}
 </h2>
 endsnippet
 
 snippet h2i
-<h2>${1}</h2>
+<h2>${0:${VISUAL}}</h2>
 endsnippet
 
 snippet h3
 <h3>
-	${1}
+	${0:${VISUAL}}
 </h3>
 endsnippet
 
 snippet h3i
-<h3>${1}</h3>
+<h3>${0:${VISUAL}}</h3>
 endsnippet
 
 snippet h4
 <h4>
-	${1}
+	${0:${VISUAL}}
 </h4>
 endsnippet
 
 snippet h4i
-<h4>${1}</h4>
+<h4>${0:${VISUAL}}</h4>
 endsnippet
 
 snippet ul
 <ul>
-	${1}
+	${0:${VISUAL}}
 </ul>
 endsnippet
 
 snippet ulcl
-<ul class="${1}">
-	${2}
+<ul class="$1">
+	${0:${VISUAL}}
 </ul>
 endsnippet
 
 snippet ulcli
-<ul class="${1}">${2}</ul>
+<ul class="$1">${0:${VISUAL}}</ul>
 endsnippet
 
 snippet li
 <li>
-	${1}
+	${0:${VISUAL}}
 </li>
 endsnippet
 
 snippet lii
-<li>${1}</li>
+<li>${0:${VISUAL}}</li>
 endsnippet
 
 snippet licl
-<li class="${1}">
-	${2}
+<li class="$1">
+	${0:${VISUAL}}
 </li>
 endsnippet
 
 snippet licli
-<li class="${1}">${2}</li>
+<li class="$1">${0:${VISUAL}}</li>
 endsnippet
 
 snippet table
@@ -333,7 +337,8 @@ snippet table
 endsnippet
 
 snippet tablecl
-<table class="${1}">
+<table class="$1">
+	${0:${VISUAL}}
 </table>
 endsnippet
 
@@ -351,31 +356,32 @@ endsnippet
 
 snippet tr
 <tr>
-	${1}
+	${0:${VISUAL}}
 </tr>
 endsnippet
 
 snippet tri
-<tr>${1}</tr>
+<tr>${0:${VISUAL}}</tr>
 endsnippet
 
 snippet th
 <th>
-	${1}
+	${0:${VISUAL}}
 </th>
 endsnippet
 
 snippet thi
-<th>${1}</th>
+<th>${0:${VISUAL}}</th>
 endsnippet
 
 snippet thcl
-<th class="${1}">
+<th class="$1">
+	${0:${VISUAL}}
 </th>
 endsnippet
 
 snippet thcli
-<th class="${1}">${2}</th>
+<th class="$1">${0:${VISUAL}}</th>
 endsnippet
 
 snippet td
@@ -389,13 +395,13 @@ snippet tdi
 endsnippet
 
 snippet tdcl
-<td class="${1}">
+<td class="$1">
 	${0:${VISUAL}}
 </td>
 endsnippet
 
 snippet tdcli
-<td class="${1}">${0:${VISUAL}}</td>
+<td class="$1">${0:${VISUAL}}</td>
 endsnippet
 
 snippet btn
@@ -409,13 +415,13 @@ snippet btni
 endsnippet
 
 snippet btncl
-<button class="${1}">
+<button class="$1">
 	${0:${VISUAL}}
 </button>
 endsnippet
 
 snippet btncli
-<button class="${1}">${0:${VISUAL}}</button>
+<button class="$1">${0:${VISUAL}}</button>
 endsnippet
 
 snippet cl
