@@ -4,13 +4,18 @@ function! Writer()
   set laststatus=0
 
   set background=light
-  colorscheme macvim
+  if system('uname') =~ 'Darwin'
+    colorscheme macvim
+    set guifont=Menlo:h13
+  else
+    colorscheme solarized
+    set guifont=DejaVu:h13
+  endif
   set background=light
 
   set fillchars=vert:\ "
   set foldcolumn=12
   set linespace=4
-  set guifont=Menlo:h13
   set textwidth=80
 
   autocmd FileType markdown syn match Quote '^\s*> .*$'
