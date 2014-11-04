@@ -18,3 +18,6 @@ snippet freout
 	sys.stdout = open("output.txt", "w+")
 snippet lambda
 	${1:var} = lambda ${2:args}: ${3:value}
+snippet log
+	import logging
+	logging.error(${1:{VISUAL}})
