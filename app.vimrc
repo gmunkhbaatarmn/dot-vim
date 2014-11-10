@@ -22,6 +22,8 @@ let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
 
+let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
+
 function! NERDTreeCustomIgnoreFilter(path)
   if b:NERDTreeShowHidden ==# 0
     let patterns = [
@@ -265,7 +267,6 @@ endif
 so $HOME/.vim/dvorak.vimrc
 so $HOME/.vim/filetype.vimrc
 so $HOME/.vim/writer.vimrc
-
 
 function! SourcePrint()
   :colo macvim
