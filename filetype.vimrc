@@ -221,6 +221,9 @@ autocmd BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "
 ":1 Vim (Vimscript)
 autocmd FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold
 
+":1 Yaml
+autocmd FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold
+
 ":1 C
 autocmd BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
 autocmd BufEnter * if &filetype == 'c' |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
