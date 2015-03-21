@@ -21,6 +21,9 @@ function! Writer()
   autocmd FileType markdown syn match Quote '^\s*> .*$'
   autocmd Filetype markdown hi Quote guifg=#888888
 
+  autocmd BufEnter markdown syn match Braces display '[{}()\[\]]'
+  autocmd BufEnter markdown hi def link Braces comment
+
   hi FoldColumn               guibg=white
   hi Normal                   guibg=gray95
   hi NonText                  guifg=gray95
