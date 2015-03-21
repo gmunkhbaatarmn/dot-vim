@@ -199,12 +199,22 @@ map <M-1> 1gk
 map <M-2> 2gk
 map <M-3> 3gk
 map <M-4> 4gk
+map <M-5> 5gk
+map <M-6> 6gk
+map <M-7> 7gk
+map <M-8> 8gk
+map <M-9> 9gk
 
 if system("uname") =~ 'Darwin'
   map <D-1> 1gk
   map <D-2> 2gk
   map <D-3> 3gk
   map <D-4> 4gk
+  map <D-5> 5gk
+  map <D-6> 6gk
+  map <D-7> 7gk
+  map <D-8> 8gk
+  map <D-9> 9gk
 endif
 
 " Keymap switch
