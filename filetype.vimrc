@@ -330,9 +330,9 @@ endfunction
 autocmd vimrc FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold foldtext=StylusFoldText()
 autocmd vimrc FileType stylus setlocal iskeyword-=#,-
 
-autocmd vimrc BufEnter * if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib -u jeet -u stylus-normalize --include-css -p "%" > "%:r.styl.css"<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus -u nib -u jeet -u stylus-normalize --include-css -p "%" > "%:r.styl.css"<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus -u nib -u jeet -u stylus-normalize --include-css -p "%" > "%:r.styl.css"<CR>| endif
+autocmd vimrc BufEnter *.css.styl if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib -u jeet -u stylus-normalize --include-css -p "%" > "%:r"<CR>| endif
+autocmd vimrc BufEnter *.css.styl if &filetype == 'stylus' |imap <C-s> <ESC>:w<CR>:!stylus -u nib -u jeet -u stylus-normalize --include-css -p "%" > "%:r"<CR>| endif
+autocmd vimrc BufEnter *.css.styl if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus -u nib -u jeet -u stylus-normalize --include-css -p "%" > "%:r"<CR>| endif
 
 ":1 Snippets
 autocmd vimrc FileType snippets setlocal foldmethod=expr foldtext=getline(v:foldstart) foldexpr=((getline(v:lnum)=~?'snippet\ ')?'>1':'1')
