@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 ":1 Python
 let $PYTHONDONTWRITEBYTECODE = 1
 let $PYTHONIOENCODING = 'utf-8'
@@ -42,7 +44,7 @@ function! PythonFoldExpr()
     endif
 
     ":3 Case: 2 empty line allowed in zero indent
-    if s:current_indent > 0 && getline(v:lnum) =~? '\v\S' && getline(v:lnum) !~ '\v\S' && getline(v:lnum + 1) !~ '\v\S'
+    if s:current_indent > 0 && getline(v:lnum) =~? '\v\S' && getline(v:lnum) !~? '\v\S' && getline(v:lnum + 1) !~? '\v\S'
       return '1'
     endif
 
@@ -118,32 +120,32 @@ function! PythonFoldText()
   let nextline = getline(v:foldstart + 1)
   let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
 
-  if trimmed =~ '"""'
+  if trimmed =~# '"""'
     let custom_text = '✎ …' . strpart(trimmed, 3)
 
-  elseif trimmed =~ '^@classmethod'
+  elseif trimmed =~# '^@classmethod'
     let custom_text = substitute(nextline_trimmed, ':', '', '') . ' (classmethod)'
 
-  elseif trimmed =~ '^@property'
+  elseif trimmed =~# '^@property'
     let custom_text = 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
 
-  elseif trimmed =~ '@'
+  elseif trimmed =~# '@'
     let fillcharcount = 80 - len(prefix) - len(substitute(trimmed, '.', '-', 'g'))
     let custom_text = trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
 
-  elseif trimmed =~ '^# - '
+  elseif trimmed =~# '^# - '
     let custom_text = printf('▸%2s ', v:foldend - v:foldstart) . strpart(trimmed, 4)
 
-  elseif trimmed =~ '^if '
+  elseif trimmed =~# '^if '
     let custom_text = 'if ' . substitute(strpart(trimmed, 3), ':', '', '')
 
-  elseif trimmed =~ '^for '
+  elseif trimmed =~# '^for '
     let custom_text = 'for ' . substitute(strpart(trimmed, 4), ':', '', '')
 
-  elseif trimmed =~ '^def '
+  elseif trimmed =~# '^def '
     let custom_text = 'def ' . substitute(strpart(trimmed, 4), ':', '', '')
 
-  elseif trimmed =~ '^class '
+  elseif trimmed =~# '^class '
     let custom_text = 'class ' . substitute(strpart(trimmed, 6), ':', '', '')
   else
     return foldtext()
@@ -318,7 +320,7 @@ function! StylusFoldText()
   let suffix = substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', '')
   let prefix = repeat(' ', stridx(getline(v:foldstart), suffix))
 
-  if strpart(suffix, 0, 5) == '//:1 '
+  if strpart(suffix, 0, 5) ==# '//:1 '
     return prefix . printf('|%2s| ', v:foldend - v:foldstart) . strpart(suffix, 5)
   endif
 

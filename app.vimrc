@@ -107,9 +107,10 @@ filetype indent on                     " Enable indent
 set number                             " Enable line numbers
 set autoindent                         " Enable auto indent
 set nobackup nowritebackup noswapfile  " Disable backup
+set encoding=utf-8                     " Preferred encoding
+scriptencoding utf-8
 
 set hlsearch                           " Highlight search result
-set encoding=utf-8                     " Preferred encoding
 set nobomb                             " Unicode without BOM (Byte Order Mark)
 set fileformats=unix fileformat=unix   " Preferred filetype
 set hidden                             " Undo history save when changing buffers
@@ -206,7 +207,7 @@ map <M-7> 7gk
 map <M-8> 8gk
 map <M-9> 9gk
 
-if system('uname') =~ 'Darwin'
+if system('uname') =~# 'Darwin'
   map <D-1> 1gk
   map <D-2> 2gk
   map <D-3> 3gk
@@ -221,7 +222,7 @@ endif
 " Keymap switch
 let g:current_keymap = ''
 function! ToggleKeymap()
-  if g:current_keymap == ''
+  if g:current_keymap ==# ''
     set keymap=mongolian-dvorak
     let g:current_keymap = 'mongolian-dvorak'
   else
@@ -270,7 +271,7 @@ if has('gui_running')
   colorscheme underwater
 endif
 
-if system('uname') =~ 'Darwin'
+if system('uname') =~# 'Darwin'
   set guifont=Monaco:h14        " Change GUI font
   set clipboard=unnamed         " Use the OS clipboard by default
 endif
@@ -292,6 +293,3 @@ function! SourcePrint()
 endfunction
 
 command! SourcePrint :call SourcePrint()
-
-" multi-byte character used
-scriptencoding utf-8

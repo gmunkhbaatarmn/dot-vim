@@ -4,7 +4,7 @@ function! Writer()
   set laststatus=0
 
   set background=light
-  if system('uname') =~ 'Darwin'
+  if system('uname') =~# 'Darwin'
     colorscheme macvim
     set guifont=Menlo:h13
   else
