@@ -18,11 +18,11 @@ function! Writer()
   set linespace=4
   set textwidth=80
 
-  autocmd FileType markdown syn match Quote '^\s*> .*$'
-  autocmd Filetype markdown hi Quote guifg=#888888
+  autocmd vimrc FileType markdown syn match Quote '^\s*> .*$'
+  autocmd vimrc Filetype markdown hi Quote guifg=#888888
 
-  autocmd BufEnter markdown syn match Braces display '[{}()\[\]]'
-  autocmd BufEnter markdown hi def link Braces comment
+  autocmd vimrc BufEnter markdown syn match Braces display '[{}()\[\]]'
+  autocmd vimrc BufEnter markdown hi def link Braces comment
 
   hi FoldColumn               guibg=white
   hi Normal                   guibg=gray95

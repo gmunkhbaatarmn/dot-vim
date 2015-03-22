@@ -1,3 +1,5 @@
+set encoding=utf-8
+scriptencoding utf-8
 
 ":1 Vundle setup
 set rtp+=~/.vim/bundle/vundle/
@@ -107,8 +109,6 @@ filetype indent on                     " Enable indent
 set number                             " Enable line numbers
 set autoindent                         " Enable auto indent
 set nobackup nowritebackup noswapfile  " Disable backup
-set encoding=utf-8                     " Preferred encoding
-scriptencoding utf-8
 
 set hlsearch                           " Highlight search result
 set nobomb                             " Unicode without BOM (Byte Order Mark)
@@ -135,18 +135,21 @@ nmap <Space> za
 nmap <CR> za
 nmap e za
 
-
+augroup vimrc
+  autocmd!
+augroup END
 " Easy fold toggle for enter key. (Exclude `quickfix` filetype)
-autocmd BufEnter * if &filetype == 'qf' |unmap <CR>|    endif
-autocmd BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
+
+autocmd vimrc BufEnter * if &filetype == 'qf' |unmap <CR>|    endif
+autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 " endfold
 
 ":1 Aestetic customizations
 colorscheme wombat256
 
 " Contrast reduce for brackets
-autocmd BufEnter * syn match Braces display '[{}()\[\]]'
-autocmd BufEnter * hi def link Braces comment
+autocmd vimrc BufEnter * syn match Braces display '[{}()\[\]]'
+autocmd vimrc BufEnter * hi def link Braces comment
 
 " Ruler format
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
@@ -244,8 +247,8 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " Save file
 " Need 'stty -ixon' command in shell (CLI).
 " more: http://superuser.com/questions/227588/vim-command-line-imap-problem
-autocmd BufEnter * nmap <C-s> :w!<CR>
-autocmd BufEnter * imap <C-s> <ESC>:w!<CR>
+autocmd vimrc BufEnter * nmap <C-s> :w!<CR>
+autocmd vimrc BufEnter * imap <C-s> <ESC>:w!<CR>
 
 " Close file
 nmap <C-b> :close<CR>
@@ -254,13 +257,13 @@ imap <C-b> <ESC>:close<CR>
 
 ":1 Automatic commands
 " Change to the directory of the current file
-autocmd BufEnter * silent! lcd %:p:h
+autocmd vimrc BufEnter * silent! lcd %:p:h
 
 " Remove trailing spaces
-autocmd BufWritePre * :%s/\s\+$//e
+autocmd vimrc BufWritePre * :%s/\s\+$//e
 
 " No bell sound in erratic action
-autocmd BufEnter * set visualbell t_vb=
+autocmd vimrc BufEnter * set visualbell t_vb=
 
 ":1 GUI only settings
 if has('gui_running')
