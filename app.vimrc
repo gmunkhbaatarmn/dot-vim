@@ -1,3 +1,4 @@
+
 ":1 Vundle setup
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=/Applications/MacVim.app/Contents/Resources/vim/runtime
@@ -103,7 +104,6 @@ filetype on                            " Enable file type detection
 filetype plugin on                     " Enable plugins
 filetype indent on                     " Enable indent
 
-set nocompatible                       " Enable VIM features
 set number                             " Enable line numbers
 set autoindent                         " Enable auto indent
 set nobackup nowritebackup noswapfile  " Disable backup
@@ -292,3 +292,6 @@ function! SourcePrint()
 endfunction
 
 command! SourcePrint :call SourcePrint()
+
+" multi-byte character used
+scriptencoding utf-8
