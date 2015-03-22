@@ -55,7 +55,7 @@ function! NERDTreeCustomIgnoreFilter(path)
           \]
 
     for p in pathlist
-      if a:path.pathSegments == split(p, "/")
+      if a:path.pathSegments == split(p, '/')
         return 1
       endif
     endfor
@@ -206,7 +206,7 @@ map <M-7> 7gk
 map <M-8> 8gk
 map <M-9> 9gk
 
-if system("uname") =~ 'Darwin'
+if system('uname') =~ 'Darwin'
   map <D-1> 1gk
   map <D-2> 2gk
   map <D-3> 3gk
