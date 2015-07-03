@@ -119,21 +119,22 @@ function! PythonFoldText()
   let nextline = getline(v:foldstart + 1)
   let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
 
-  if trimmed =~# '"""'
-    let custom_text = '✎ …' . strpart(trimmed, 3)
-
-  elseif trimmed =~# '^@classmethod'
-    let custom_text = substitute(nextline_trimmed, ':', '', '') . ' (classmethod)'
+  if trimmed =~# '^@classmethod'
+    let custom_text = '@classmethod ' . substitute(strpart(nextline_trimmed, 4), ':', '', '') . ''
 
   elseif trimmed =~# '^@property'
-    let custom_text = 'def @' . strpart(substitute(nextline_trimmed, ':', '', ''), 4)
+    let custom_text = '@property ' . strpart(split(nextline_trimmed, '(')[0], 4)
+
+  elseif trimmed =~# '\.setter$'
+    let after_part = substitute(nextline_trimmed, ':', '', '')
+    let custom_text = 'def @' . strpart(substitute(after_part, '(', '.setter(', ''), 4)
 
   elseif trimmed =~# '@'
     let fillcharcount = 80 - len(prefix) - len(substitute(trimmed, '.', '-', 'g'))
-    let custom_text = trimmed . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
+    let custom_text = '@' . strpart(trimmed, 1) . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
 
-  elseif trimmed =~# '^# - '
-    let custom_text = printf('▸%2s ', v:foldend - v:foldstart) . strpart(trimmed, 4)
+  elseif trimmed =~# '^# [A-Z0-9-]'
+    let custom_text = '▸ ' . strpart(trimmed, 2)
 
   elseif trimmed =~# '^if '
     let custom_text = 'if ' . substitute(strpart(trimmed, 3), ':', '', '')
