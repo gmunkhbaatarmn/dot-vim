@@ -123,7 +123,7 @@ set ruler laststatus=0                 " Use ruler instead of status line
 set backspace=indent,eol,start         " Allow backspace in insert mode
 
 ":1 Configurations may change
-set numberwidth=4                      " Line number width
+set numberwidth=5                      " Line number width
 set shellslash                         " Always use unix style slash /
 set nojoinspaces                       " no insert two spaces in line join
 set t_Co=256                           " (CLI only) Number of colors
