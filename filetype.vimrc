@@ -166,8 +166,10 @@ autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!pep8 '%' 
 autocmd vimrc BufEnter * if &filetype == 'python' |let &colorcolumn=join(range(80,80),",") | endif
 autocmd vimrc BufEnter * if &filetype != 'python' |let &colorcolumn=""                     | endif
 
-":2 Python custom hightlights
+":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
+autocmd vimrc FileType python syn match DocKeyword "Usage" containedin=pythonString contained
+autocmd vimrc FileType python syn match DocKeyword "Usage \d\." containedin=pythonString contained
 " Highlight `CAPITALIZED:`
 autocmd vimrc FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
 " Highlight `{Regular-word}`
@@ -180,15 +182,11 @@ autocmd vimrc FileType python syn match DocKeyword "%s"hs=s+0,he=e-0 containedin
 autocmd vimrc FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `#Regular-word`
 autocmd vimrc FileType python syn match DocKeyword "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
-" Highlight `>>`
-autocmd vimrc FileType python syn match DocKeyword ">>" containedin=pythonString contained
 " Highlight `self.`
 autocmd vimrc FileType python syn match Keyword "self\."
 
 " Highlight `argument - `
 autocmd vimrc FileType python syn match DocArgument "\s*[A-Za-z0-9_\-&\*:]*\(\s*- \)"he=e-2 containedin=pythonString contained
-" Highlight `=>`
-autocmd vimrc FileType python syn match DocArgument "=>" containedin=pythonString contained
 
 autocmd vimrc FileType python hi default link DocArgument HELP
 autocmd vimrc FileType python hi default link DocKeyword Comment
