@@ -364,6 +364,6 @@ autocmd vimrc FileType python,sh
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " no tab use. tab = 2 space
-autocmd vimrc FileType cucumber,css,vim,javascript,stylus,yaml,markdown,ruby,coffee,htmljinja
+autocmd vimrc FileType cucumber,css,vim,javascript,stylus,yaml,markdown,ruby,coffee,htmljinja,treetop
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " endfold
