@@ -339,11 +339,13 @@ function! HTMLFoldText()
     let trimmed = substitute(trimmed, '}', '', 'g')
     return prefix . '▸   ' . trimmed
   endif
-
 endfunction
 
 autocmd vimrc BufNewFile,BufRead *.html setlocal filetype=htmljinja
 autocmd vimrc FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=HTMLFoldText()
+
+" Jinja line comment
+autocmd vimrc FileType htmljinja syn region jinjaComment matchgroup=jinjaCommentDelim start="#:" end="$" keepend containedin=ALLBUT,jinjaTagBlock,jinjaVarBlock,jinjaRaw,jinjaString,jinjaNested,jinjaComment
 
 " Inline math. Example: Pythagorean $a^2 + b^2 = c^2$
 autocmd vimrc FileType htmljinja syn region mathjax start=/\s*$[^$]*/ end=/[^$]*$\s*/
