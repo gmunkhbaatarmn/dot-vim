@@ -14,6 +14,7 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 
 ":1 Plugin - NERDTree
+" Not forward compatible. Reverted to 'da3874c'
 Bundle 'scrooloose/nerdtree'
 
 " Fast toggle
@@ -24,51 +25,41 @@ let g:NERDTreeMapOpenVSplit = 'a'
 let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
-
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 
 function! NERDTreeCustomIgnoreFilter(path)
-  if b:NERDTreeShowHidden ==# 0
-    let patterns = [
-          \ '\.min\.js$',
-          \ '\.min\.css$',
-          \ '\.eot$',
-          \ '\.svg$',
-          \ '\.ttf$',
-          \ '\.woff$',
-          \ '\.pyc$',
-          \]
-
-    let pathlist = [
-          \ $HOME . '/Applications',
-          \ $HOME . '/Library',
-          \ $HOME . '/Downloads',
-          \ $HOME . '/Dropbox',
-          \ $HOME . '/Movies',
-          \ $HOME . '/Videos',
-          \ $HOME . '/Music',
-          \ $HOME . '/Pictures',
-          \ $HOME . '/Desktop',
-          \ $HOME . '/Documents',
-          \ $HOME . '/Public',
-          \ $HOME . '/contestapplet.conf',
-          \ $HOME . '/contestapplet.conf.bak',
-          \ $HOME . '/Templates',
-          \ $HOME . '/opt',
-          \]
-
-    for p in pathlist
-      if a:path.pathSegments == split(p, '/')
-        return 1
-      endif
-    endfor
-
-    for p in patterns
-      if a:path.getLastPathComponent(0) =~# p
-        return 1
-      endif
-    endfor
+  if b:NERDTreeShowHidden ==# 1
+    return 0
   endif
+
+  let pathlist = [
+        \ $HOME . '/Desktop',
+        \ $HOME . '/Documents',
+        \ $HOME . '/Downloads',
+        \ $HOME . '/Dropbox',
+        \ $HOME . '/Library',
+        \ $HOME . '/Movies',
+        \ $HOME . '/Music',
+        \ $HOME . '/Pictures',
+        \ $HOME . '/Videos',
+        \]
+
+  let patterns = [
+        \ '\.min\.js$',
+        \ '\.min\.css$',
+        \]
+
+  for p in pathlist
+    if a:path.pathSegments == split(p, '/')
+      return 1
+    endif
+  endfor
+
+  for p in patterns
+    if a:path.getLastPathComponent(0) =~# p
+      return 1
+    endif
+  endfor
 endfunction
 
 ":1 Plugin - Syntastic
