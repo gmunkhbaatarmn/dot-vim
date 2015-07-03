@@ -15,27 +15,26 @@ function! PythonFoldExpr()
   " if docstring started
   if s:in_docstring
     ":3 Case: docstring close
-    if getline(v:lnum) =~? '"""'
-      let s:in_docstring = 0
-      let return_indent = s:current_indent
-      let s:current_indent -= 1
-
-      return '<' . return_indent
-    endif
+    " if getline(v:lnum) =~? '"""'
+    "   let s:in_docstring = 0
+    "   " let return_indent = s:current_indent
+    "   " let s:current_indent -= 1
+    "   "
+    "   " return '<' . return_indent
+    " endif
 
     ":3 Case: still in docstring
     return '='
-
     " endfold
   " if not in docstring
   else
     ":3 Case: docstring start
-    if getline(v:lnum) =~? '"""' && getline(v:lnum) !~? '""".*"""$'
-      let s:in_docstring = 1
-      let s:current_indent += 1
-
-      return '>' . s:current_indent
-    endif
+    " if getline(v:lnum) =~? '"""' && getline(v:lnum) !~? '""".*"""$'
+    "   let s:in_docstring = 1
+    "   let s:current_indent += 1
+    "
+    "   return '>' . s:current_indent
+    " endif
 
     ":3 Case: 2 emply line trailing line
     if getline(v:lnum - 1) !~? '\v\S' && getline(v:lnum) !~? '\v\S' && getline(v:lnum + 1) !~? '^\(class \|def \|@\)'
@@ -54,37 +53,40 @@ function! PythonFoldExpr()
       return '<2'
     endif
 
-    ":3 Case: close current indent. (exclude not empty line)
-    if getline(v:lnum + 1) =~? '\v\S' && indent(v:lnum + 1) / &shiftwidth + s:manual_fold < s:current_indent
-      let return_indent = s:current_indent
-      let s:current_indent -= 1
-      let s:manual_fold = 0
-
-      return '<' . return_indent
-    endif
-
     ":3 Case: if previous line is decorator
     if getline(v:lnum - 1) =~? '^[ ]*@'
       return '='
     endif
 
-    ":3 Case: start with '# - '
-    if getline(v:lnum) =~? '^[ ]*# -'
+    ":3 Case: start with '# [A-Z0-9-]'
+    if getline(v:lnum) =~# '^[ ]*# [A-Z0-9-]'
       let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
       let s:manual_fold = 1
       return '>' . s:current_indent
     endif
 
-    ":3 Case: start with '# endfold'
-    if s:manual_fold > 0 && getline(v:lnum) =~? '^[ ]*# endfold'
+    ":3 Case: start with '# endfold' (in manual fold)
+    if s:manual_fold == 1 && getline(v:lnum) =~? '^[ ]*# endfold'
       let return_indent = s:current_indent
       let s:current_indent -= 1
       let s:manual_fold = 0
       return '<' . return_indent
     endif
 
+    ":3 Case: start with '# endfold' (no manual fold)
+    if s:manual_fold == 0 && getline(v:lnum) =~? '^[ ]*# endfold'
+      let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
+
+      return '<' . s:current_indent
+    endif
+
     ":3 Case: start with '@', 'class', 'def'
     if getline(v:lnum) =~? '^[ ]*\(class \|def \|@\)'
+      " Exclude property setter
+      if getline(v:lnum) =~? '.setter$'
+        return '='
+      endif
+
       let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
 
       return '>' . s:current_indent
