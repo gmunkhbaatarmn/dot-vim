@@ -271,7 +271,6 @@ if has('gui_running')
   set guioptions-=T             " Remove toolbar
   set guioptions-=l             " Remove scroll
   set guioptions-=L             " Remove scroll in splitted window
-  colorscheme underwater
 endif
 
 if system('uname') =~# 'Darwin'
