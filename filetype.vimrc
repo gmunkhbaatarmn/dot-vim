@@ -299,9 +299,31 @@ autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=\*\*\
 autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart
 
 ":1 HTML, HTML-jinja
-autocmd vimrc BufNewFile,BufRead *.html setlocal filetype=htmljinja
+function! HTMLFoldText()
+  let line = getline(v:foldstart)
+  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let leading_spaces = stridx(line, trimmed)
+  let prefix = repeat(' ', leading_spaces)
+  let size = strlen(trimmed)
 
-autocmd vimrc FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold
+  if trimmed[0] == '{'
+    let trimmed = strpart(trimmed, 5, size - 5)
+    let trimmed = substitute(trimmed, '{', '', 'g')
+    let trimmed = substitute(trimmed, '#', '', 'g')
+    let trimmed = substitute(trimmed, '}', '', 'g')
+    return prefix . trimmed
+  else
+    let trimmed = strpart(trimmed, 4, size - 4)
+    let trimmed = substitute(trimmed, '{', '', 'g')
+    let trimmed = substitute(trimmed, '#', '', 'g')
+    let trimmed = substitute(trimmed, '}', '', 'g')
+    return prefix . '▸   ' . trimmed
+  endif
+
+endfunction
+
+autocmd vimrc BufNewFile,BufRead *.html setlocal filetype=htmljinja
+autocmd vimrc FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=HTMLFoldText()
 
 " Inline math. Example: Pythagorean $a^2 + b^2 = c^2$
 autocmd vimrc FileType htmljinja syn region mathjax start=/\s*$[^$]*/ end=/[^$]*$\s*/
