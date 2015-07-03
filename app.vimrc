@@ -129,8 +129,8 @@ nmap e za
 augroup vimrc
   autocmd!
 augroup END
-" Easy fold toggle for enter key. (Exclude `quickfix` filetype)
 
+" Easy fold toggle for enter key. (Exclude `quickfix` filetype)
 autocmd vimrc BufEnter * if &filetype == 'qf' |unmap <CR>|    endif
 autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 " endfold
@@ -226,9 +226,9 @@ function! ToggleKeymap()
 endfunction
 
 imap <C-l> <ESC>:call ToggleKeymap()<CR>a
-map <C-l> :call ToggleKeymap()<CR>
-imap <F8> <ESC>:call ToggleKeymap()<CR>a
-map <F8> :call ToggleKeymap()<CR>
+ map <C-l>      :call ToggleKeymap()<CR>
+imap <F8>  <ESC>:call ToggleKeymap()<CR>a
+ map <F8>       :call ToggleKeymap()<CR>
 
 " Identify the syntax hightlighting group used at the cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -274,7 +274,6 @@ endif
 
 so $HOME/.vim/dvorak.vimrc
 so $HOME/.vim/filetype.vimrc
-so $HOME/.vim/writer.vimrc
 
 function! SourcePrint()
   :colo macvim
