@@ -381,7 +381,8 @@ autocmd vimrc BufEnter *.css.styl if &filetype == 'stylus' |imap <C-s> <ESC>:w<C
 autocmd vimrc BufEnter *.css.styl if &filetype == 'stylus' |nmap <F5>       :w<CR>:!stylus -u nib -u jeet -u stylus-normalize --include-css -p "%" > "%:r"<CR>| endif
 
 ":1 Snippets
-autocmd vimrc FileType snippets setlocal foldmethod=expr foldtext=getline(v:foldstart) foldexpr=((getline(v:lnum)=~?'snippet\ ')?'>1':'1')
+autocmd vimrc FileType snippets setlocal foldmethod=expr foldtext=getline(v:foldstart)
+autocmd vimrc FileType snippets setlocal foldexpr=((getline(v:lnum)=~?'snippet\ ')?'>1':'1')
 
 ":1 Other
 autocmd vimrc BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
