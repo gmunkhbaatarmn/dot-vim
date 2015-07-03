@@ -223,7 +223,19 @@ autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; 
 autocmd vimrc FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold
 
 ":1 Yaml
-autocmd vimrc FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold
+function! YamlFoldText()
+  let line = getline(v:foldstart)
+  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let leading_spaces = stridx(line, trimmed)
+  let prefix = repeat(' ', leading_spaces)
+  let size = strlen(trimmed)
+
+  let trimmed = strpart(trimmed, 4, size - 4)
+  return prefix . '▸   ' . trimmed
+endfunction
+autocmd vimrc FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold foldtext=YamlFoldText()
+autocmd vimrc FileType yaml highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 
 ":1 Makefile
 function! MakefileFoldExpr()
