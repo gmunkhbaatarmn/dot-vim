@@ -226,7 +226,16 @@ autocmd vimrc FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfol
 autocmd vimrc FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold
 
 ":1 Makefile
-autocmd vimrc FileType make setlocal foldmethod=marker foldmarker=#:,#\ endfold
+function! MakefileFoldExpr()
+  " Case: start with 'COMMAND:'
+  if getline(v:lnum) =~? '^[a-z-]\+:$'
+    return '>1'
+  endif
+
+  return '='
+endfunction
+
+autocmd vimrc FileType make setlocal foldmethod=expr foldexpr=MakefileFoldExpr() foldtext=strpart(getline(v:foldstart),0,strlen(getline(v:foldstart))-1)
 
 ":1 C
 autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
