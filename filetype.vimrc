@@ -163,8 +163,8 @@ autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time pyth
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!pep8 '%'                   <CR>| endif
 
 " Show line in 80th column
-autocmd vimrc BufEnter * if &filetype == 'python' |let &colorcolumn=join(range(80,80),",") | endif
-autocmd vimrc BufEnter * if &filetype != 'python' |let &colorcolumn=""                     | endif
+autocmd vimrc FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd vimrc FileType python match OverLength /\%80v.\+/
 
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
