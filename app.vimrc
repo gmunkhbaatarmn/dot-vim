@@ -267,10 +267,12 @@ autocmd vimrc BufEnter * set visualbell t_vb=
 
 ":1 GUI only settings
 if has('gui_running')
-  set guifont=Monaco\ 10        " Change GUI font
-  set guioptions-=T             " Remove toolbar
-  set guioptions-=l             " Remove scroll
-  set guioptions-=L             " Remove scroll in splitted window
+  set guifont=Monaco\ 10          " Change GUI font
+  set guioptions-=T               " Remove toolbar
+  set guioptions-=l               " Remove scroll
+  set guioptions-=L               " Remove scroll in splitted window
+  set guicursor+=n-c:hor10-Cursor " Change cursor shape to underscore
+  set guicursor+=a:blinkon0       " Disable cursor blinking
 endif
 
 if system('uname') =~# 'Darwin'
