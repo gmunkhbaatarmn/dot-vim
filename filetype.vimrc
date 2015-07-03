@@ -197,13 +197,11 @@ autocmd vimrc FileType python hi default link DocKeyword Comment
 ":1 Coffeescript
 autocmd vimrc FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold
 
-autocmd vimrc BufEnter * if &filetype == 'coffee' |nmap <F9>       :w<CR>:       !coffee "%" --nodejs               <CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'coffee' |nmap <F5>       :w<CR>:       !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'coffee' |nmap <C-s>      :w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'coffee' |imap <C-s> <ESC>:w<CR>:silent !coffee -c -b -p "%" > "%:r.min.js"<CR>| endif
+autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <F9>       :w<CR>:!coffee "%" --nodejs        <CR>| endif
+autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <F5>       :w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
+autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <C-s>      :w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
+autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |imap <C-s> <ESC>:w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
 
-" Show line in 80th column
-autocmd vimrc BufEnter * if &filetype == 'coffee' |let &colorcolumn=join(range(81,81),",") | endif
 ":1 Javascript
 autocmd vimrc FileType javascript setlocal foldmethod=marker foldmarker=\/\/\:,\/\/\ endfold autoindent
 
