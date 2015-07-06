@@ -6,107 +6,167 @@ let $PYTHONIOENCODING = 'utf-8'
 
 ":2 PythonFoldExpr
 function! PythonFoldExpr()
+  ":3 Variable reset
   if v:lnum == 1
-    let s:in_docstring = 0
-    let s:current_indent = 0
-    let s:manual_fold = 0
+    let s:fold = 0          " fold level
+    let s:in_docstring = 0  " in docstring
   endif
+  " endfold
 
   " if docstring started
   if s:in_docstring
-    ":3 Case: docstring close
-    " if getline(v:lnum) =~? '"""'
-    "   let s:in_docstring = 0
-    "   " let return_indent = s:current_indent
-    "   " let s:current_indent -= 1
-    "   "
-    "   " return '<' . return_indent
-    " endif
+    ":3 in dostring
+    " Docstring close
+    if getline(v:lnum) =~? '.*"""$'
+      let s:in_docstring = 0
+    endif
 
-    ":3 Case: still in docstring
     return '='
     " endfold
-  " if not in docstring
   else
-    ":3 Case: docstring start
-    " if getline(v:lnum) =~? '"""' && getline(v:lnum) !~? '""".*"""$'
-    "   let s:in_docstring = 1
-    "   let s:current_indent += 1
-    "
-    "   return '>' . s:current_indent
-    " endif
-
-    ":3 Case: 2 emply line trailing line
-    if getline(v:lnum - 1) !~? '\v\S' && getline(v:lnum) !~? '\v\S' && getline(v:lnum + 1) !~? '^\(class \|def \|@\)'
-      return '0'
-    endif
-
-    ":3 Case: 2 empty line allowed in zero indent
-    if s:current_indent > 0 && getline(v:lnum) =~? '\v\S' && getline(v:lnum) !~? '\v\S' && getline(v:lnum + 1) !~? '\v\S'
-      return '1'
-    endif
-
-    ":3 Case: next 2 line is empty
-    if s:current_indent > 0 && getline(v:lnum + 1) !~? '\v\S' && getline(v:lnum + 2) !~? '\v\S'
-      let s:current_indent = 1
-
-      return '<2'
-    endif
-
-    ":3 Case: if previous line is decorator
-    if getline(v:lnum - 1) =~? '^[ ]*@'
+    ":3 == | docstring start
+    if getline(v:lnum) =~? '"""'
+    if getline(v:lnum) !~? '""".*"""$'
+      let s:in_docstring = 1
       return '='
     endif
+    endif
+    " endfold
 
-    ":3 Case: start with '# [A-Z0-9-]'
-    if getline(v:lnum) =~# '^[ ]*# [A-Z0-9-]'
-      let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
-      let s:manual_fold = 1
-      return '>' . s:current_indent
+    ":3 +1 | import lines start
+    if getline(v:lnum - 1) !~? '^\(from\|import\) '
+    if getline(v:lnum + 0) =~? '^\(from\|import\) '
+      return '>1'
+    endif
     endif
 
-    ":3 Case: start with '# endfold' (in manual fold)
-    if s:manual_fold == 1 && getline(v:lnum) =~? '^[ ]*# endfold'
-      let return_indent = s:current_indent
-      let s:current_indent -= 1
-      let s:manual_fold = 0
-      return '<' . return_indent
+    ":3 =1 | import lines middle
+    if getline(v:lnum - 1) =~? '^\(from\|import\) '
+    if getline(v:lnum + 0) =~? '^\(from\|import\) '
+      return '='
+    endif
     endif
 
-    ":3 Case: start with '# endfold' (no manual fold)
-    if s:manual_fold == 0 && getline(v:lnum) =~? '^[ ]*# endfold'
-      let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
-
-      return '<' . s:current_indent
+    ":3 -1 | import lines close
+    if getline(v:lnum - 1) =~? '^\(from\|import\) '
+    if getline(v:lnum - 0) !~? '^\(from\|import\) '
+      return '<1'
     endif
-
-    ":3 Case: start with '@', 'class', 'def'
-    if getline(v:lnum) =~? '^[ ]*\(class \|def \|@\)'
-      " Exclude property setter
-      if getline(v:lnum) =~? '.setter$'
-        return '='
-      endif
-
-      let s:current_indent = (indent(v:lnum) / &shiftwidth) + 1
-
-      return '>' . s:current_indent
     endif
+    " endfold
 
-    ":3 Case: 'if' 'for' only start a line
-    if getline(v:lnum) =~? '^\(if \|for \)'
+    ":3 +1 | decorator start
+    if getline(v:lnum) =~? '^@'
+      let s:fold = 1
       return '>1'
     endif
 
-    ":3 Case: import lines indent open
-    if getline(v:lnum) =~? '^\(from\|import\) '
-      return '1'
+    ":3 =1 | decorator's next line
+    if getline(v:lnum - 1) =~? '^@'
+      return '='
     endif
 
-    ":3 Case: import lines indent close
-    if getline(v:lnum - 2) =~? '^\(from\|import\) ' && getline(v:lnum-1) !~? '^\(from\|import\) '
-      return '0'
+    ":3 +1 | class|def|if|for|while|try|except|finally start
+    if getline(v:lnum) =~? '^\(class\|def\|if\|for\|while\) '
+      let s:fold = 1
+      return '>1'
+    endif
+
+    if getline(v:lnum) =~? '^\(try:\|except:\|except \|finally:\)'
+      return '>1'
+    endif
+
+    ":3 +1 | # title
+    if getline(v:lnum) =~# '^# [A-Z0-9-]'
+      let s:fold = 1
+      return '>1'
+    endif
+
+    ":3 -1 | # endfold
+    if getline(v:lnum) =~# '^# endfold'
+      let s:fold = 0
+      return '<1'
+    endif
+
+    ":3 -1 | this, next is empty, next-next is not `class |def |@`
+    if getline(v:lnum + 0) !~? '\v\S'
+    if getline(v:lnum + 1) !~? '\v\S'
+    if getline(v:lnum + 2) !~? '^\(class \|def \|@\)'
+      let s:fold = 0
+      return '<1'
+    endif
+    endif
+    endif
+
+    ":3 =1 | 2 empty line allowed in zero indent
+    if getline(v:lnum - 1) =~? '^\S'
+    if getline(v:lnum + 0) !~? '\v\S'
+    if getline(v:lnum + 1) !~? '\v\S'
+      return '<1'
+    endif
+    endif
     endif
     " endfold
+
+    ":3 +2 | decorator start
+    if getline(v:lnum) =~? '^\s\{4\}@'
+      let s:fold = 2
+      return '>2'
+    endif
+
+    ":3 =2 | decorator's next line
+    if getline(v:lnum - 1) =~? '^\s\{4\}@'
+      return '='
+    endif
+
+    ":3 +2 | class|def  start
+    if getline(v:lnum) =~? '^\s\{4\}\(class\|def\) '
+      let s:fold = 2
+      return '>2'
+    endif
+
+    ":3 +2 | # title
+    if getline(v:lnum) =~# '^\s\{4\}# [A-Z0-9-]'
+      let s:fold = 2
+      return '>2'
+    endif
+
+    ":3 -2 | # endfold
+    if getline(v:lnum) =~# '^\s\{4\}# endfold'
+      let s:fold = 1
+      return '<2'
+    endif
+
+    ":3 -2 | next, next-next is empty
+    if getline(v:lnum + 1) !~? '\v\S'
+    if getline(v:lnum + 2) !~? '\v\S'
+      let s:fold = 1
+      return '<2'
+    endif
+    endif
+    " endfold
+
+    ":3 +3 | # title
+    if getline(v:lnum) =~# '^\s\{8,\}# [A-Z0-9-]'
+      if s:fold == 1
+        return '>2'
+      endif
+      if s:fold == 2
+        return '>3'
+      endif
+    endif
+
+    ":3 -3 | # endfold
+    if getline(v:lnum) =~# '^\s\{8,\}# endfold'
+      if s:fold == 1
+        return '<2'
+      endif
+      if s:fold == 2
+        return '<3'
+      endif
+    endif
+    " endfold
+
     return '='
   endif
 endfunction
@@ -124,6 +184,9 @@ function! PythonFoldText()
   if trimmed =~# '^@classmethod'
     let custom_text = '@classmethod ' . substitute(strpart(nextline_trimmed, 4), ':', '', '') . ''
 
+  elseif trimmed =~# '^\(from \|import \)'
+    let custom_text = 'import'
+
   elseif trimmed =~# '^@property'
     let custom_text = '@property ' . strpart(split(nextline_trimmed, '(')[0], 4)
 
@@ -138,17 +201,33 @@ function! PythonFoldText()
   elseif trimmed =~# '^# [A-Z0-9-]'
     let custom_text = '▸ ' . strpart(trimmed, 2)
 
+  elseif trimmed =~# '^def '
+    let custom_text = 'def ' . substitute(strpart(trimmed, 4), ':', ' ', '')
+
+  elseif trimmed =~# '^class '
+    let custom_text = 'class ' . substitute(strpart(trimmed, 6), ':', '', '')
+
   elseif trimmed =~# '^if '
     let custom_text = 'if ' . substitute(strpart(trimmed, 3), ':', '', '')
 
   elseif trimmed =~# '^for '
     let custom_text = 'for ' . substitute(strpart(trimmed, 4), ':', '', '')
 
-  elseif trimmed =~# '^def '
-    let custom_text = 'def ' . substitute(strpart(trimmed, 4), ':', '', '')
+  elseif trimmed =~# '^while '
+    let custom_text = 'while ' . substitute(strpart(trimmed, 6), ':', ' ', '')
 
-  elseif trimmed =~# '^class '
-    let custom_text = 'class ' . substitute(strpart(trimmed, 6), ':', '', '')
+  elseif trimmed =~# '^try:'
+    let custom_text = 'try' . substitute(strpart(trimmed, 3), ':', ' ', '')
+
+  elseif trimmed =~# '^except:'
+    let custom_text = 'except' . substitute(strpart(trimmed, 7), ':', ' ', '')
+
+  elseif trimmed =~# '^except '
+    let custom_text = 'except ' . substitute(strpart(trimmed, 7), ':', ' ', '')
+
+  elseif trimmed =~# '^finally:'
+    let custom_text = 'finally' . substitute(strpart(trimmed, 7), ':', ' ', '')
+
   else
     return foldtext()
   endif
@@ -219,7 +298,20 @@ autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; 
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 
 ":1 Vim (Vimscript)
-autocmd vimrc FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold
+function! VimFoldText()
+  let line = getline(v:foldstart)
+  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let leading_spaces = stridx(line, trimmed)
+  let prefix = repeat(' ', leading_spaces)
+  let size = strlen(trimmed)
+
+  let trimmed = strpart(trimmed, 4, size - 4)
+  return prefix . '▸   ' . trimmed
+endfunction
+autocmd vimrc FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold foldtext=VimFoldText()
+
+autocmd vimrc FileType vim syn match DocKeyword "\\." containedin=vimString contained
+autocmd vimrc FileType vim hi default link DocKeyword Comment
 
 ":1 Yaml
 function! YamlFoldText()
