@@ -449,6 +449,7 @@ autocmd vimrc FileType htmljinja hi def link mathjax Comment
 
 ":1 Shell script
 autocmd vimrc BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!bash "%"<CR>| endif
+autocmd vimrc FileType sh setlocal foldmethod=marker foldmarker=#:,#\ endfold
 
 ":1 CSS
 autocmd vimrc FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
