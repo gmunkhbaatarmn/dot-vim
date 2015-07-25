@@ -418,7 +418,7 @@ function! HTMLFoldText()
   let prefix = repeat(' ', leading_spaces)
   let size = strlen(trimmed)
 
-  if trimmed[0] == '{'
+  if trimmed[0] ==# '{'
     let trimmed = strpart(trimmed, 5, size - 5)
     let trimmed = substitute(trimmed, '{', '', 'g')
     let trimmed = substitute(trimmed, '#', '', 'g')
