@@ -392,6 +392,7 @@ autocmd vimrc BufEnter Notes     setlocal filetype=markdown
 
 autocmd vimrc FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
 autocmd vimrc FileType markdown hi def link CheckdownLabel Float
+autocmd vimrc FileType markdown setlocal foldtext=strpart(getline(v:foldstart),0,strlen(getline(v:foldstart)))
 
 " Inline math. Example: Pythagorean $a^2 + b^2 = c^2$
 autocmd vimrc FileType markdown syn region markdownCode start=/\s*$[^$]*/ end=/[^$]*$\s*/
