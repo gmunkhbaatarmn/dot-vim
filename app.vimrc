@@ -2,7 +2,7 @@ set encoding=utf-8
 scriptencoding utf-8
 
 ":1 Vundle setup
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle.bundle/
 set rtp+=/Applications/MacVim.app/Contents/Resources/vim/runtime
 call vundle#rc()
 
