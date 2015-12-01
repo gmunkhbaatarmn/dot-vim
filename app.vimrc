@@ -91,7 +91,7 @@ Bundle 'mitsuhiko/vim-jinja'
 " endfold
 
 ":1 Standard (frozen) configurations
-syntax on                              " Enable syntax hightlight
+syntax on                              " Enable syntax processing
 filetype on                            " Enable file type detection
 filetype plugin on                     " Enable plugins
 filetype indent on                     " Enable indent
@@ -145,7 +145,10 @@ autocmd vimrc BufEnter * hi def link Braces comment
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
 
 " Tab Configuration
-set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
+set tabstop=2      " Number of visual spaces per TAB
+set shiftwidth=2   " Number of spaces to use in (auto)indent
+set softtabstop=2  " Number of spaces in tab when editing
+set noexpandtab    " Use tab character instead of spaces
 
 " Define list characters
 set listchars=tab:▸\ ,eol:¬,trail:~,extends:>,precedes:<
