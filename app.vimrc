@@ -284,7 +284,7 @@ function! SourcePrint()
   :w! ~/vim-source.html
   :bdelete!
   :!open ~/vim-source.html
-  :color underwater
+  :color wombat256
   :set background=dark
 endfunction
 
