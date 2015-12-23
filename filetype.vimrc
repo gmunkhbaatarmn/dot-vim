@@ -251,6 +251,7 @@ autocmd vimrc FileType python match OverLength /\%80v.\+/
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Usage" containedin=pythonString contained
+autocmd vimrc FileType python syn match DocKeyword "Route" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Usage \d\." containedin=pythonString contained
 " Highlight `CAPITALIZED:`
 autocmd vimrc FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
