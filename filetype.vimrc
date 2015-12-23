@@ -276,7 +276,18 @@ autocmd vimrc FileType python hi default link DocKeyword Comment
 " endfold
 
 ":1 Coffeescript
-autocmd vimrc FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold
+function! CoffeeFoldText()
+  let line = getline(v:foldstart)
+  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let leading_spaces = stridx(line, trimmed)
+  let prefix = repeat(' ', leading_spaces)
+  let size = strlen(trimmed)
+
+  let trimmed = strpart(trimmed, 4, size - 4)
+  return prefix . '▸   ' . trimmed
+endfunction
+
+autocmd vimrc FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=CoffeeFoldText()
 
 autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <F9>       :w<CR>:!coffee "%" --nodejs        <CR>| endif
 autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <F5>       :w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
