@@ -4,7 +4,6 @@ init:
 	vim +PluginInstall +qall
 	pip install vim-vint
 lint:
-	@# pip install vim-vint
 	vint app.vimrc
 	vint dvorak.vimrc
 	vint filetype.vimrc
