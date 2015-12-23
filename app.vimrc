@@ -4,7 +4,7 @@ scriptencoding utf-8
 ":1 Vundle setup
 set rtp+=~/.vim/bundle/vundle.bundle/
 set rtp+=/Applications/MacVim.app/Contents/Resources/vim/runtime
-call vundle#rc()
+call g:vundle#rc()
 
 Bundle 'gmarik/vundle'
 
@@ -27,12 +27,12 @@ let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 
-function! NERDTreeCustomIgnoreFilter(path)
+function! g:NERDTreeCustomIgnoreFilter(path)
   if b:NERDTreeShowHidden ==# 1
     return 0
   endif
 
-  let pathlist = [
+  let l:pathlist = [
         \ $HOME . '/Desktop',
         \ $HOME . '/Documents',
         \ $HOME . '/Downloads',
@@ -44,19 +44,19 @@ function! NERDTreeCustomIgnoreFilter(path)
         \ $HOME . '/Videos',
         \]
 
-  let patterns = [
+  let l:patterns = [
         \ '\.min\.js$',
         \ '\.min\.css$',
         \]
 
-  for p in pathlist
-    if a:path.pathSegments == split(p, '/')
+  for l:p in l:pathlist
+    if a:path.pathSegments == split(l:p, '/')
       return 1
     endif
   endfor
 
-  for p in patterns
-    if a:path.getLastPathComponent(0) =~# p
+  for l:p in l:patterns
+    if a:path.getLastPathComponent(0) =~# l:p
       return 1
     endif
   endfor
@@ -162,9 +162,7 @@ set formatoptions+=n
 
 ":1 Keyboard mapping
 " Change the leader map
-let mapleader = ','
 let g:mapleader = ','
-let maplocalleader = ','
 let g:maplocalleader = ','
 
 " Shortcut to fold method change
@@ -217,7 +215,7 @@ endif
 
 " Keymap switch
 let g:current_keymap = ''
-function! ToggleKeymap()
+function! g:ToggleKeymap()
   if g:current_keymap ==# ''
     set keymap=mongolian-dvorak
     let g:current_keymap = 'mongolian-dvorak'
@@ -277,7 +275,7 @@ endif
 so $HOME/.vim/dvorak.vimrc
 so $HOME/.vim/filetype.vimrc
 
-function! SourcePrint()
+function! g:SourcePrint()
   :colo macvim
   :set background=light
   :TOhtml
@@ -288,4 +286,4 @@ function! SourcePrint()
   :set background=dark
 endfunction
 
-command! SourcePrint :call SourcePrint()
+command! SourcePrint :call g:SourcePrint()

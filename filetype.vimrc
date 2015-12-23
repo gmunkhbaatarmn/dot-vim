@@ -5,7 +5,7 @@ let $PYTHONDONTWRITEBYTECODE = 1
 let $PYTHONIOENCODING = 'utf-8'
 
 ":2 PythonFoldExpr
-function! PythonFoldExpr()
+function! g:PythonFoldExpr()
   ":3 Variable reset
   if v:lnum == 1
     let s:fold = 0          " fold level
@@ -172,71 +172,71 @@ function! PythonFoldExpr()
 endfunction
 
 ":2 PythonFoldText
-function! PythonFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
-  let prefix = repeat(' ', leading_spaces)
-  let foldedlinecount = v:foldend - v:foldstart
-  let nextline = getline(v:foldstart + 1)
-  let nextline_trimmed = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
+function! g:PythonFoldText()
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:foldedlinecount = v:foldend - v:foldstart
+  let l:nextline = getline(v:foldstart + 1)
+  let l:nextline_trimmed = substitute(l:nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
 
-  if trimmed =~# '^@classmethod'
-    let custom_text = '@classmethod ' . substitute(strpart(nextline_trimmed, 4), ':', '', '') . ''
+  if l:trimmed =~# '^@classmethod'
+    let l:custom_text = '@classmethod ' . substitute(strpart(l:nextline_trimmed, 4), ':', '', '') . ''
 
-  elseif trimmed =~# '^\(from \|import \)'
-    let custom_text = 'import'
+  elseif l:trimmed =~# '^\(from \|import \)'
+    let l:custom_text = 'import'
 
-  elseif trimmed =~# '^@property'
-    let custom_text = '@property ' . strpart(split(nextline_trimmed, '(')[0], 4)
+  elseif l:trimmed =~# '^@property'
+    let l:custom_text = '@property ' . strpart(split(l:nextline_trimmed, '(')[0], 4)
 
-  elseif trimmed =~# '\.setter$'
-    let after_part = substitute(nextline_trimmed, ':', '', '')
-    let custom_text = 'def @' . strpart(substitute(after_part, '(', '.setter(', ''), 4)
+  elseif l:trimmed =~# '\.setter$'
+    let l:after_part = substitute(l:nextline_trimmed, ':', '', '')
+    let l:custom_text = 'def @' . strpart(substitute(l:after_part, '(', '.setter(', ''), 4)
 
-  elseif trimmed =~# '@'
-    let fillcharcount = 80 - len(prefix) - len(substitute(trimmed, '.', '-', 'g'))
-    let custom_text = '@' . strpart(trimmed, 1) . repeat(' ', fillcharcount) . substitute(nextline_trimmed, ':', '', '')
+  elseif l:trimmed =~# '@'
+    let l:fillcharcount = 80 - len(l:prefix) - len(substitute(l:trimmed, '.', '-', 'g'))
+    let l:custom_text = '@' . strpart(l:trimmed, 1) . repeat(' ', l:fillcharcount) . substitute(l:nextline_trimmed, ':', '', '')
 
-  elseif trimmed =~# '^# [A-Z0-9-]'
-    let custom_text = '▸ ' . strpart(trimmed, 2)
+  elseif l:trimmed =~# '^# [A-Z0-9-]'
+    let l:custom_text = '▸ ' . strpart(l:trimmed, 2)
 
-  elseif trimmed =~# '^def '
-    let custom_text = 'def ' . substitute(strpart(trimmed, 4), ':', ' ', '')
+  elseif l:trimmed =~# '^def '
+    let l:custom_text = 'def ' . substitute(strpart(l:trimmed, 4), ':', ' ', '')
 
-  elseif trimmed =~# '^class '
-    let custom_text = 'class ' . substitute(strpart(trimmed, 6), ':', '', '')
+  elseif l:trimmed =~# '^class '
+    let l:custom_text = 'class ' . substitute(strpart(l:trimmed, 6), ':', '', '')
 
-  elseif trimmed =~# '^if '
-    let custom_text = 'if ' . substitute(strpart(trimmed, 3), ':', '', '')
+  elseif l:trimmed =~# '^if '
+    let l:custom_text = 'if ' . substitute(strpart(l:trimmed, 3), ':', '', '')
 
-  elseif trimmed =~# '^for '
-    let custom_text = 'for ' . substitute(strpart(trimmed, 4), ':', '', '')
+  elseif l:trimmed =~# '^for '
+    let l:custom_text = 'for ' . substitute(strpart(l:trimmed, 4), ':', '', '')
 
-  elseif trimmed =~# '^while '
-    let custom_text = 'while ' . substitute(strpart(trimmed, 6), ':', ' ', '')
+  elseif l:trimmed =~# '^while '
+    let l:custom_text = 'while ' . substitute(strpart(l:trimmed, 6), ':', ' ', '')
 
-  elseif trimmed =~# '^try:'
-    let custom_text = 'try' . substitute(strpart(trimmed, 3), ':', ' ', '')
+  elseif l:trimmed =~# '^try:'
+    let l:custom_text = 'try' . substitute(strpart(l:trimmed, 3), ':', ' ', '')
 
-  elseif trimmed =~# '^except:'
-    let custom_text = 'except' . substitute(strpart(trimmed, 7), ':', ' ', '')
+  elseif l:trimmed =~# '^except:'
+    let l:custom_text = 'except' . substitute(strpart(l:trimmed, 7), ':', ' ', '')
 
-  elseif trimmed =~# '^except '
-    let custom_text = 'except ' . substitute(strpart(trimmed, 7), ':', ' ', '')
+  elseif l:trimmed =~# '^except '
+    let l:custom_text = 'except ' . substitute(strpart(l:trimmed, 7), ':', ' ', '')
 
-  elseif trimmed =~# '^finally:'
-    let custom_text = 'finally' . substitute(strpart(trimmed, 7), ':', ' ', '')
+  elseif l:trimmed =~# '^finally:'
+    let l:custom_text = 'finally' . substitute(strpart(l:trimmed, 7), ':', ' ', '')
 
   else
     return foldtext()
   endif
 
-  return prefix . custom_text
+  return l:prefix . l:custom_text
 endfunction
 " endfold
 
-autocmd vimrc FileType python setlocal foldmethod=expr foldexpr=PythonFoldExpr() foldtext=PythonFoldText()
+autocmd vimrc FileType python setlocal foldmethod=expr foldexpr=g:PythonFoldExpr() foldtext=g:PythonFoldText()
 autocmd vimrc FileType python setlocal textwidth=79
 autocmd vimrc BufWritePost,InsertLeave *.py setlocal filetype=python
 
@@ -276,18 +276,18 @@ autocmd vimrc FileType python hi default link DocKeyword Comment
 " endfold
 
 ":1 Coffeescript
-function! CoffeeFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
-  let prefix = repeat(' ', leading_spaces)
-  let size = strlen(trimmed)
+function! g:CoffeeFoldText()
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
 
-  let trimmed = strpart(trimmed, 4, size - 4)
-  return prefix . '▸   ' . trimmed
+  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+  return l:prefix . '▸   ' . l:trimmed
 endfunction
 
-autocmd vimrc FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=CoffeeFoldText()
+autocmd vimrc FileType coffee setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=g:CoffeeFoldText()
 
 autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <F9>       :w<CR>:!coffee "%" --nodejs        <CR>| endif
 autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <F5>       :w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
@@ -310,38 +310,38 @@ autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; 
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 
 ":1 Vim (Vimscript)
-function! VimFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
-  let prefix = repeat(' ', leading_spaces)
-  let size = strlen(trimmed)
+function! g:VimFoldText()
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
 
-  let trimmed = strpart(trimmed, 4, size - 4)
-  return prefix . '▸   ' . trimmed
+  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+  return l:prefix . '▸   ' . l:trimmed
 endfunction
-autocmd vimrc FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold foldtext=VimFoldText()
+autocmd vimrc FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold foldtext=g:VimFoldText()
 
 autocmd vimrc FileType vim syn match DocKeyword "\\." containedin=vimString contained
 autocmd vimrc FileType vim hi default link DocKeyword Comment
 
 ":1 Yaml
-function! YamlFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
-  let prefix = repeat(' ', leading_spaces)
-  let size = strlen(trimmed)
+function! g:YamlFoldText()
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
 
-  let trimmed = strpart(trimmed, 4, size - 4)
-  return prefix . '▸   ' . trimmed
+  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+  return l:prefix . '▸   ' . l:trimmed
 endfunction
-autocmd vimrc FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold foldtext=YamlFoldText()
+autocmd vimrc FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold foldtext=g:YamlFoldText()
 autocmd vimrc FileType yaml highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 
 ":1 Makefile
-function! MakefileFoldExpr()
+function! g:MakefileFoldExpr()
   " Case: start with 'COMMAND:'
   if getline(v:lnum) =~? '^[a-z-]\+:$'
     return '>1'
@@ -350,7 +350,7 @@ function! MakefileFoldExpr()
   return '='
 endfunction
 
-autocmd vimrc FileType make setlocal foldmethod=expr foldexpr=MakefileFoldExpr() foldtext=strpart(getline(v:foldstart),0,strlen(getline(v:foldstart))-1)
+autocmd vimrc FileType make setlocal foldmethod=expr foldexpr=g:MakefileFoldExpr() foldtext=strpart(getline(v:foldstart),0,strlen(getline(v:foldstart))-1)
 
 ":1 C
 autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
@@ -358,26 +358,26 @@ autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F5>   :w<CR>:!time "%:p:h/a"
 autocmd vimrc BufEnter * if &filetype == 'c' |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
 
 ":1 C++
-function! CppFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
+function! g:CppFoldText()
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
 
-  let nucolwidth = &fdc + &number * &numberwidth
-  let windowwidth = winwidth(0) - nucolwidth - 3
-  let foldedlinecount = v:foldend - v:foldstart
+  let l:nucolwidth = &fdc + &number * &numberwidth
+  let l:windowwidth = winwidth(0) - l:nucolwidth - 3
+  let l:foldedlinecount = v:foldend - v:foldstart
 
   " expand tabs into spaces
-  let onetab = strpart('          ', 0, &tabstop)
-  let line = substitute(line, '\t', onetab, 'g')
+  let l:onetab = strpart('          ', 0, &tabstop)
+  let l:line = substitute(l:line, '\t', l:onetab, 'g')
 
-  let line = strpart(line, leading_spaces * &tabstop + 12, windowwidth - 2 -len(foldedlinecount))
-  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-  return repeat(onetab, leading_spaces). '▸' . printf('%3s', foldedlinecount) . ' lines ' . line . '' . repeat(' ', fillcharcount) . '(' . foldedlinecount . ')' . ' '
+  let l:line = strpart(l:line, l:leading_spaces * &tabstop + 12, l:windowwidth - 2 -len(l:foldedlinecount))
+  let l:fillcharcount = l:windowwidth - len(l:line) - len(l:foldedlinecount)
+  return repeat(l:onetab, l:leading_spaces). '▸' . printf('%3s', l:foldedlinecount) . ' lines ' . l:line . '' . repeat(' ', l:fillcharcount) . '(' . l:foldedlinecount . ')' . ' '
 endfunction
 
 autocmd vimrc FileType cpp setlocal foldmethod=marker foldmarker=\/\/\ created\:,\/\/\ end
-autocmd vimrc FileType cpp setlocal foldtext=CppFoldText()
+autocmd vimrc FileType cpp setlocal foldtext=g:CppFoldText()
 
 autocmd vimrc BufEnter * if &filetype == 'cpp' |nmap <F9>   :w<CR>:!g++ "%" -Wall -o "%:p:h/a" -O3<CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'cpp' |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
@@ -424,30 +424,30 @@ autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=\*\*\
 autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart
 
 ":1 HTML, HTML-jinja
-function! HTMLFoldText()
-  let line = getline(v:foldstart)
-  let trimmed = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let leading_spaces = stridx(line, trimmed)
-  let prefix = repeat(' ', leading_spaces)
-  let size = strlen(trimmed)
+function! g:HTMLFoldText()
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
 
-  if trimmed[0] ==# '{'
-    let trimmed = strpart(trimmed, 5, size - 5)
-    let trimmed = substitute(trimmed, '{', '', 'g')
-    let trimmed = substitute(trimmed, '#', '', 'g')
-    let trimmed = substitute(trimmed, '}', '', 'g')
-    return prefix . trimmed
+  if l:trimmed[0] ==# '{'
+    let l:trimmed = strpart(l:trimmed, 5, l:size - 5)
+    let l:trimmed = substitute(l:trimmed, '{', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '#', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '}', '', 'g')
+    return l:prefix . l:trimmed
   else
-    let trimmed = strpart(trimmed, 4, size - 4)
-    let trimmed = substitute(trimmed, '{', '', 'g')
-    let trimmed = substitute(trimmed, '#', '', 'g')
-    let trimmed = substitute(trimmed, '}', '', 'g')
-    return prefix . '▸   ' . trimmed
+    let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+    let l:trimmed = substitute(l:trimmed, '{', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '#', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '}', '', 'g')
+    return l:prefix . '▸   ' . l:trimmed
   endif
 endfunction
 
 autocmd vimrc BufNewFile,BufRead *.html setlocal filetype=htmljinja
-autocmd vimrc FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=HTMLFoldText()
+autocmd vimrc FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=g:HTMLFoldText()
 
 " Jinja line comment
 autocmd vimrc FileType htmljinja syn region jinjaComment matchgroup=jinjaCommentDelim start="#:" end="$" keepend containedin=ALLBUT,jinjaTagBlock,jinjaVarBlock,jinjaRaw,jinjaString,jinjaNested,jinjaComment
@@ -468,18 +468,18 @@ autocmd vimrc FileType sh setlocal foldmethod=marker foldmarker=#:,#\ endfold
 autocmd vimrc FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
 
 ":1 Stylus
-function! StylusFoldText()
-  let suffix = substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', '')
-  let prefix = repeat(' ', stridx(getline(v:foldstart), suffix))
+function! g:StylusFoldText()
+  let l:suffix = substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:prefix = repeat(' ', stridx(getline(v:foldstart), l:suffix))
 
-  if strpart(suffix, 0, 5) ==# '//:1 '
-    return prefix . printf('|%2s| ', v:foldend - v:foldstart) . strpart(suffix, 5)
+  if strpart(l:suffix, 0, 5) ==# '//:1 '
+    return l:prefix . printf('|%2s| ', v:foldend - v:foldstart) . strpart(l:suffix, 5)
   endif
 
   return foldtext()
 endfunction
 
-autocmd vimrc FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold foldtext=StylusFoldText()
+autocmd vimrc FileType stylus setlocal foldmethod=marker foldmarker=\/\/\:,endfold foldtext=g:StylusFoldText()
 autocmd vimrc FileType stylus setlocal iskeyword-=#,-
 
 autocmd vimrc BufEnter *.css.styl if &filetype == 'stylus' |nmap <C-s>      :w<CR>:!stylus -u nib -u jeet --include-css -p "%" > "%:r"; sed -i -e '1i/* Generated by Stylus '`stylus --version`' */\' "%:r"<CR>| endif
