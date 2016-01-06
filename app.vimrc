@@ -2,9 +2,9 @@ set encoding=utf-8
 scriptencoding utf-8
 
 ":1 Vundle setup
-set rtp+=~/.vim/bundle/vundle.bundle/
-set rtp+=/Applications/MacVim.app/Contents/Resources/vim/runtime
-call g:vundle#rc()
+set runtimepath+=~/.vim/bundle/vundle.bundle/
+set runtimepath+=/Applications/MacVim.app/Contents/Resources/vim/runtime
+call call('vundle#rc', [])
 
 Bundle 'gmarik/vundle'
 
@@ -26,7 +26,6 @@ let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
-
 function! g:NERDTreeCustomIgnoreFilter(path)
   if b:NERDTreeShowHidden ==# 1
     return 0
@@ -64,8 +63,11 @@ endfunction
 
 ":1 Plugin - Syntastic
 Bundle 'scrooloose/syntastic'
+let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol = '✗'
+let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height=3
