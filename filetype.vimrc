@@ -333,8 +333,8 @@ function! g:YamlFoldText()
   let l:prefix = repeat(' ', l:leading_spaces)
   let l:size = strlen(l:trimmed)
 
-  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
-  return l:prefix . '▸   ' . l:trimmed
+  let l:trimmed = strpart(l:trimmed, 3, l:size - 3)
+  return l:prefix . '▸  ' . l:trimmed
 endfunction
 autocmd vimrc FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold foldtext=g:YamlFoldText()
 autocmd vimrc FileType yaml highlight OverLength ctermbg=red ctermfg=white guibg=#592929
