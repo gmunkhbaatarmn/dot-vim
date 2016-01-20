@@ -187,6 +187,12 @@ function! g:PythonFoldText()
   elseif l:trimmed =~# '^\(from \|import \)'
     let l:custom_text = 'import'
 
+  elseif l:trimmed =~# '^@task'
+    let l:custom_text = '@task ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
+
+  elseif l:trimmed =~# '^@cron'
+    let l:custom_text = '@cron ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
+
   elseif l:trimmed =~# '^@property'
     let l:custom_text = '@property ' . strpart(split(l:nextline_trimmed, '(')[0], 4)
 
