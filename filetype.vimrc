@@ -405,6 +405,9 @@ autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<C
 autocmd vimrc BufEnter Greatness nmap <F9> :w<CR>:!'/Users/mb/.greatness' <CR><CR>:echo "Book updated"<CR>
 autocmd vimrc BufEnter Greatness setlocal filetype=markdown
 
+autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F5> :w<CR>:!html-book "%"; open "%:r.html"<CR>;|endif
+autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F9> :w<CR>:!pdf-book "%"; open "%:r.pdf"<CR>;|endif
+
 nmap <F7> :e $HOME/Notes<CR>
 autocmd vimrc BufEnter Notes     setlocal filetype=markdown
 
