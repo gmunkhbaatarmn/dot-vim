@@ -76,7 +76,6 @@ let g:syntastic_loc_list_height=3
 " Features
 Bundle 'godlygeek/tabular'
 Bundle 'tomtom/tcomment_vim'
-Bundle 'gmunkhbaatarmn/vim-checkdown'
 
 " Filetype supports
 Bundle 'tpope/vim-cucumber'

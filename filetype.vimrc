@@ -402,35 +402,66 @@ autocmd vimrc FileType cpp syn match cComment /;/
 autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
 
 ":1 Markdown
-autocmd vimrc BufEnter Greatness nmap <F9> :w<CR>:!'/Users/mb/.greatness' <CR><CR>:echo "Book updated"<CR>
+autocmd vimrc BufEnter Notes     setlocal filetype=markdown
 autocmd vimrc BufEnter Greatness setlocal filetype=markdown
 
 autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F5> :w<CR>:!html-book "%"; open "%:r.html"<CR>;|endif
 autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F9> :w<CR>:!pdf-book "%"; open "%:r.pdf"<CR>;|endif
-
-nmap <F7> :e $HOME/Notes<CR>
-autocmd vimrc BufEnter Notes     setlocal filetype=markdown
-
-autocmd vimrc FileType markdown syn match CheckdownLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
-autocmd vimrc FileType markdown hi def link CheckdownLabel Float
 autocmd vimrc FileType markdown setlocal foldtext=strpart(getline(v:foldstart),0,strlen(getline(v:foldstart)))
 
-" Inline math. Example: Pythagorean $a^2 + b^2 = c^2$
+":2 Markdown: syntax enhancements
+" Expression: $...$
 autocmd vimrc FileType markdown syn region markdownCode start=/\s*$[^$]*/ end=/[^$]*$\s*/
 
-" Display math. Example: Quadratic Equations $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
+" Expression: $$...$$
 autocmd vimrc FileType markdown syn region markdownCode start=/\s*$$[^$]*/ end=/[^$]*$$\s*/
 
-autocmd vimrc FileType markdown hi def link markdownCode Comment
-autocmd vimrc FileType markdown hi def link markdownCode String
+" Feature: list label
+autocmd vimrc FileType markdown syn match ListLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
+autocmd vimrc FileType markdown hi def link ListLabel Float
 
-" Underline fix
+" Fix: underline fix
 autocmd vimrc FileType markdown syn match Text "\w\@<=_\w\@="
 
-" Markdown syntax bug fix
+" Fix: syntax bug fix
 autocmd vimrc FileType markdown syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end="\S\@<=\*\*\|\*\*\S\@=" keepend contains=markdownLineStart
 autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend contains=markdownLineStart
 autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart
+
+":2 Markdown: simple todo-list manager
+function! MarkdownToggle()
+  let l:line = getline('.')
+
+  if match(l:line, '^\s*- +') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- +\s*', '\1- ✓ ', '')
+  elseif match(l:line, '^\(\s*\)- ✓') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- ✓\s*', '\1- ✗ ', '')
+  elseif match(l:line, '^\(\s*\)- ✗') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- ✗\s*', '\1- ', '')
+  elseif match(l:line, '^\s*-') == 0
+    let l:line = substitute(l:line, '^\(\s*\)-\s*', '\1- + ', '')
+  endif
+  call setline('.', l:line)
+endfunction
+
+" GUI version
+nmap <C-Space> :call MarkdownToggle()<CR>
+vmap <C-Space> :call MarkdownToggle()<CR>
+
+" Terminal version
+nmap <C-@> :call MarkdownToggle()<CR>
+vmap <C-@> :call MarkdownToggle()<CR>
+
+autocmd vimrc FileType markdown syn match TodoLine '^\s*\-\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match OpenLine '^\s*\- +.*\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match DoneLine '^\s*\- ✓.*\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match SkipLine '^\s*\- ✗.*\(\n\s\+[^- ].*\)*'
+
+autocmd vimrc FileType markdown hi def link TodoLine Normal
+autocmd vimrc FileType markdown hi def link OpenLine String
+autocmd vimrc FileType markdown hi def link DoneLine htmlTagName
+autocmd vimrc FileType markdown hi def link SkipLine Comment
+" endfold
 
 ":1 HTML, HTML-jinja
 function! g:HTMLFoldText()
