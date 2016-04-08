@@ -80,10 +80,7 @@ Bundle 'tomtom/tcomment_vim'
 " Filetype supports
 Bundle 'tpope/vim-cucumber'
 Bundle 'kchmck/vim-coffee-script'
-
 Bundle 'tpope/vim-markdown.git'
-let g:markdown_folding = 1
-
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'pangloss/vim-javascript'
 Bundle 'wavded/vim-stylus'
