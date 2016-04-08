@@ -411,6 +411,7 @@ autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<C
 
 ":1 Markdown
 autocmd vimrc BufEnter Notes     setlocal filetype=markdown
+autocmd vimrc BufEnter Roadmap   setlocal filetype=markdown
 autocmd vimrc BufEnter Greatness setlocal filetype=markdown
 
 autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F5> :w<CR>:!html-book "%"; open "%:r.html"<CR>;|endif
