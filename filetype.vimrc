@@ -73,11 +73,17 @@ function! g:PythonFoldExpr()
     endif
 
     if getline(v:lnum) =~? '^\(try:\|except:\|except \|finally:\)'
+      let s:fold = 1
       return '>1'
     endif
 
     ":3 +1 | # title
     if getline(v:lnum) =~# '^# [A-Z0-9-]'
+      let s:fold = 1
+      return '>1'
+    endif
+
+    if s:fold == 0 && getline(v:lnum) =~# '^\s\{4\}# [A-Z0-9-]'
       let s:fold = 1
       return '>1'
     endif
@@ -119,7 +125,7 @@ function! g:PythonFoldExpr()
       return '='
     endif
 
-    ":3 +2 | class|def  start
+    ":3 +2 | class|def start
     if getline(v:lnum) =~? '^\s\{4\}\(class\|def\) '
       let s:fold = 2
       return '>2'
