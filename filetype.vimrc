@@ -414,9 +414,58 @@ autocmd vimrc BufEnter Notes     setlocal filetype=markdown
 autocmd vimrc BufEnter Roadmap   setlocal filetype=markdown
 autocmd vimrc BufEnter Greatness setlocal filetype=markdown
 
+":2 MarkdownFoldText
+function! g:MarkdownFoldText()
+  let l:text = strpart(getline(v:foldstart), 0, strlen(getline(v:foldstart)))
+
+  if toupper(l:text[2]) == l:text[2]
+    let l:iterator = v:foldstart + 1
+    let l:counter = 0
+
+    while l:iterator <= v:foldend
+      if getline(l:iterator) != '' && getline(l:iterator) != '> endfold'
+        let l:counter += 1
+      endif
+
+      let l:iterator += 1
+    endwhile
+
+    if l:counter > 0
+      let l:fillcharcount = 40 - len(l:text)
+      let l:text = l:text . repeat(' ', l:fillcharcount) . ' (' . (l:counter) . ')'
+    endif
+
+    if l:counter >= 10 && strpart(l:text, 0, 6) != '# Week'
+      let l:text = '✗ ' . strpart(l:text, 2)
+    else
+      let l:text = '▸ ' . strpart(l:text, 2)
+    endif
+  endif
+
+  return l:text
+endfunction
+
+":2 MarkdownFoldExpr
+function! g:MarkdownFoldExpr()
+  let l:line = getline(v:lnum)
+
+  if getline(v:lnum) == '> endfold'
+    return '<1'
+  endif
+
+  " Regular headers
+  let l:depth = match(l:line, '\(^#\+\)\@<=\( .*$\)\@=')
+  if l:depth > 0
+    return '>' . l:depth
+  endif
+
+  return '='
+endfunction
+" endfold
+
 autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F5> :w<CR>:!html-book "%"; open "%:r.html"<CR>;|endif
 autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F9> :w<CR>:!pdf-book "%"; open "%:r.pdf"<CR>;|endif
-autocmd vimrc FileType markdown setlocal foldtext=strpart(getline(v:foldstart),0,strlen(getline(v:foldstart)))
+autocmd vimrc FileType markdown setlocal foldmethod=expr foldexpr=g:MarkdownFoldExpr() foldtext=g:MarkdownFoldText()
 
 ":2 Markdown: syntax enhancements
 " Expression: $...$
