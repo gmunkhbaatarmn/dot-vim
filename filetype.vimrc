@@ -542,11 +542,11 @@ function! g:HTMLFoldText()
     let l:trimmed = substitute(l:trimmed, '}', '', 'g')
     return l:prefix . l:trimmed
   else
-    let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+    let l:trimmed = strpart(l:trimmed, 3, l:size - 3)
     let l:trimmed = substitute(l:trimmed, '{', '', 'g')
     let l:trimmed = substitute(l:trimmed, '#', '', 'g')
     let l:trimmed = substitute(l:trimmed, '}', '', 'g')
-    return l:prefix . '▸   ' . l:trimmed
+    return l:prefix . '▸  ' . l:trimmed
   endif
 endfunction
 
@@ -573,17 +573,37 @@ autocmd vimrc FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfo
 
 ":1 Stylus
 function! g:StylusFoldText()
-  let l:suffix = substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', '')
-  let l:prefix = repeat(' ', stridx(getline(v:foldstart), l:suffix))
-
-  if v:foldend - v:foldstart < 100
-    return l:prefix . '▸  ' . strpart(l:suffix, 3)
-  else
-    return l:prefix . '✗  ' . strpart(l:suffix, 3) . ' (' . (v:foldend - v:foldstart) . ')'
-  endif
+  return getline(v:foldstart)
 endfunction
 
-autocmd vimrc FileType stylus setlocal foldmethod=marker foldmarker=\/\/:,endfold foldtext=g:StylusFoldText()
+function! g:StylusFoldExpr()
+  let l:line = getline(v:lnum)
+  if l:line =~# '^ '
+    return '='
+  endif
+
+  if getline(v:lnum + 1) !~? '\v\S'
+  if getline(v:lnum + 2) !~? '\v\S'
+    return '<1'
+  endif
+  endif
+
+  if l:line =~# '^@import'
+    return '='
+  endif
+
+  if l:line =~# '^$'
+    return '='
+  endif
+
+  if l:line =~# '^// endfold'
+    return '<1'
+  endif
+
+  return '>1'
+endfunction
+
+autocmd vimrc FileType stylus setlocal foldmethod=expr foldexpr=g:StylusFoldExpr() foldtext=g:StylusFoldText()
 autocmd vimrc FileType stylus setlocal iskeyword-=#
 autocmd vimrc FileType stylus setlocal iskeyword+=$
 
