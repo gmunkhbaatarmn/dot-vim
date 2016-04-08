@@ -469,10 +469,16 @@ autocmd vimrc FileType markdown setlocal foldmethod=expr foldexpr=g:MarkdownFold
 
 ":2 Markdown: syntax enhancements
 " Expression: $...$
-autocmd vimrc FileType markdown syn region markdownCode start=/\s*$[^$]*/ end=/[^$]*$\s*/
+autocmd vimrc FileType markdown syn region Function start=/\s*$[^$]*/ end=/[^$]*$\s*/
 
 " Expression: $$...$$
-autocmd vimrc FileType markdown syn region markdownCode start=/\s*$$[^$]*/ end=/[^$]*$$\s*/
+autocmd vimrc FileType markdown syn region Function start=/\s*$$[^$]*/ end=/[^$]*$$\s*/
+
+" Expression: `...`
+autocmd vimrc FileType markdown syn region String start=/\s*`[^`]*/ end=/[^`]*`\s*/
+
+" Expression: #123 (github issue number)
+autocmd vimrc FileType markdown syn match Function '#[0-9]\+' containedin=TodoLine
 
 " Feature: list label
 autocmd vimrc FileType markdown syn match ListLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
