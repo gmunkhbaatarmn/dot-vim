@@ -272,7 +272,9 @@ autocmd vimrc FileType python syn match DocKeyword "{[a-zA-Z0-9_-]\+}"hs=s+0,he=
 " Highlight `%(word)`
 autocmd vimrc FileType python syn match DocKeyword "%([a-zA-Z0-9_]\+)"hs=s+1,he=e-0 containedin=pythonString contained
 " Highlight `%s`
-autocmd vimrc FileType python syn match DocKeyword "%s"hs=s+0,he=e-0 containedin=pythonString contained
+autocmd vimrc FileType python syn match DocKeyword "%\(s\|f\|d\)"hs=s+0,he=e-0 containedin=pythonString contained
+" Highlight `%.3f`
+autocmd vimrc FileType python syn match DocKeyword "%\.[0-9]\+f"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `:Regular-word`
 autocmd vimrc FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `#Regular-word`
