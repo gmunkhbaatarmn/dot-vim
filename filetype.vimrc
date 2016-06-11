@@ -447,7 +447,7 @@ function! g:MarkdownFoldText()
       let l:text = l:text . repeat(' ', l:fillcharcount) . ' (' . (l:counter) . ')'
     endif
 
-    if l:counter >= 10 && strpart(l:text, 0, 6) != '# Week'
+    if l:counter >= 100 && strpart(l:text, 0, 6) != '# Week'
       let l:text = '✗ ' . strpart(l:text, 2)
     else
       let l:text = '▸ ' . strpart(l:text, 2)
