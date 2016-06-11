@@ -347,16 +347,22 @@ autocmd vimrc FileType vim hi default link DocKeyword Comment
 
 ":1 Yaml
 function! g:YamlFoldText()
-  let l:line = getline(v:foldstart)
-  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let l:leading_spaces = stridx(l:line, l:trimmed)
-  let l:prefix = repeat(' ', l:leading_spaces)
-  let l:size = strlen(l:trimmed)
-
-  let l:trimmed = strpart(l:trimmed, 3, l:size - 3)
-  return l:prefix . '▸  ' . l:trimmed
+  return strpart(getline(v:foldstart),0,strlen(getline(v:foldstart))-1)
 endfunction
-autocmd vimrc FileType yaml setlocal foldmethod=marker foldmarker=#:,#\ endfold foldtext=g:YamlFoldText()
+
+function! g:YamlFoldExpr()
+  if getline(v:lnum) =~? '^# endfold$'
+    return '<1'
+  endif
+
+  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
+    return '>1'
+  endif
+
+  return '='
+endfunction
+
+autocmd vimrc FileType yaml setlocal foldmethod=expr foldexpr=g:YamlFoldExpr() foldtext=g:YamlFoldText()
 autocmd vimrc FileType yaml highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 
