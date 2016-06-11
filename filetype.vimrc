@@ -213,6 +213,12 @@ function! g:PythonFoldText()
   elseif l:trimmed =~# '^# [A-Z0-9-]'
     let l:custom_text = '▸ ' . strpart(l:trimmed, 2)
 
+  elseif l:trimmed =~# '^def test_'
+    let l:custom_text = l:trimmed
+    let l:custom_text = substitute(l:custom_text, '(', '', '')
+    let l:custom_text = substitute(l:custom_text, ')', '', '')
+    let l:custom_text = 'def test ' . substitute(strpart(l:custom_text, 9), ':', ' ', '')
+
   elseif l:trimmed =~# '^def '
     let l:custom_text = 'def ' . substitute(strpart(l:trimmed, 4), ':', ' ', '')
 
