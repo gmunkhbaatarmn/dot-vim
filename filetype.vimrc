@@ -25,12 +25,12 @@ function! g:PythonFoldExpr()
     " endfold
   else
     ":3 == | docstring start
-    if getline(v:lnum) =~? '"""'
-    if getline(v:lnum) !~? '""".*"""$'
-      let s:in_docstring = 1
-      return '='
-    endif
-    endif
+    " if getline(v:lnum) =~? '"""'
+    " if getline(v:lnum) !~? '""".*"""$'
+    "   let s:in_docstring = 1
+    "   return '='
+    " endif
+    " endif
     " endfold
 
     ":3 +1 | import lines start
