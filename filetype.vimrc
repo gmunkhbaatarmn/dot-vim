@@ -349,7 +349,7 @@ autocmd vimrc FileType vim hi default link DocKeyword Comment
 function! g:YamlFoldText()
   let l:line = getline(v:foldstart)
 
-  if l:line[-1:] == ':'
+  if l:line[-1:] ==# ':'
     return l:line[:-2]
   else
     return '▸   ' . l:line[4:]
@@ -442,7 +442,7 @@ function! g:MarkdownFoldText()
     let l:counter = 0
 
     while l:iterator <= v:foldend
-      if getline(l:iterator) != '' && getline(l:iterator) != '> endfold'
+      if getline(l:iterator) !=# '' && getline(l:iterator) !=# '> endfold'
         let l:counter += 1
       endif
 
@@ -454,7 +454,7 @@ function! g:MarkdownFoldText()
       let l:text = l:text . repeat(' ', l:fillcharcount) . ' (' . (l:counter) . ')'
     endif
 
-    if l:counter >= 100 && strpart(l:text, 0, 6) != '# Week'
+    if l:counter >= 100 && strpart(l:text, 0, 6) !=# '# Week'
       let l:text = '✗ ' . strpart(l:text, 2)
     else
       let l:text = '▸ ' . strpart(l:text, 2)
@@ -468,7 +468,7 @@ endfunction
 function! g:MarkdownFoldExpr()
   let l:line = getline(v:lnum)
 
-  if getline(v:lnum) == '> endfold'
+  if getline(v:lnum) ==# '> endfold'
     return '<1'
   endif
 
@@ -640,6 +640,7 @@ autocmd vimrc BufEnter Makefile nmap <F5> :w<CR>:!make<CR>
 
 autocmd vimrc FileType help nnoremap <buffer> <CR> <C-]>
 autocmd vimrc FileType help nnoremap <buffer> <BS> <C-T>
+" endfold
 
 ":1 Filetype detection
 autocmd vimrc BufEnter *.gitignore setlocal filetype=gitconfig
