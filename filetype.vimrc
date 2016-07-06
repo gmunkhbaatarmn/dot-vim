@@ -183,7 +183,6 @@ function! g:PythonFoldText()
   let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
   let l:leading_spaces = stridx(l:line, l:trimmed)
   let l:prefix = repeat(' ', l:leading_spaces)
-  let l:foldedlinecount = v:foldend - v:foldstart
   let l:nextline = getline(v:foldstart + 1)
   let l:nextline_trimmed = substitute(l:nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
 
