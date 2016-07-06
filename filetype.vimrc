@@ -347,7 +347,13 @@ autocmd vimrc FileType vim hi default link DocKeyword Comment
 
 ":1 Yaml
 function! g:YamlFoldText()
-  return strpart(getline(v:foldstart),0,strlen(getline(v:foldstart))-1)
+  let l:line = getline(v:foldstart)
+
+  if l:line[-1:] == ':'
+    return l:line[:-2]
+  else
+    return '▸   ' . l:line[4:]
+  endif
 endfunction
 
 function! g:YamlFoldExpr()
