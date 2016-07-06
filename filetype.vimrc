@@ -363,6 +363,7 @@ function! g:YamlFoldExpr()
 endfunction
 
 autocmd vimrc FileType yaml setlocal foldmethod=expr foldexpr=g:YamlFoldExpr() foldtext=g:YamlFoldText()
+autocmd vimrc FileType yaml setlocal foldmarker=#\:,endfold
 autocmd vimrc FileType yaml highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 
