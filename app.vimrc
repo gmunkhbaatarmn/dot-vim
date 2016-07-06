@@ -270,18 +270,18 @@ if system('uname') =~# 'Darwin'
 endif
 " endfold
 
-so $HOME/.vim/dvorak.vimrc
-so $HOME/.vim/filetype.vimrc
+source $HOME/.vim/dvorak.vimrc
+source $HOME/.vim/filetype.vimrc
 
 function! g:SourcePrint()
-  :colo macvim
-  :set background=light
-  :TOhtml
-  :w! ~/vim-source.html
-  :bdelete!
-  :!open ~/vim-source.html
-  :color wombat256
-  :set background=dark
+  colo macvim
+  set background=light
+  TOhtml
+  w! ~/vim-source.html
+  bdelete!
+  !open ~/vim-source.html
+  color wombat256
+  set background=dark
 endfunction
 
 command! SourcePrint :call g:SourcePrint()
