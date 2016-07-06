@@ -255,7 +255,7 @@ endfunction
 " endfold
 
 autocmd vimrc FileType python setlocal foldmethod=expr foldexpr=g:PythonFoldExpr() foldtext=g:PythonFoldText()
-autocmd vimrc FileType python setlocal textwidth=79
+autocmd vimrc FileType python setlocal textwidth=119
 autocmd vimrc BufWritePost,InsertLeave *.py setlocal filetype=python
 
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
