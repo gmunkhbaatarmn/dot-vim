@@ -25,12 +25,12 @@ function! g:PythonFoldExpr()
     " endfold
   else
     ":3 == | docstring start
-    " if getline(v:lnum) =~? '"""'
-    " if getline(v:lnum) !~? '""".*"""$'
-    "   let s:in_docstring = 1
-    "   return '='
-    " endif
-    " endif
+    if getline(v:lnum) =~? '"""'
+    if getline(v:lnum) !~? '""".*"""$'
+      let s:in_docstring = 1
+      return '='
+    endif
+    endif
     " endfold
 
     ":3 +1 | import lines start
@@ -360,7 +360,7 @@ function! g:YamlFoldExpr()
     return '<1'
   endif
 
-  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
+  if getline(v:lnum) =~? '^[a-z0-9-_]\+:'
     return '>1'
   endif
 
@@ -375,7 +375,7 @@ autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 ":1 Makefile
 function! g:MakefileFoldExpr()
   " Case: start with 'COMMAND:'
-  if getline(v:lnum) =~? '^[a-z-]\+:$'
+  if getline(v:lnum) =~? '^[a-z-_]\+:$'
     return '>1'
   endif
 
@@ -583,8 +583,19 @@ autocmd vimrc FileType htmljinja syn region mathjax start=/\s*$$[^$]*/ end=/[^$]
 autocmd vimrc FileType htmljinja hi def link mathjax Comment
 
 ":1 Shell script
+function! g:ShellFoldText()
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
+
+  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+  return l:prefix . '▸   ' . l:trimmed
+endfunction
+
 autocmd vimrc BufEnter * if &filetype == 'sh' |nmap <F5> :w<CR>:!bash "%"<CR>| endif
-autocmd vimrc FileType sh setlocal foldmethod=marker foldmarker=#:,#\ endfold
+autocmd vimrc FileType sh,zsh setlocal foldmethod=marker foldmarker=#:,#\ endfold foldtext=ShellFoldText()
 
 ":1 CSS
 autocmd vimrc FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
