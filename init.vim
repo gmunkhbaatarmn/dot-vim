@@ -114,8 +114,6 @@ set backspace=indent,eol,start         " Allow backspace in insert mode
 set numberwidth=5                      " Line number width
 set shellslash                         " Always use unix style slash /
 set nojoinspaces                       " no insert two spaces in line join
-set t_Co=256                           " (CLI only) Number of colors
-set t_vb=                              " (CLI only) Visual bell
 set gdefault                           " Add the g flag to search/replace by default
 
 " Easy fold toggle
@@ -252,7 +250,7 @@ autocmd vimrc BufEnter * silent! lcd %:p:h
 autocmd vimrc BufWritePre * :%s/\s\+$//e
 
 " No bell sound in erratic action
-autocmd vimrc BufEnter * set visualbell t_vb=
+autocmd vimrc BufEnter * set visualbell
 
 ":1 GUI only settings
 if has('gui_running')
@@ -270,8 +268,8 @@ if system('uname') =~# 'Darwin'
 endif
 " endfold
 
-source $HOME/.vim/dvorak.vimrc
-source $HOME/.vim/filetype.vimrc
+source $HOME/.vim/dvorak.vim
+source $HOME/.vim/filetypes.vim
 
 function! g:SourcePrint()
   colo macvim

@@ -1,17 +1,19 @@
 all:
 	@echo "See Makefile"
+
 init:
 	vim +PluginInstall +qall
 	pip install vim-vint
 	npm -g install vimlint
+
 lint:
 	@# vim-vint
-	vint app.vimrc
-	vint dvorak.vimrc
-	vint filetype.vimrc
+	vint init.vim
+	vint dvorak.vim
+	vint filetypes.vim
 	vint colors/*.vim
 	vint keymap/*.vim
 	@# vimlint
-	vimlint *.vimrc
+	vimlint *.vim
 	vimlint colors/*.vim
 	vimlint keymap/*.vim
