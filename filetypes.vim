@@ -66,12 +66,13 @@ function! g:PythonFoldExpr()
       return '='
     endif
 
-    ":3 +1 | class|def|if|for|while|try|except|finally start
+    ":3 +1 | class|def|if|for|while start
     if getline(v:lnum) =~? '^\(class\|def\|if\|for\|while\) '
       let s:fold = 1
       return '>1'
     endif
 
+    ":3 +1 | try|except|finally start
     if getline(v:lnum) =~? '^\(try:\|except:\|except \|finally:\)'
       let s:fold = 1
       return '>1'
@@ -127,6 +128,12 @@ function! g:PythonFoldExpr()
 
     ":3 +2 | class|def start
     if getline(v:lnum) =~? '^\s\{4\}\(class\|def\) '
+      let s:fold = 2
+      return '>2'
+    endif
+
+    ":3 +2 | step("-
+    if getline(v:lnum) =~? '^\s\{4\}step(\"'
       let s:fold = 2
       return '>2'
     endif
@@ -191,6 +198,15 @@ function! g:PythonFoldText()
 
   elseif l:trimmed =~# '^\(from \|import \)'
     let l:custom_text = 'import'
+
+  elseif l:trimmed =~# '^step'
+    let l:custom_text = l:trimmed
+    let l:custom_text = substitute(l:custom_text, '(', '', '')
+    let l:custom_text = substitute(l:custom_text, '"', '', '')
+    let l:custom_text = substitute(l:custom_text, ')', '', '')
+    let l:custom_text = substitute(l:custom_text, '\\n', '', '')
+
+    let l:custom_text = '▸     ' . l:custom_text[4:]
 
   elseif l:trimmed =~# '^@task'
     let l:custom_text = '@task ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
