@@ -450,31 +450,9 @@ autocmd vimrc BufEnter Greatness setlocal filetype=markdown
 
 ":2 MarkdownFoldText
 function! g:MarkdownFoldText()
-  let l:text = strpart(getline(v:foldstart), 0, strlen(getline(v:foldstart)))
-
-  if toupper(l:text[2]) == l:text[2]
-    let l:iterator = v:foldstart + 1
-    let l:counter = 0
-
-    while l:iterator <= v:foldend
-      if getline(l:iterator) !=# '' && getline(l:iterator) !=# '> endfold'
-        let l:counter += 1
-      endif
-
-      let l:iterator += 1
-    endwhile
-
-    if l:counter > 0
-      let l:fillcharcount = 40 - len(l:text)
-      let l:text = l:text . repeat(' ', l:fillcharcount) . ' (' . (l:counter) . ')'
-    endif
-
-    if l:counter >= 100 && strpart(l:text, 0, 6) !=# '# Week'
-      let l:text = '✗ ' . strpart(l:text, 2)
-    else
-      let l:text = '▸ ' . strpart(l:text, 2)
-    endif
-  endif
+  let l:text = getline(v:foldstart)
+  let l:text = '▸' . l:text[1:]
+  let l:text = substitute(l:text, '#', ' ', 'g')
 
   return l:text
 endfunction
