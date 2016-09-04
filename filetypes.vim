@@ -530,7 +530,14 @@ autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=___\|
 function! MarkdownToggle()
   let l:line = getline('.')
 
-  if match(l:line, '^\s*- +') == 0
+  " GitHub task friendly todo-list
+  if match(l:line, '^\s*- \[ \]') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- \[ \]s*', '\1- \[x\]', '')
+  elseif match(l:line, '^\s*- \[x\]') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- \[x\]s*', '\1- \[ \]', '')
+
+  " Simple todo-list
+  elseif match(l:line, '^\s*- +') == 0
     let l:line = substitute(l:line, '^\(\s*\)- +\s*', '\1- ✓ ', '')
   elseif match(l:line, '^\(\s*\)- ✓') == 0
     let l:line = substitute(l:line, '^\(\s*\)- ✓\s*', '\1- ✗ ', '')
@@ -539,6 +546,7 @@ function! MarkdownToggle()
   elseif match(l:line, '^\s*-') == 0
     let l:line = substitute(l:line, '^\(\s*\)-\s*', '\1- + ', '')
   endif
+
   call setline('.', l:line)
 endfunction
 
@@ -554,6 +562,8 @@ autocmd vimrc FileType markdown syn match TodoLine '^\s*\-\(\n\s\+[^- ].*\)*'
 autocmd vimrc FileType markdown syn match OpenLine '^\s*\- +.*\(\n\s\+[^- ].*\)*'
 autocmd vimrc FileType markdown syn match DoneLine '^\s*\- ✓.*\(\n\s\+[^- ].*\)*'
 autocmd vimrc FileType markdown syn match SkipLine '^\s*\- ✗.*\(\n\s\+[^- ].*\)*'
+
+autocmd vimrc FileType markdown syn match DoneLine '^\s*\- \[x\].*\(\n\s\+[^- ].*\)*'
 
 autocmd vimrc FileType markdown hi def link TodoLine Normal
 autocmd vimrc FileType markdown hi def link OpenLine String
