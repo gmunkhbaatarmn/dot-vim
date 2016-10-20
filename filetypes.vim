@@ -382,6 +382,10 @@ function! g:YamlFoldExpr()
     return '>1'
   endif
 
+  if getline(v:lnum) =~? '^  # -'
+    return '>2'
+  endif
+
   return '='
 endfunction
 
