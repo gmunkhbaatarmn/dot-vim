@@ -498,8 +498,11 @@ autocmd vimrc FileType markdown syn region String start=/\s*`[^`]*/ end=/[^`]*`\
 " Expression: #123 (github issue number)
 autocmd vimrc FileType markdown syn match Function '#[0-9]\+' containedin=TodoLine
 
+" Expression: @name
+autocmd vimrc FileType markdown syn match Function '\s@[a-z]\+' containedin=TodoLine
+
 " Feature: list label
-autocmd vimrc FileType markdown syn match ListLabel '[^\[\]\(\)\ ]\+:\s' containedin=TodoLine
+autocmd vimrc FileType markdown syn match ListLabel '[^\[\]\(\)\ ]\+:' containedin=TodoLine
 autocmd vimrc FileType markdown hi def link ListLabel Float
 
 " Fix: underline fix
