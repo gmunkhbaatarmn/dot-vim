@@ -559,6 +559,197 @@ autocmd vimrc FileType markdown hi def link SkipLine Comment
 " endfold
 
 ":1 HTML, HTML-jinja
+":2 HTMLFoldExpr
+function! g:HTMLFoldExpr()
+  let l:trimmed = substitute(getline(v:lnum), '^\s*\(.\{-}\)\s*$', '\1', '')
+
+  ":3 +1 | `{% macro `
+  if getline(v:lnum) =~? '^{% macro '
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^{%- macro '
+    return '>1'
+  endif
+
+  ":3 +1 | `{#:1 '
+  if l:trimmed =~? '^{#:1 '
+    return '>1'
+  endif
+
+  ":3 +1 | `#: `
+  if l:trimmed =~? '^#: '
+    return '>1'
+  endif
+
+  ":3 -1 | `#:endfold`
+  if l:trimmed =~? '^#:endfold'
+    return '<1'
+  endif
+
+  ":3 -1 | `{# endfold #}`
+  if l:trimmed =~? '^{# endfold #}'
+    return '<1'
+  endif
+  " endfold
+
+  ":3 +2 | `#:2`
+  if l:trimmed =~? '^#:2'
+    return '>2'
+  endif
+
+  ":3 -2 | `{# endfold2 #}`
+  if l:trimmed =~? '^{# endfold2 #}'
+    return '<2'
+  endif
+  " endfold
+
+  return '='
+
+  ":3 =1 | import lines middle
+  if getline(v:lnum - 1) =~? '^\(from\|import\) '
+  if getline(v:lnum + 0) =~? '^\(from\|import\) '
+    return '='
+  endif
+  endif
+
+  ":3 -1 | import lines close
+  if getline(v:lnum - 1) =~? '^\(from\|import\) '
+  if getline(v:lnum - 0) !~? '^\(from\|import\) '
+    return '<1'
+  endif
+  endif
+  " endfold
+
+  ":3 +1 | decorator start
+  if getline(v:lnum) =~? '^@'
+    let s:fold = 1
+    return '>1'
+  endif
+
+  ":3 =1 | decorator's next line
+  if getline(v:lnum - 1) =~? '^@'
+    return '='
+  endif
+
+  ":3 +1 | class|def|if|for|while start
+  if getline(v:lnum) =~? '^\(class\|def\|if\|for\|while\) '
+    let s:fold = 1
+    return '>1'
+  endif
+
+  ":3 +1 | try|except|finally start
+  if getline(v:lnum) =~? '^\(try:\|except:\|except \|finally:\)'
+    let s:fold = 1
+    return '>1'
+  endif
+
+  ":3 +1 | # title
+  if getline(v:lnum) =~# '^# [A-Z0-9-]'
+    let s:fold = 1
+    return '>1'
+  endif
+
+  if s:fold == 0 && getline(v:lnum) =~# '^\s\{4\}# [A-Z0-9-]'
+    let s:fold = 1
+    return '>1'
+  endif
+
+  ":3 -1 | # endfold
+  if getline(v:lnum) =~# '^# endfold'
+    let s:fold = 0
+    return '<1'
+  endif
+
+  ":3 -1 | this, next is empty, next-next is not `class |def |@`
+  if getline(v:lnum + 0) !~? '\v\S'
+  if getline(v:lnum + 1) !~? '\v\S'
+  if getline(v:lnum + 2) !~? '^\(class \|def \|@\)'
+    let s:fold = 0
+    return '<1'
+  endif
+  endif
+  endif
+
+  ":3 =1 | 2 empty line allowed in zero indent
+  if getline(v:lnum - 1) =~? '^\S'
+  if getline(v:lnum + 0) !~? '\v\S'
+  if getline(v:lnum + 1) !~? '\v\S'
+    return '<1'
+  endif
+  endif
+  endif
+  " endfold
+
+  ":3 +2 | decorator start
+  if getline(v:lnum) =~? '^\s\{4\}@'
+    let s:fold = 2
+    return '>2'
+  endif
+
+  ":3 =2 | decorator's next line
+  if getline(v:lnum - 1) =~? '^\s\{4\}@'
+    return '='
+  endif
+
+  ":3 +2 | class|def start
+  if getline(v:lnum) =~? '^\s\{4\}\(class\|def\) '
+    let s:fold = 2
+    return '>2'
+  endif
+
+  ":3 +2 | step("-
+  if getline(v:lnum) =~? '^\s\{4\}step(\"'
+    let s:fold = 2
+    return '>2'
+  endif
+
+  ":3 +2 | # title
+  if getline(v:lnum) =~# '^\s\{4\}# [A-Z0-9-]'
+    let s:fold = 2
+    return '>2'
+  endif
+
+  ":3 -2 | # endfold
+  if getline(v:lnum) =~# '^\s\{4\}# endfold'
+    let s:fold = 1
+    return '<2'
+  endif
+
+  ":3 -2 | next, next-next is empty
+  if getline(v:lnum + 1) !~? '\v\S'
+  if getline(v:lnum + 2) !~? '\v\S'
+    let s:fold = 1
+    return '<2'
+  endif
+  endif
+  " endfold
+
+  ":3 +3 | # title
+  if getline(v:lnum) =~# '^\s\{8,\}# [A-Z0-9-]'
+    if s:fold == 1
+      return '>2'
+    endif
+    if s:fold == 2
+      return '>3'
+    endif
+  endif
+
+  ":3 -3 | # endfold
+  if getline(v:lnum) =~# '^\s\{8,\}# endfold'
+    if s:fold == 1
+      return '<2'
+    endif
+    if s:fold == 2
+      return '<3'
+    endif
+  endif
+  " endfold
+
+  return '='
+endfunction
+
+":2 HTMLFoldText
 function! g:HTMLFoldText()
   let l:line = getline(v:foldstart)
   let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -566,23 +757,28 @@ function! g:HTMLFoldText()
   let l:prefix = repeat(' ', l:leading_spaces)
   let l:size = strlen(l:trimmed)
 
-  if l:trimmed[0] ==# '{'
+  if l:trimmed[:1] ==# '{%'
+    return l:prefix . l:trimmed
+  elseif l:trimmed[:1] ==# '{#'
     let l:trimmed = strpart(l:trimmed, 5, l:size - 5)
     let l:trimmed = substitute(l:trimmed, '{', '', 'g')
     let l:trimmed = substitute(l:trimmed, '#', '', 'g')
     let l:trimmed = substitute(l:trimmed, '}', '', 'g')
     return l:prefix . l:trimmed
-  else
+  elseif l:trimmed[0] ==# '#'
     let l:trimmed = strpart(l:trimmed, 3, l:size - 3)
     let l:trimmed = substitute(l:trimmed, '{', '', 'g')
     let l:trimmed = substitute(l:trimmed, '#', '', 'g')
     let l:trimmed = substitute(l:trimmed, '}', '', 'g')
     return l:prefix . '▸  ' . l:trimmed
+  else
+    return l:prefix . l:trimmed
   endif
 endfunction
+" endfold
 
 autocmd vimrc BufNewFile,BufRead *.html setlocal filetype=htmljinja
-autocmd vimrc FileType htmljinja setlocal foldmethod=marker foldmarker=#\:,endfold foldtext=g:HTMLFoldText()
+autocmd vimrc FileType htmljinja setlocal foldmethod=expr foldexpr=g:HTMLFoldExpr() foldtext=g:HTMLFoldText()
 
 " Jinja line comment
 autocmd vimrc FileType htmljinja syn region jinjaComment matchgroup=jinjaCommentDelim start="#:" end="$" keepend containedin=ALLBUT,jinjaTagBlock,jinjaVarBlock,jinjaRaw,jinjaString,jinjaNested,jinjaComment
