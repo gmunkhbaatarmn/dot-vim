@@ -364,8 +364,10 @@ autocmd vimrc FileType vim hi default link DocKeyword Comment
 function! g:YamlFoldText()
   let l:line = getline(v:foldstart)
 
-  if l:line[-1:] ==# ':'
-    return l:line[:-2]
+  if l:line =~? '^[a-z0-9-_]\+:'
+    return l:line
+  elseif l:line[:2] ==# '  #'
+    return '  ▸ ' . l:line[4:]
   else
     return '▸   ' . l:line[4:]
   endif
