@@ -3,7 +3,7 @@ all:
 
 init:
 	vim +PluginInstall +qall
-	pip install vim-vint
+	pip install vim-vint --upgrade
 	npm -g install vimlint
 
 lint:
