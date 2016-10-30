@@ -572,23 +572,13 @@ function! g:HTMLFoldExpr()
     return '>1'
   endif
 
-  ":3 +1 | `{#:1 '
-  if l:trimmed =~? '^{#:1 '
-    return '>1'
-  endif
-
   ":3 +1 | `#: `
   if l:trimmed =~? '^#: '
     return '>1'
   endif
 
   ":3 -1 | `#:endfold`
-  if l:trimmed =~? '^#:endfold'
-    return '<1'
-  endif
-
-  ":3 -1 | `{# endfold #}`
-  if l:trimmed =~? '^{# endfold #}'
+  if l:trimmed =~? '^#:endfold$'
     return '<1'
   endif
   " endfold
@@ -598,8 +588,8 @@ function! g:HTMLFoldExpr()
     return '>2'
   endif
 
-  ":3 -2 | `{# endfold2 #}`
-  if l:trimmed =~? '^{# endfold2 #}'
+  ":3 -2 | `#:endfold2`
+  if l:trimmed =~? '^#:endfold2'
     return '<2'
   endif
   " endfold
