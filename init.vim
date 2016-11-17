@@ -131,7 +131,7 @@ autocmd vimrc BufEnter * if &filetype == 'qf' |unmap <CR>|    endif
 autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 " endfold
 
-":1 Aestetic customizations
+":1 Aesthetic customizations
 colorscheme wombat256
 
 " Contrast reduce for brackets
