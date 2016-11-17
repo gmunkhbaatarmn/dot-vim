@@ -451,8 +451,7 @@ autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<C
 
 ":1 Markdown
 autocmd vimrc BufEnter Notes     setlocal filetype=markdown
-autocmd vimrc BufEnter Roadmap   setlocal filetype=markdown
-autocmd vimrc BufEnter Greatness setlocal filetype=markdown
+autocmd vimrc BufEnter Reference setlocal filetype=markdown
 
 ":2 MarkdownFoldText
 function! g:MarkdownFoldText()
