@@ -7,16 +7,16 @@ set runtimepath+=~/.vim/bundle/Vundle.vim
 call call('vundle#rc', [])
 let g:vundle_default_git_proto = 'git'
 
-Bundle 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 ":1 Plugin - Snipmate
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
 
 ":1 Plugin - NERDTree
 " Not forward compatible. Reverted to 'da3874c'
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 
 " Fast toggle
 map <F2> :NERDTreeToggle<CR>
@@ -63,7 +63,7 @@ function! g:NERDTreeCustomIgnoreFilter(path)
 endfunction
 
 ":1 Plugin - Syntastic
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_style_error_symbol = '✗'
@@ -75,18 +75,18 @@ let g:syntastic_loc_list_height=3
 
 ":1 Plugins
 " Features
-Bundle 'godlygeek/tabular'
-Bundle 'tomtom/tcomment_vim'
+Plugin 'godlygeek/tabular'
+Plugin 'tomtom/tcomment_vim'
 
 " Filetype supports
-Bundle 'tpope/vim-cucumber'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-markdown.git'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'pangloss/vim-javascript'
-Bundle 'wavded/vim-stylus'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'mitsuhiko/vim-jinja'
+Plugin 'tpope/vim-cucumber'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-markdown.git'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
+Plugin 'wavded/vim-stylus'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'mitsuhiko/vim-jinja'
 " endfold
 
 ":1 Standard (frozen) configurations
