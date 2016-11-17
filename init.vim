@@ -2,11 +2,12 @@ set encoding=utf-8
 scriptencoding utf-8
 
 ":1 Vundle setup
-set runtimepath+=~/.vim/bundle/vundle.bundle/
-set runtimepath+=/Applications/MacVim.app/Contents/Resources/vim/runtime
-call call('vundle#rc', [])
+set runtimepath+=~/.vim/bundle/Vundle.vim
 
-Bundle 'gmarik/vundle'
+call call('vundle#rc', [])
+let g:vundle_default_git_proto = 'git'
+
+Bundle 'VundleVim/Vundle.vim'
 
 ":1 Plugin - Snipmate
 Bundle 'MarcWeber/vim-addon-mw-utils'
