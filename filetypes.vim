@@ -663,29 +663,40 @@ endfunction
 
 function! g:StylusFoldExpr()
   let l:line = getline(v:lnum)
-  if l:line =~# '^ '
-    return '='
+
+  ":2 +1 | selector
+  if l:line =~# '^[^ ]' && getline(v:lnum + 1) =~# '^  '
+    return '>1'
   endif
 
-  if getline(v:lnum + 1) !~? '\v\S'
-  if getline(v:lnum + 2) !~? '\v\S'
+  ":2 -1 | \n\n
+  if l:line =~# '^$' && getline(v:lnum + 1) =~# '^$'
     return '<1'
   endif
-  endif
 
-  if l:line =~# '^@import'
-    return '='
-  endif
-
-  if l:line =~# '^$'
-    return '='
-  endif
-
+  ":2 -1 | // endfold
   if l:line =~# '^// endfold'
     return '<1'
   endif
+  " endfold
 
-  return '>1'
+  ":2 +2 | ..selector
+  " ..x
+  " ....x
+  if l:line =~# '^  [^ ]' && getline(v:lnum + 1) =~# '^    '
+    return '>2'
+  endif
+
+  ":2 -2 | ....(last)
+  " ....x
+  " |
+  " x
+  if l:line =~# '^    ' && getline(v:lnum + 1) =~# '^$' && getline(v:lnum + 2) =~# '^[^ ]'
+    return '<2'
+  endif
+  " endfold
+
+  return '='
 endfunction
 
 autocmd vimrc FileType stylus setlocal foldmethod=expr foldexpr=g:StylusFoldExpr() foldtext=g:StylusFoldText()
