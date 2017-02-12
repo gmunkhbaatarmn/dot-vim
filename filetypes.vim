@@ -270,7 +270,7 @@ endfunction
 " endfold
 
 autocmd vimrc FileType python setlocal foldmethod=expr foldexpr=g:PythonFoldExpr() foldtext=g:PythonFoldText()
-autocmd vimrc FileType python setlocal textwidth=119
+autocmd vimrc FileType python setlocal textwidth=99
 autocmd vimrc BufWritePost,InsertLeave *.py setlocal filetype=python
 
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
@@ -279,7 +279,7 @@ autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!flake8 '%
 
 " Show line in 80th column
 autocmd vimrc FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd vimrc FileType python match OverLength /\%80v.\+/
+autocmd vimrc FileType python match OverLength /\%100v.\+/
 
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
