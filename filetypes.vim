@@ -617,7 +617,9 @@ function! g:HTMLFoldText()
   let l:prefix = repeat(' ', l:leading_spaces)
   let l:size = strlen(l:trimmed)
 
-  if l:trimmed[:1] ==# '{%'
+  if l:trimmed[:3] ==# '#: <'
+    return l:prefix . '' . l:trimmed[3:]
+  elseif l:trimmed[:1] ==# '{%'
     return l:prefix . l:trimmed
   elseif l:trimmed[:1] ==# '{#'
     let l:trimmed = strpart(l:trimmed, 5, l:size - 5)
