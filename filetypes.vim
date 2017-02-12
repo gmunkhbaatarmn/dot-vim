@@ -501,6 +501,9 @@ autocmd vimrc FileType markdown syn region Function start=/\s*$[^$]*/ end=/[^$]*
 " Expression: $$...$$
 autocmd vimrc FileType markdown syn region Function start=/\s*$$[^$]*/ end=/[^$]*$$\s*/
 
+" Expression: **..**
+autocmd vimrc FileType markdown syn region Function start=/\s*\*\*[^\*]*/ end=/[^\*]*\*\*\s*/
+
 " Expression: `...`
 autocmd vimrc FileType markdown syn region String start=/\s*`[^`]*/ end=/[^`]*`\s*/
 
