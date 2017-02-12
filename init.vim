@@ -74,6 +74,16 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height=3
 
 ":1 Plugins
+Plugin 'davidhalter/jedi-vim'
+
+let g:jedi#completions_command = '<C-n>'
+let g:jedi#goto_command = ''
+let g:jedi#goto_assignments_command = ''
+let g:jedi#goto_definitions_command = ''
+let g:jedi#usages_command = ''
+let g:jedi#rename_command = ''
+let g:jedi#documentation_command = ''
+
 " Features
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
@@ -118,7 +128,6 @@ set gdefault                           " Add the g flag to search/replace by def
 
 " Easy fold toggle
 nmap <Space> za
-nmap <CR> za
 nmap e za
 
 augroup vimrc
