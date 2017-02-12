@@ -197,7 +197,8 @@ call <SID>X('Todo',         '857b6f', '',       'italic')
 
 hi! link VisualNOS Visual
 " hi! link NonText LineNr
-hi! link FoldColumn Folded
+" hi! link FoldColumn Folded
+call <SID>X('FoldColumn',   '242424', '242424', 'none')
 
 ":1 Delete functions
 delfunction <SID>X

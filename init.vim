@@ -95,7 +95,6 @@ filetype on                            " Enable file type detection
 filetype plugin on                     " Enable plugins
 filetype indent on                     " Enable indent
 
-set number                             " Enable line numbers
 set autoindent                         " Enable auto indent
 set nobackup nowritebackup noswapfile  " Disable backup
 
@@ -158,9 +157,16 @@ set fillchars=vert:\|,fold:\  " Make foldtext more clean
 set formatoptions+=n
 
 ":1 Keyboard mapping
+
 " Change the leader map
 let g:mapleader = ','
 let g:maplocalleader = ','
+
+" Shortcut to toggle line number
+set nonumber                             " Disable line numbers
+set numberwidth=4                        " Line number width
+set foldcolumn=4
+nmap <leader>, :execute 'set number! foldcolumn=' . (!&foldcolumn * 4)<CR>
 
 " Shortcut to fold method change
 nmap <leader>f :set foldmethod=indent<CR>
