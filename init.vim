@@ -76,6 +76,7 @@ let g:syntastic_loc_list_height=3
 ":1 Plugins
 Plugin 'davidhalter/jedi-vim'
 
+let g:jedi#show_call_signatures = 0
 let g:jedi#completions_command = '<C-n>'
 let g:jedi#goto_command = ''
 let g:jedi#goto_assignments_command = ''
