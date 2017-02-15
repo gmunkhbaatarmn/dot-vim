@@ -619,6 +619,8 @@ function! g:HTMLFoldText()
 
   if l:trimmed[:3] ==# '#: <'
     return l:prefix . '' . l:trimmed[3:]
+  elseif l:trimmed[:4] ==# '#:2 <'
+    return l:prefix . '' . l:trimmed[4:]
   elseif l:trimmed[:1] ==# '{%'
     return l:prefix . l:trimmed
   elseif l:trimmed[:1] ==# '{#'
