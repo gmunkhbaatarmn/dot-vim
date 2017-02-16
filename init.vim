@@ -62,16 +62,17 @@ function! g:NERDTreeCustomIgnoreFilter(path)
   endfor
 endfunction
 
-":1 Plugin - Syntastic
-Plugin 'scrooloose/syntastic'
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height=3
+":1 Plugin - ALE (Asynchronous Lint Engine)
+Plugin 'w0rp/ale'
+
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_set_signs = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+let g:ale_python_flake8_args = '--select E,F'
 
 ":1 Plugins
 Plugin 'davidhalter/jedi-vim'
