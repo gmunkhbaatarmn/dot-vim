@@ -72,7 +72,7 @@ let g:ale_set_signs = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
-let g:ale_python_flake8_args = '--select E,F'
+let g:ale_python_flake8_args = '--select F'
 
 ":1 Plugin - Jedi
 Plugin 'davidhalter/jedi-vim'
