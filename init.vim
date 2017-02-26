@@ -303,3 +303,4 @@ function! g:SourcePrint()
 endfunction
 
 command! SourcePrint :call g:SourcePrint()
+command! MarkdownPrint :!markdown-print %
