@@ -112,6 +112,7 @@ set autoread                           " Auto update if changed outside of Vim
 set noerrorbells novisualbell          " No sound on errors
 set ruler laststatus=0                 " Use ruler instead of status line
 set backspace=indent,eol,start         " Allow backspace in insert mode
+set lazyredraw                         " Redraw only when we need to.
 
 ":1 Configurations may change
 set numberwidth=5                      " Line number width
