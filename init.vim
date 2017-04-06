@@ -74,17 +74,6 @@ let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_python_flake8_args = '--select F'
 
-":1 Plugin - Jedi
-Plugin 'davidhalter/jedi-vim'
-
-let g:jedi#show_call_signatures = 0
-let g:jedi#completions_command = ''
-let g:jedi#goto_command = ''
-let g:jedi#goto_assignments_command = ''
-let g:jedi#goto_definitions_command = ''
-let g:jedi#usages_command = ''
-let g:jedi#rename_command = ''
-let g:jedi#documentation_command = ''
 
 ":1 Plugins
 
