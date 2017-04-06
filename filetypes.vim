@@ -495,9 +495,6 @@ autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F9> :w<CR>:!pdf-book 
 autocmd vimrc FileType markdown setlocal foldmethod=expr foldexpr=g:MarkdownFoldExpr() foldtext=g:MarkdownFoldText()
 
 ":2 Markdown: syntax enhancements
-" Expression: $...$
-autocmd vimrc FileType markdown syn region Function start=/\s*$[^$]*/ end=/[^$]*$\s*/
-
 " Expression: $$...$$
 autocmd vimrc FileType markdown syn region Function start=/\s*$$[^$]*/ end=/[^$]*$$\s*/
 
