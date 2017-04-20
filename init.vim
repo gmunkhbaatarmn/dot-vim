@@ -78,6 +78,7 @@ let g:ale_python_flake8_args = '--select F'
 ":1 Plugins
 
 " Features
+Plugin 'ap/vim-css-color'
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
 
