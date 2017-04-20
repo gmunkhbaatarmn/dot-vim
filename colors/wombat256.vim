@@ -155,7 +155,8 @@ call <SID>X('SpecialKey',   '6c6c6c', '242424', 'none')
 call <SID>X('NonText',      '6c6c6c', '242424', 'none')
 call <SID>X('Visual',       'ecee90', '597418', 'none')
 " call <SID>X('LineNr',       '857b6f', '121212', 'none')
-call <SID>X('LineNr',       '999999', '242424', 'none')
+" call <SID>X('LineNr',       '999999', '242424', 'none')
+call <SID>X('LineNr',       '999999', '202020', 'none')
 call <SID>X('Folded',       'af87d7', '242424', 'none')
 call <SID>X('Title',        'f6f3e8', '',       'bold')
 call <SID>X('VertSplit',    '444444', '444444', 'none')
@@ -198,7 +199,7 @@ call <SID>X('Todo',         '857b6f', '',       'italic')
 hi! link VisualNOS Visual
 " hi! link NonText LineNr
 " hi! link FoldColumn Folded
-call <SID>X('FoldColumn',   '242424', '242424', 'none')
+call <SID>X('FoldColumn',   '202020', '202020', 'none')
 
 ":1 Delete functions
 delfunction <SID>X
