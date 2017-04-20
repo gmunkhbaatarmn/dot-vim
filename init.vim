@@ -136,6 +136,7 @@ autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 
 ":1 Aesthetic customizations
 colorscheme wombat256
+set termguicolors
 
 " Contrast reduce for brackets
 autocmd vimrc BufEnter * syn match Braces display '[{}()\[\]]'
