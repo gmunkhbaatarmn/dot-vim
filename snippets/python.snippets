@@ -14,5 +14,6 @@ snippet frein
 	sys.stdin = open("input.txt")
 snippet freout
 	sys.stdout = open("output.txt", "w+")
-snippet lambda
-	${1:var} = lambda ${2:args}: ${3:value}
+snippet setrecursionlimit
+	import sys
+	sys.setrecursionlimit(1 << 30)
