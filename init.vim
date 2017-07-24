@@ -296,3 +296,6 @@ endfunction
 
 command! SourcePrint :call g:SourcePrint()
 command! MarkdownPrint :!markdown-print %
+
+" highlight over length lines
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929

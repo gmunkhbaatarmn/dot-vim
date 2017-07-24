@@ -271,15 +271,14 @@ endfunction
 
 autocmd vimrc FileType python setlocal foldmethod=expr foldexpr=g:PythonFoldExpr() foldtext=g:PythonFoldText()
 autocmd vimrc FileType python setlocal textwidth=99
+autocmd vimrc FileType python match OverLength /\%100v.\+/
+
 autocmd vimrc BufWritePost,InsertLeave *.py setlocal filetype=python
 
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < '%:r.txt'<CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!flake8 '%'                 <CR>| endif
 
-" Show line in 80th column
-autocmd vimrc FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd vimrc FileType python match OverLength /\%100v.\+/
 
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
@@ -640,6 +639,8 @@ endfunction
 
 autocmd vimrc BufNewFile,BufRead *.html setlocal filetype=htmljinja
 autocmd vimrc FileType htmljinja setlocal foldmethod=expr foldexpr=g:HTMLFoldExpr() foldtext=g:HTMLFoldText()
+autocmd vimrc FileType htmljinja setlocal textwidth=159
+autocmd vimrc FileType htmljinja match OverLength /\%160v.\+/
 
 " Jinja line comment
 autocmd vimrc FileType htmljinja syn region jinjaComment matchgroup=jinjaCommentDelim start="#:" end="$" keepend containedin=ALLBUT,jinjaTagBlock,jinjaVarBlock,jinjaRaw,jinjaString,jinjaNested,jinjaComment
