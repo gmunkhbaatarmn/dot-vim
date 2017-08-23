@@ -279,34 +279,34 @@ autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time pyth
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < '%:r.txt'<CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!flake8 '%'                 <CR>| endif
 
-
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Usage" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Route" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Usage \d\." containedin=pythonString contained
-" Highlight `CAPITALIZED:`
-autocmd vimrc FileType python syn match DocKeyword "\s*[A-Z]\+\(\s\|\n\)"he=e-1 containedin=pythonString contained
-" Highlight `{Regular-word}`
-autocmd vimrc FileType python syn match DocKeyword "{[a-zA-Z0-9_-]\+}"hs=s+0,he=e-0 containedin=pythonString contained
-" Highlight `%(word)s`
-autocmd vimrc FileType python syn match DocKeyword "%([a-zA-Z0-9_]\+)s"hs=s+0,he=e-0 containedin=pythonString contained
-" Highlight `%s`
-autocmd vimrc FileType python syn match DocKeyword "%\(s\|f\|d\)"hs=s+0,he=e-0 containedin=pythonString contained
+
+" Highlight `%s %f %d %r`
+autocmd vimrc FileType python syn match Comment "%\(s\|f\|d\|r\)"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `%.3f`
-autocmd vimrc FileType python syn match DocKeyword "%\.[0-9]\+f"hs=s+0,he=e-0 containedin=pythonString contained
-" Highlight `:Regular-word`
-autocmd vimrc FileType python syn match DocKeyword "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
+autocmd vimrc FileType python syn match Comment "%\.[0-9]\+f"hs=s+0,he=e-0 containedin=pythonString contained
+" Highlight `%(word)s`
+autocmd vimrc FileType python syn match Comment "%([a-zA-Z0-9_]\+)s"hs=s+0,he=e-0 containedin=pythonString contained
 " Highlight `#Regular-word`
-autocmd vimrc FileType python syn match DocKeyword "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
+autocmd vimrc FileType python syn match Comment "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e+0 containedin=pythonString contained
+" Highlight `argument - `
+autocmd vimrc FileType python syn match Comment "\s*[A-Za-z0-9_\-&\*:]*\(\s*- \)"he=e-2 containedin=pythonString contained
+" Highlight `:Regular-word`
+autocmd vimrc FileType python syn match Comment "\:[a-zA-Z0-9_-]\+"hs=s+0,he=e-0 containedin=pythonString contained
+
+" Highlight `{Regular-word}`
+autocmd vimrc FileType python syn match Type "{[a-zA-Z0-9_-]\+}"hs=s+0,he=e-0 containedin=pythonString contained
+" Highlight `<Regular-word>`
+autocmd vimrc FileType python syn match Type "<[a-zA-Z0-9_-]\+>"hs=s+0,he=e-0 containedin=pythonString contained
+
 " Highlight `self.`
 autocmd vimrc FileType python syn match Keyword "self\."
 
-" Highlight `argument - `
-autocmd vimrc FileType python syn match DocArgument "\s*[A-Za-z0-9_\-&\*:]*\(\s*- \)"he=e-2 containedin=pythonString contained
-
 autocmd vimrc FileType python hi default link DocArgument HELP
-autocmd vimrc FileType python hi default link DocKeyword Comment
 " endfold
 
 ":1 Coffeescript
