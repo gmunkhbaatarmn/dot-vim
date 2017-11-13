@@ -409,6 +409,9 @@ function! g:MakefileFoldExpr()
   if getline(v:lnum) =~? '^[a-z-_]\+:$'
     return '>1'
   endif
+  if getline(v:lnum) =~? '^# endfold$'
+    return '<1'
+  endif
 
   return '='
 endfunction
