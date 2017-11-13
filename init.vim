@@ -280,8 +280,13 @@ if system('uname') =~# 'Darwin'
 endif
 " endfold
 
-source $HOME/.vim/dvorak.vim
-source $HOME/.vim/filetypes.vim
+if filereadable($HOME . '/.vim/dvorak.vim')
+  source $HOME/.vim/dvorak.vim
+endif
+
+if filereadable($HOME . '/.vim/filetypes.vim')
+  source $HOME/.vim/filetypes.vim
+endif
 
 function! g:SourcePrint()
   colo macvim
