@@ -77,6 +77,14 @@ let g:ale_python_flake8_args = '--select F'
 
 ":1 Plugins
 
+" Colorscheme
+Plugin 'nanotech/jellybeans.vim'
+
+let g:jellybeans_overrides = {
+      \'Folded':     {                    'guibg': '151515' },
+      \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
+      \}
+
 " Features
 Plugin 'ap/vim-css-color'
 Plugin 'godlygeek/tabular'
@@ -135,7 +143,8 @@ autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 " endfold
 
 ":1 Aesthetic customizations
-colorscheme wombat256
+" colorscheme wombat256
+colorscheme jellybeans
 set termguicolors
 
 " Contrast reduce for brackets
