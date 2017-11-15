@@ -81,7 +81,7 @@ let g:ale_python_flake8_args = '--select F'
 Plugin 'nanotech/jellybeans.vim'
 
 let g:jellybeans_overrides = {
-      \'Folded':     {                    'guibg': '151515' },
+      \'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
       \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
       \}
 
