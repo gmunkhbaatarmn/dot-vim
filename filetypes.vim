@@ -343,6 +343,9 @@ autocmd vimrc FileType javascript setlocal foldmethod=marker foldmarker=\/\/\:,\
 autocmd vimrc FileType javascript setlocal autoindent
 autocmd vimrc BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time node "%" <CR>| endif
 
+" Highlight `[selector]`
+autocmd vimrc FileType javascript syn match Constant "\[[a-zA-Z0-9_\=-]\+\]"hs=s+0,he=e-0 containedin=JsString contained
+
 ":1 Ruby
 autocmd vimrc BufEnter * if &filetype == 'ruby' |nmap <F5>   :w<CR>:!time ruby "%"            <CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'ruby' |nmap <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>| endif
