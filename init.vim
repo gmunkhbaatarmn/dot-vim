@@ -21,46 +21,11 @@ Plugin 'scrooloose/nerdtree'
 " Fast toggle
 map <F2> :NERDTreeToggle<CR>
 
-" Common
 let g:NERDTreeMapOpenVSplit = 'a'
 let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
-function! g:NERDTreeCustomIgnoreFilter(path)
-  if b:NERDTreeShowHidden ==# 1
-    return 0
-  endif
-
-  let l:pathlist = [
-        \ $HOME . '/Desktop',
-        \ $HOME . '/Documents',
-        \ $HOME . '/Downloads',
-        \ $HOME . '/Dropbox',
-        \ $HOME . '/Library',
-        \ $HOME . '/Movies',
-        \ $HOME . '/Music',
-        \ $HOME . '/Pictures',
-        \ $HOME . '/Videos',
-        \]
-
-  let l:patterns = [
-        \ '\.min\.js$',
-        \ '\.min\.css$',
-        \]
-
-  for l:p in l:pathlist
-    if a:path.pathSegments == split(l:p, '/')
-      return 1
-    endif
-  endfor
-
-  for l:p in l:patterns
-    if a:path.getLastPathComponent(0) =~# l:p
-      return 1
-    endif
-  endfor
-endfunction
 
 ":1 Plugin - ALE (Asynchronous Lint Engine)
 Plugin 'w0rp/ale'
