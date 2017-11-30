@@ -56,7 +56,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
 
 " Filetype supports
-Plugin 'tpope/vim-cucumber'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-markdown.git'
 Plugin 'vim-ruby/vim-ruby'
