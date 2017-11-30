@@ -767,7 +767,7 @@ function! g:SnippetsFoldExpr()
   return '='
 endfunction
 autocmd vimrc FileType snippets setlocal foldmethod=expr foldtext=getline(v:foldstart)
-autocmd vimrc FileType snippets setlocal foldexpr=((getline(v:lnum)=~?'snippet\ ')?'>1':'1')
+autocmd vimrc FileType snippets setlocal foldexpr=g:SnippetsFoldExpr()
 
 ":1 Other
 autocmd vimrc BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>

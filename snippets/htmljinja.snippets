@@ -28,6 +28,7 @@ snippet clr
 	<div style="clear:both"></div>
 snippet nbsp
 	&nbsp;
+# endfold
 # --------------------------------------
 #             Jinja snippets
 # --------------------------------------
@@ -59,6 +60,7 @@ snippet for
 	{% for ${1} in ${2} %}
 	${3}
 	{% endfor %}
+# endfold
 # --------------------------------------
 #          Simple HTML elements
 # --------------------------------------
@@ -76,6 +78,10 @@ snippet option
 	<option value="${1}">${2}</option>
 snippet input
 	<input type="text" name="${1}" value="${2}">
+snippet radio
+	<input type="radio" name="${1}" value="${2}">
+snippet checkbox
+	<input type="checkbox" name="${1}" value="${2}">
 snippet hidden
 	<input type="hidden" name="${1}" value="${2}">
 snippet textarea
@@ -84,13 +90,15 @@ snippet form
 	<form method="post" action="${1}">
 	  <button type="submit">submit</button>
 	</form>
+# endfold
 # --------------------------------------
 #             HTML elements
-# {el}    - element
-# {el}*i  - one line
-# {el}*cl - with class
-# {el}*id - with id
-# {el}*st - with style
+# {el}     - element
+# {el}i   - one line
+# {el}cl  - with class
+# {el}cli - with class one line
+# {el}st  - with style
+# {el}sti - with style one line
 # --------------------------------------
 snippet a
 	<a href="${1}">
@@ -102,6 +110,13 @@ snippet acl
 	</a>
 snippet acli
 	<a href="${1}" class="${2}">${3}</a>
+snippet ast
+	<a href="${1}" style="${2}">
+	</a>
+snippet asti
+	<a href="${1}" style="${2}">${3}</a>
+# endfold
+
 snippet div
 	<div>
 	  ${1}
@@ -113,16 +128,13 @@ snippet divcl
 	</div>
 snippet divcli
 	<div class="${1}">${2}</div>
-snippet divid
-	<div id="${1}">
-	</div>
-snippet dividi
-	<div id="${1}">${2}</div>
 snippet divst
 	<div style="${1}">
 	</div>
 snippet divsti
 	<div style="${1}">${2}</div>
+# endfold
+
 snippet p
 	<p>
 	  ${1}
@@ -135,6 +147,15 @@ snippet pcl
 	</p>
 snippet pcli
 	<p class="${1}">${2}</p>
+
+snippet pst
+	<p class="${1}">
+	  ${2}
+	</p>
+snippet psti
+	<p class="${1}">${2}</p>
+# endfold
+
 snippet span
 	<span>
 	  ${1}
@@ -146,36 +167,85 @@ snippet spancl
 	</span>
 snippet spancli
 	<span class="${1}">${2}</span>
+snippet spanst
+	<span style="${1}">
+	</span>
+snippet spansti
+	<span style="${1}">${2}</span>
+# endfold
+
 snippet label
 	<label>
 	  ${1}
 	</label>
 snippet labeli
 	<label>${1}</label>
+snippet labelcl
+	<label class="${1}">
+	</label>
+snippet labelcli
+	<label class="${1}">${2}</label>
+snippet labelst
+	<label style="${1}">
+	</label>
+snippet labelsti
+	<label style="${1}">${2}</label>
+# endfold
+
 snippet h1
 	<h1>
 	  ${1}
 	</h1>
 snippet h1i
 	<h1>${1}</h1>
+snippet h1cl
+	<h1 class="${1}">
+	</h1>
+snippet h1cli
+	<h1 class="${1}">${2}</h1>
+snippet h1st
+	<h1 style="${1}">
+	</h1>
+snippet h1sti
+	<h1 style="${1}">${2}</h1>
+# endfold
+
 snippet h2
 	<h2>
 	  ${1}
 	</h2>
 snippet h2i
 	<h2>${1}</h2>
+snippet h2cl
+	<h2 class="${1}">
+	</h2>
+snippet h2cli
+	<h2 class="${1}">${2}</h2>
+snippet h2st
+	<h2 style="${1}">
+	</h2>
+snippet h2sti
+	<h2 style="${1}">${2}</h2>
+# endfold
+
 snippet h3
 	<h3>
 	  ${1}
 	</h3>
 snippet h3i
 	<h3>${1}</h3>
-snippet h4
-	<h4>
-	  ${1}
-	</h4>
-snippet h4i
-	<h4>${1}</h4>
+snippet h3cl
+	<h3 class="${1}">
+	</h3>
+snippet h3cli
+	<h3 class="${1}">${2}</h3>
+snippet h3st
+	<h3 style="${1}">
+	</h3>
+snippet h3sti
+	<h3 style="${1}">${2}</h3>
+# endfold
+
 snippet ul
 	<ul>
 	  ${1}
@@ -184,10 +254,16 @@ snippet uli
 	<ul>${1}</ul>
 snippet ulcl
 	<ul class="${1}">
-	  ${2}
 	</ul>
 snippet ulcli
 	<ul class="${1}">${2}</ul>
+snippet ulst
+	<ul style="${1}">
+	</ul>
+snippet ulsti
+	<ul style="${1}">${2}</ul>
+# endfold
+
 snippet li
 	<li>
 	  ${1}
@@ -196,30 +272,88 @@ snippet lii
 	<li>${1}</li>
 snippet licl
 	<li class="${1}">
-	  ${2}
 	</li>
 snippet licli
 	<li class="${1}">${2}</li>
+snippet list
+	<li style="${1}">
+	</li>
+snippet listi
+	<li style="${1}">${2}</li>
+# endfold
+
 snippet table
 	<table>
+	  ${1}
 	</table>
+snippet tablei
+	<table>${1}</table>
 snippet tablecl
 	<table class="${1}">
 	</table>
+snippet tablectable
+	<table class="${1}">${2}</table>
+snippet tablest
+	<table style="${1}">
+	</table>
+snippet tablesti
+	<table style="${1}">${2}</table>
+# endfold
+
 snippet thead
 	<thead>
 	  ${1}
 	</thead>
+snippet theadi
+	<thead>${1}</thead>
+snippet theadcl
+	<thead class="${1}">
+	</thead>
+snippet theadcthead
+	<thead class="${1}">${2}</thead>
+snippet theadst
+	<thead style="${1}">
+	</thead>
+snippet theadsti
+	<thead style="${1}">${2}</thead>
+# endfold
+
 snippet tbody
 	<tbody>
 	  ${1}
 	</tbody>
+snippet tbodyi
+	<tbody>${1}</tbody>
+snippet tbodycl
+	<tbody class="${1}">
+	</tbody>
+snippet tbodyctbody
+	<tbody class="${1}">${2}</tbody>
+snippet tbodyst
+	<tbody style="${1}">
+	</tbody>
+snippet tbodysti
+	<tbody style="${1}">${2}</tbody>
+# endfold
+
 snippet tr
 	<tr>
 	  ${1}
 	</tr>
 snippet tri
 	<tr>${1}</tr>
+snippet trcl
+	<tr class="${1}">
+	</tr>
+snippet trctr
+	<tr class="${1}">${2}</tr>
+snippet trst
+	<tr style="${1}">
+	</tr>
+snippet trsti
+	<tr style="${1}">${2}</tr>
+# endfold
+
 snippet th
 	<th>
 	  ${1}
@@ -229,8 +363,15 @@ snippet thi
 snippet thcl
 	<th class="${1}">
 	</th>
-snippet thcli
+snippet thcth
 	<th class="${1}">${2}</th>
+snippet thst
+	<th style="${1}">
+	</th>
+snippet thsti
+	<th style="${1}">${2}</th>
+# endfold
+
 snippet td
 	<td>
 	  ${1}
@@ -240,24 +381,47 @@ snippet tdi
 snippet tdcl
 	<td class="${1}">
 	</td>
-snippet tdcli
+snippet tdctd
 	<td class="${1}">${2}</td>
+snippet tdst
+	<td style="${1}">
+	</td>
+snippet tdsti
+	<td style="${1}">${2}</td>
+# endfold
 
-snippet btn
+snippet td
+	<td>
+	  ${1}
+	</td>
+snippet tdi
+	<td>${1}</td>
+snippet tdcl
+	<td class="${1}">
+	</td>
+snippet tdctd
+	<td class="${1}">${2}</td>
+snippet tdst
+	<td style="${1}">
+	</td>
+snippet tdsti
+	<td style="${1}">${2}</td>
+# endfold
+
+snippet button
 	<button>
-		${0:${VISUAL}}
+	  ${1}
 	</button>
-
-snippet btni
-	<button>${0:${VISUAL}}</button>
-
-snippet btncl
+snippet buttoni
+	<button>${1}</button>
+snippet buttoncl
 	<button class="${1}">
-		${0:${VISUAL}}
 	</button>
-
-snippet btncli
-	<button class="${1}">${0:${VISUAL}}</button>
-
-snippet cl
-	class="${0:${VISUAL}}"
+snippet buttoncbutton
+	<button class="${1}">${2}</button>
+snippet buttonst
+	<button style="${1}">
+	</button>
+snippet buttonsti
+	<button style="${1}">${2}</button>
+# endfold
