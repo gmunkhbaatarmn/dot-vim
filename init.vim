@@ -38,7 +38,7 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_python_flake8_args = '--select F'
-
+highlight link ALEErrorLine error
 
 ":1 Plugins
 
