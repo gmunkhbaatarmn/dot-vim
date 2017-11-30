@@ -277,3 +277,13 @@ command! MarkdownPrint :!markdown-print %
 
 " highlight over length lines
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+
+Plugin 'junegunn/goyo.vim'
+function! ProseMode()
+  call goyo#execute(0, [])
+  set nocopyindent
+  set nosmartindent noai nolist noshowmode noshowcmd
+  set complete+=s
+endfunction
+
+command! ProseMode call ProseMode()
