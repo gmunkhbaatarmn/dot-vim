@@ -15,7 +15,6 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 
 ":1 Plugin - NERDTree
-" Not forward compatible. Reverted to 'da3874c'
 Plugin 'scrooloose/nerdtree'
 
 " Fast toggle
@@ -38,6 +37,7 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_python_flake8_args = '--select F'
+
 highlight link ALEErrorLine error
 
 ":1 Plugins
@@ -54,6 +54,7 @@ let g:jellybeans_overrides = {
 Plugin 'ap/vim-css-color'
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'junegunn/goyo.vim'
 
 " Filetype supports
 Plugin 'kchmck/vim-coffee-script'
@@ -107,7 +108,6 @@ autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 " endfold
 
 ":1 Aesthetic customizations
-" colorscheme wombat256
 colorscheme jellybeans
 set termguicolors
 
@@ -261,6 +261,10 @@ if filereadable($HOME . '/.vim/filetypes.vim')
   source $HOME/.vim/filetypes.vim
 endif
 
+" highlight over length lines
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+
+":2 :SourcePrint
 function! g:SourcePrint()
   colo macvim
   set background=light
@@ -273,12 +277,11 @@ function! g:SourcePrint()
 endfunction
 
 command! SourcePrint :call g:SourcePrint()
+
+":2 :MarkdownPrint
 command! MarkdownPrint :!markdown-print %
 
-" highlight over length lines
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-
-Plugin 'junegunn/goyo.vim'
+":2 :ProseMode
 function! ProseMode()
   call goyo#execute(0, [])
   set nocopyindent

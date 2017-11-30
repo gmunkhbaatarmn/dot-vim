@@ -383,6 +383,7 @@ autocmd vimrc FileType vim syn match DocKeyword "\\." containedin=vimString cont
 autocmd vimrc FileType vim hi default link DocKeyword Comment
 
 ":1 Yaml
+":2 YamlFoldText
 function! g:YamlFoldText()
   let l:line = getline(v:foldstart)
 
@@ -395,6 +396,7 @@ function! g:YamlFoldText()
   endif
 endfunction
 
+":2 YamlFoldExpr
 function! g:YamlFoldExpr()
   if getline(v:lnum) =~? '^# endfold$'
     return '<1'
@@ -410,6 +412,7 @@ function! g:YamlFoldExpr()
 
   return '='
 endfunction
+" endfold
 
 autocmd vimrc FileType yaml setlocal foldmethod=expr foldexpr=g:YamlFoldExpr() foldtext=g:YamlFoldText()
 autocmd vimrc FileType yaml setlocal foldmarker=#\:,endfold
@@ -417,6 +420,7 @@ autocmd vimrc FileType yaml highlight OverLength ctermbg=red ctermfg=white guibg
 autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 
 ":1 Makefile
+":2 MakefileFoldExpr
 function! g:MakefileFoldExpr()
   " Case: start with 'COMMAND:'
   if getline(v:lnum) =~? '^[a-z-_]\+:$'
@@ -429,7 +433,13 @@ function! g:MakefileFoldExpr()
   return '='
 endfunction
 
-autocmd vimrc FileType make setlocal foldmethod=expr foldexpr=g:MakefileFoldExpr() foldtext=strpart(getline(v:foldstart),0,strlen(getline(v:foldstart))-1)
+":2 MakefileFoldText
+function! g:MakefileFoldText()
+  return strpart(getline(v:foldstart), 0, strlen(getline(v:foldstart)) - 1)
+endfunction
+" endfold
+
+autocmd vimrc FileType make setlocal foldmethod=expr foldexpr=g:MakefileFoldExpr() foldtext=g:MakefileFoldText()
 
 ":1 C
 autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
@@ -437,6 +447,7 @@ autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F5>   :w<CR>:!time "%:p:h/a"
 autocmd vimrc BufEnter * if &filetype == 'c' |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
 
 ":1 C++
+":2 CppFoldText
 function! g:CppFoldText()
   let l:line = getline(v:foldstart)
   let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -454,6 +465,7 @@ function! g:CppFoldText()
   let l:fillcharcount = l:windowwidth - len(l:line) - len(l:foldedlinecount)
   return repeat(l:onetab, l:leading_spaces). '▸' . printf('%3s', l:foldedlinecount) . ' lines ' . l:line . '' . repeat(' ', l:fillcharcount) . '(' . l:foldedlinecount . ')' . ' '
 endfunction
+" endfold
 
 autocmd vimrc FileType cpp setlocal foldmethod=marker foldmarker=\/\/\ created\:,\/\/\ end
 autocmd vimrc FileType cpp setlocal foldtext=g:CppFoldText()
