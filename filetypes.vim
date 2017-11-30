@@ -193,73 +193,83 @@ function! g:PythonFoldText()
   let l:nextline = getline(v:foldstart + 1)
   let l:nextline_trimmed = substitute(l:nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
 
+  ":3 @classmethod
   if l:trimmed =~# '^@classmethod'
     let l:custom_text = '@classmethod ' . substitute(strpart(l:nextline_trimmed, 4), ':', '', '') . ''
 
+  ":3 from|import
   elseif l:trimmed =~# '^\(from \|import \)'
     let l:custom_text = 'import'
 
-  elseif l:trimmed =~# '^step'
-    let l:custom_text = l:trimmed
-    let l:custom_text = substitute(l:custom_text, '(', '', '')
-    let l:custom_text = substitute(l:custom_text, '"', '', '')
-    let l:custom_text = substitute(l:custom_text, ')', '', '')
-    let l:custom_text = substitute(l:custom_text, '\\n', '', '')
-
-    let l:custom_text = '▸     ' . l:custom_text[4:]
-
+  ":3 @task
   elseif l:trimmed =~# '^@task'
     let l:custom_text = '@task ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
 
+  ":3 @cron
   elseif l:trimmed =~# '^@cron'
     let l:custom_text = '@cron ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
 
+  ":3 @property
   elseif l:trimmed =~# '^@property'
     let l:custom_text = '@property ' . strpart(split(l:nextline_trimmed, '(')[0], 4)
 
+  ":3 .setter
   elseif l:trimmed =~# '\.setter$'
     let l:after_part = substitute(l:nextline_trimmed, ':', '', '')
     let l:custom_text = 'def @' . strpart(substitute(l:after_part, '(', '.setter(', ''), 4)
 
+  ":3 @
   elseif l:trimmed =~# '@'
     let l:fillcharcount = 80 - len(l:prefix) - len(substitute(l:trimmed, '.', '-', 'g'))
     let l:custom_text = '@' . strpart(l:trimmed, 1) . repeat(' ', l:fillcharcount) . substitute(l:nextline_trimmed, ':', '', '')
 
+  ":3 [CAPITAL LETTER]
   elseif l:trimmed =~# '^# [A-Z0-9-]'
     let l:custom_text = '▸ ' . strpart(l:trimmed, 2)
 
+  ":3 def test_<name>
   elseif l:trimmed =~# '^def test_'
     let l:custom_text = l:trimmed
     let l:custom_text = substitute(l:custom_text, '(', '', '')
     let l:custom_text = substitute(l:custom_text, ')', '', '')
     let l:custom_text = 'def test ' . substitute(strpart(l:custom_text, 9), ':', ' ', '')
 
+  ":3 def
   elseif l:trimmed =~# '^def '
     let l:custom_text = 'def ' . substitute(strpart(l:trimmed, 4), ':', ' ', '')
 
+  ":3 class
   elseif l:trimmed =~# '^class '
     let l:custom_text = 'class ' . substitute(strpart(l:trimmed, 6), ':', '', '')
 
+  ":3 if
   elseif l:trimmed =~# '^if '
     let l:custom_text = 'if ' . substitute(strpart(l:trimmed, 3), ':', '', '')
 
+  ":3 for
   elseif l:trimmed =~# '^for '
     let l:custom_text = 'for ' . substitute(strpart(l:trimmed, 4), ':', '', '')
 
+  ":3 while
   elseif l:trimmed =~# '^while '
     let l:custom_text = 'while ' . substitute(strpart(l:trimmed, 6), ':', ' ', '')
 
+  ":3 try
   elseif l:trimmed =~# '^try:'
     let l:custom_text = 'try' . substitute(strpart(l:trimmed, 3), ':', ' ', '')
 
+  ":3 except:
   elseif l:trimmed =~# '^except:'
     let l:custom_text = 'except' . substitute(strpart(l:trimmed, 7), ':', ' ', '')
 
+  ":3 except
   elseif l:trimmed =~# '^except '
     let l:custom_text = 'except ' . substitute(strpart(l:trimmed, 7), ':', ' ', '')
 
+  ":3 finally:
   elseif l:trimmed =~# '^finally:'
     let l:custom_text = 'finally' . substitute(strpart(l:trimmed, 7), ':', ' ', '')
+  " endfold
 
   else
     return foldtext()
