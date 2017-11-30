@@ -8,7 +8,6 @@ init:
 
 ci-dependency:
 	pip install vim-vint --upgrade
-	npm install vimlint --global
 
 ci-test:
 	@# vim-vint
@@ -17,7 +16,3 @@ ci-test:
 	vint filetypes.vim
 	vint colors/*.vim
 	vint keymap/*.vim
-	@# vimlint
-	vimlint *.vim
-	vimlint colors/*.vim
-	vimlint keymap/*.vim
