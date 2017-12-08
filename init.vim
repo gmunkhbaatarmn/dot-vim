@@ -38,6 +38,7 @@ let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_python_flake8_args = '--select F'
 
+let g:ale_stylus_stylelint_executable = ''
 highlight link ALEErrorLine error
 
 ":1 Plugins
