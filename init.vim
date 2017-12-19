@@ -63,7 +63,10 @@ Plugin 'junegunn/goyo.vim'
 
 " Filetype supports
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'tpope/vim-markdown.git'
+Plugin 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_frontmatter = 1
+
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wavded/vim-stylus'
