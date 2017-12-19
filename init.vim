@@ -51,6 +51,10 @@ let g:jellybeans_overrides = {
       \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
       \}
 
+Plugin 'airblade/vim-rooter'
+let g:rooter_patterns = ['.git/']
+let g:rooter_silent_chdir = 1
+
 " Features
 Plugin 'ap/vim-css-color'
 Plugin 'godlygeek/tabular'
