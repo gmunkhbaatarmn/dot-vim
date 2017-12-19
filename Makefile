@@ -6,8 +6,8 @@ init:
 	git clone git@github.com:VundleVim/Vundle.vim.git bundle/Vundle.vim
 	vim +PluginInstall +qall
 
-ci-dependency:
-	pip install vim-vint --upgrade
+ci-init:
+	pip install vim-vint
 
 ci-test:
 	@# vim-vint
