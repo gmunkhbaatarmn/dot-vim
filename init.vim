@@ -101,6 +101,7 @@ set numberwidth=5                      " Line number width
 set shellslash                         " Always use unix style slash /
 set nojoinspaces                       " no insert two spaces in line join
 set gdefault                           " Add the g flag to search/replace by default
+set tags=.git/tags;./tags;tags
 
 " Easy fold toggle
 nmap <Space> za
