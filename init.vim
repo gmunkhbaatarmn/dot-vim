@@ -9,12 +9,12 @@ let g:vundle_default_git_proto = 'git'
 
 Plugin 'VundleVim/Vundle.vim'
 
-":1 Plugin - Snipmate
+":1 Plugin: Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 
-":1 Plugin - NERDTree
+":1 Plugin: NERDTree
 Plugin 'scrooloose/nerdtree'
 
 " Fast toggle
@@ -26,7 +26,7 @@ let g:NERDTreeMouseMode = 3
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 
-":1 Plugin - ALE (Asynchronous Lint Engine)
+":1 Plugin: ALE (Asynchronous Lint Engine)
 Plugin 'w0rp/ale'
 
 let g:ale_lint_on_save = 1
@@ -37,13 +37,17 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_python_flake8_args = '--select F'
-
 let g:ale_stylus_stylelint_executable = ''
+
 highlight link ALEErrorLine error
 
-":1 Plugins
+":1 Plugin: Rooter
+Plugin 'airblade/vim-rooter'
 
-" Colorscheme
+let g:rooter_patterns = ['.git/']
+let g:rooter_silent_chdir = 1
+
+":1 Plugin: Jellybeans
 Plugin 'nanotech/jellybeans.vim'
 
 let g:jellybeans_overrides = {
@@ -51,10 +55,13 @@ let g:jellybeans_overrides = {
       \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
       \}
 
-Plugin 'airblade/vim-rooter'
-let g:rooter_patterns = ['.git/']
-let g:rooter_silent_chdir = 1
+":1 Plugin: Markdown
+Plugin 'plasticboy/vim-markdown'
 
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_frontmatter = 1
+
+":1 Plugins
 " Features
 Plugin 'ap/vim-css-color'
 Plugin 'godlygeek/tabular'
@@ -63,10 +70,6 @@ Plugin 'junegunn/goyo.vim'
 
 " Filetype supports
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_frontmatter = 1
-
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wavded/vim-stylus'
@@ -119,10 +122,6 @@ autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
 ":1 Aesthetic customizations
 colorscheme jellybeans
 set termguicolors
-
-" Contrast reduce for brackets
-autocmd vimrc BufEnter * syn match Braces display '[{}()\[\]]'
-autocmd vimrc BufEnter * hi def link Braces comment
 
 " Ruler format
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
@@ -273,7 +272,7 @@ endif
 " highlight over length lines
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
-":2 :SourcePrint
+":1 :SourcePrint
 function! g:SourcePrint()
   colo macvim
   set background=light
@@ -287,10 +286,10 @@ endfunction
 
 command! SourcePrint :call g:SourcePrint()
 
-":2 :MarkdownPrint
+":1 :MarkdownPrint
 command! MarkdownPrint :!markdown-print %
 
-":2 :ProseMode
+":1 :ProseMode
 function! ProseMode()
   call goyo#execute(0, [])
   set nocopyindent
