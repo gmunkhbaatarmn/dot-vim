@@ -541,33 +541,11 @@ autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F5> :w<CR>:!html-book
 autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F9> :w<CR>:!pdf-book "%"; open "%:r.pdf"<CR>;|endif
 autocmd vimrc FileType markdown setlocal foldmethod=expr foldexpr=g:MarkdownFoldExpr() foldtext=g:MarkdownFoldText()
 
-":2 Markdown: syntax enhancements
-" Expression: $$...$$
-autocmd vimrc FileType markdown syn region Function start=/\s*$$[^$]*/ end=/[^$]*$$\s*/
+" Syntax: `#123` (github issue number)
+autocmd vimrc FileType markdown syn match Function '#[0-9]\+'
 
-" Expression: **..**
-autocmd vimrc FileType markdown syn region Function start=/\s*\*\*[^\*]*/ end=/[^\*]*\*\*\s*/
-
-" Expression: `...`
-autocmd vimrc FileType markdown syn region String start=/\s*`[^`]*/ end=/[^`]*`\s*/
-
-" Expression: #123 (github issue number)
-autocmd vimrc FileType markdown syn match Function '#[0-9]\+' containedin=TodoLine
-
-" Expression: @name
-autocmd vimrc FileType markdown syn match Function '\s@[a-z]\+' containedin=TodoLine
-
-" Feature: list label
-autocmd vimrc FileType markdown syn match ListLabel '[^\[\]\(\)\ ]\+:' containedin=TodoLine
-autocmd vimrc FileType markdown hi def link ListLabel Float
-
-" Fix: underline fix
-autocmd vimrc FileType markdown syn match Text "\w\@<=_\w\@="
-
-" Fix: syntax bug fix
-autocmd vimrc FileType markdown syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end="\S\@<=\*\*\|\*\*\S\@=" keepend contains=markdownLineStart
-autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend contains=markdownLineStart
-autocmd vimrc FileType markdown syn region markdownBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart
+" Syntax: `label:`
+autocmd vimrc FileType markdown syn match Float '[^ ]\+:'
 
 ":2 Markdown: simple todo-list manager
 function! MarkdownToggle()
