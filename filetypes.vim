@@ -606,6 +606,15 @@ function! g:HTMLFoldExpr()
     return '>1'
   endif
 
+  ":3 +1 | `{% call `
+  if getline(v:lnum) =~? '^{% call '
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^{%- call '
+    return '>1'
+  endif
+
   ":3 +1 | `#: `
   if l:trimmed =~? '^#: '
     return '>1'
@@ -619,6 +628,15 @@ function! g:HTMLFoldExpr()
 
   ":3 +2 | `#:2`
   if l:trimmed =~? '^#:2'
+    return '>2'
+  endif
+
+  ":3 +1 | ` {% call `
+  if getline(v:lnum) =~? '  {% call '
+    return '>2'
+  endif
+
+  if getline(v:lnum) =~? '  {%- call '
     return '>2'
   endif
 
