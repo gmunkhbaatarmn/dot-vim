@@ -38,6 +38,7 @@ let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_python_flake8_args = '--select F'
 let g:ale_stylus_stylelint_executable = ''
+let g:ale_sass_stylelint_executable = 'sasslint'
 
 highlight link ALEErrorLine error
 
@@ -73,6 +74,8 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wavded/vim-stylus'
+Plugin 'tpope/vim-haml'
+Plugin 'hail2u/vim-css3-syntax'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'mitsuhiko/vim-jinja'
 " endfold
