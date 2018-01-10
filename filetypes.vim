@@ -423,7 +423,7 @@ autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 ":2 MakefileFoldExpr
 function! g:MakefileFoldExpr()
   " Case: start with 'COMMAND:'
-  if getline(v:lnum) =~? '^[a-z-_]\+:$'
+  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
     return '>1'
   endif
   if getline(v:lnum) =~? '^# endfold$'
