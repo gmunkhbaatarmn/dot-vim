@@ -41,6 +41,7 @@ let g:ale_stylus_stylelint_executable = ''
 let g:ale_sass_stylelint_executable = 'sasslint'
 
 highlight link ALEErrorLine error
+highlight link ALEWarningLine warning
 
 ":1 Plugin: Rooter
 Plugin 'airblade/vim-rooter'
