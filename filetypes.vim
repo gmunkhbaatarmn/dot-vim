@@ -209,6 +209,14 @@ function! g:PythonFoldText()
   elseif l:trimmed =~# '^@cron'
     let l:custom_text = '@cron ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
 
+  ":3 @require("user")
+  elseif l:trimmed =~# '^@require("user")'
+    let l:custom_text = '@require("user") ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
+
+  ":3 @require("admin")
+  elseif l:trimmed =~# '^@require("admin")'
+    let l:custom_text = '@require("admin") ' . strpart(l:nextline_trimmed, 4, strlen(l:nextline_trimmed) - 5)
+
   ":3 @property
   elseif l:trimmed =~# '^@property'
     let l:custom_text = '@property ' . strpart(split(l:nextline_trimmed, '(')[0], 4)
