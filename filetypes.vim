@@ -551,6 +551,7 @@ autocmd vimrc FileType markdown setlocal foldmethod=expr foldexpr=g:MarkdownFold
 
 " Syntax: `#123` (github issue number)
 autocmd vimrc FileType markdown syn match Function '#[0-9]\+'
+autocmd vimrc FileType markdown syn match String '=>'
 
 " Syntax: `label:`
 autocmd vimrc FileType markdown syn match Float '[^ ]\+:'
