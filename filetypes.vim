@@ -238,8 +238,6 @@ function! g:PythonFoldText()
   ":3 def test_<name>
   elseif l:trimmed =~# '^def test_'
     let l:custom_text = l:trimmed
-    let l:custom_text = substitute(l:custom_text, '(', '', '')
-    let l:custom_text = substitute(l:custom_text, ')', '', '')
     let l:custom_text = 'def test ' . substitute(strpart(l:custom_text, 9), ':', ' ', '')
 
   ":3 def
