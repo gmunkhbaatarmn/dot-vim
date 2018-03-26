@@ -159,6 +159,12 @@ function! g:PythonFoldExpr()
     endif
     " endfold
 
+    ":3 +3 | class|def start
+    if getline(v:lnum) =~? '^\s\{8\}\(class\|def\) '
+      let s:fold = 2
+      return '>3'
+    endif
+
     ":3 +3 | # title
     if getline(v:lnum) =~# '^\s\{8,\}# [A-Z0-9-]'
       if s:fold == 1
