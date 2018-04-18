@@ -240,9 +240,6 @@ imap <C-b> <ESC>:close<CR>
 " endfold
 
 ":1 Automatic commands
-" Change to the directory of the current file
-autocmd vimrc BufEnter * silent! lcd %:p:h
-
 " Remove trailing spaces
 autocmd vimrc BufWritePre * :%s/\s\+$//e
 
@@ -284,7 +281,7 @@ function! g:SourcePrint()
   w! ~/vim-source.html
   bdelete!
   !open ~/vim-source.html
-  color wombat256
+  color jellybeans
   set background=dark
 endfunction
 
