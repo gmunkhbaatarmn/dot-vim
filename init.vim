@@ -259,7 +259,7 @@ if has('gui_running')
   set guicursor+=a:blinkon0       " Disable cursor blinking
 endif
 
-if system('uname') =~# 'Darwin'
+if has('gui_running') && system('uname') =~# 'Darwin'
   set guifont=Monaco:h13        " Change GUI font
   set clipboard=unnamed         " Use the OS clipboard by default
 endif
