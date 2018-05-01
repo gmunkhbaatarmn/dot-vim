@@ -257,6 +257,9 @@ endif
 
 if has('gui_running') && system('uname') =~# 'Darwin'
   set guifont=Monaco:h13        " Change GUI font
+endif
+
+if system('uname') =~# 'Darwin'
   set clipboard=unnamed         " Use the OS clipboard by default
 endif
 " endfold
