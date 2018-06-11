@@ -43,12 +43,6 @@ let g:ale_sass_stylelint_executable = 'sasslint'
 highlight link ALEErrorLine error
 highlight link ALEWarningLine warning
 
-":1 Plugin: Rooter
-Plugin 'airblade/vim-rooter'
-
-let g:rooter_patterns = ['.git/']
-let g:rooter_silent_chdir = 1
-
 ":1 Plugin: Jellybeans
 Plugin 'nanotech/jellybeans.vim'
 
