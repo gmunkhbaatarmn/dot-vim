@@ -16,6 +16,7 @@ function! NERDTreeCustomIgnoreFilter(params)
   let l:patterns = [
         \ '\.min\.js$',
         \ '\.min\.css$',
+        \ 'node_modules$',
         \]
 
   for l:p in l:pathlist
