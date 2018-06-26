@@ -303,6 +303,7 @@ autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!flake8 '%
 
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
+autocmd vimrc FileType python syn match DocKeyword "Yields" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Usage" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Route" containedin=pythonString contained
 autocmd vimrc FileType python syn match DocKeyword "Usage \d\." containedin=pythonString contained
