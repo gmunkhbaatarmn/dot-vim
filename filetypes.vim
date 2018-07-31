@@ -332,6 +332,9 @@ autocmd vimrc FileType python syn match Keyword "self\."
 autocmd vimrc FileType python hi default link DocArgument HELP
 " endfold
 
+":1 Lua
+autocmd vimrc BufEnter *.script setlocal filetype=lua
+
 ":1 Coffeescript
 function! g:CoffeeFoldText()
   let l:line = getline(v:foldstart)
