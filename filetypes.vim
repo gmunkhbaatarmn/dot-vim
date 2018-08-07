@@ -333,7 +333,44 @@ autocmd vimrc FileType python hi default link DocArgument HELP
 " endfold
 
 ":1 Lua
+":2 LuaFoldExpr
+function! g:LuaFoldExpr()
+  if getline(v:lnum) =~? '^end -- fold$'
+    return '<1'
+  endif
+
+  if getline(v:lnum) =~? '^local function '
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^function '
+    return '>1'
+  endif
+
+  return '='
+endfunction
+
+":2 LuaFoldText
+function! g:LuaFoldText()
+  let l:line = getline(v:foldstart)
+
+  return l:line
+
+  if l:line =~? '^[a-z0-9-_]\+:'
+    return l:line
+  elseif l:line[:2] ==# '  #'
+    return '  ▸ ' . l:line[4:]
+  else
+    return '▸   ' . l:line[4:]
+  endif
+endfunction
+" endfold2
+
 autocmd vimrc BufEnter *.script setlocal filetype=lua
+autocmd vimrc FileType lua setlocal foldmethod=marker foldmarker=function\ ,end
+autocmd vimrc FileType lua setlocal foldmethod=expr foldexpr=g:LuaFoldExpr() foldtext=g:LuaFoldText()
+
+autocmd vimrc FileType lua syn match Keyword "self"
 
 ":1 Coffeescript
 function! g:CoffeeFoldText()
