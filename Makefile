@@ -11,8 +11,8 @@ ci-init:
 
 ci-test:
 	@# vim-vint
-	vint init.vim
-	vint dvorak.vim
-	vint filetypes.vim
-	vint colors/*.vim
-	vint keymap/*.vim
+	vint --style-problem init.vim
+	vint --style-problem dvorak.vim
+	vint --style-problem filetypes.vim
+	vint --style-problem colors/*.vim
+	vint --style-problem keymap/*.vim
