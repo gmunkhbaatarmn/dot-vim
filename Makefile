@@ -7,6 +7,7 @@ init:
 	vim +PluginInstall +qall
 
 ci-init:
+	pip install pathlib typing enum34  # fix for https://travis-ci.org/gmunkhbaatarmn/dot-vim/builds/413444720
 	pip install vim-vint
 
 ci-test:
