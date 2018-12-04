@@ -1,0 +1,5 @@
+snippet debug
+	echo '<pre>'; var_dump(${1}); echo '</pre>'; die();
+
+snippet trace
+	echo '<pre>'; var_dump((new \Exception)->getTraceAsString()); echo '</pre>'; die();
