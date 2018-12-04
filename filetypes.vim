@@ -908,15 +908,15 @@ autocmd vimrc BufEnter *.conf setlocal filetype=dosini
 
 ":1 Tab configuration for filetypes
 " use tab. tabsize = 4
-autocmd vimrc FileType php
-  \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+" autocmd vimrc FileType php
+"   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
 " use tab. tabsize = 2
 autocmd vimrc FileType cpp,c,java,snippets,make
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 " no tab use. tab = 4 space
-autocmd vimrc FileType python,sh
+autocmd vimrc FileType python,sh,php
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " no tab use. tab = 2 space
