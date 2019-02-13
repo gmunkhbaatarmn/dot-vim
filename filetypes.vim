@@ -844,6 +844,16 @@ function! g:HTMLFoldExpr()
   if l:trimmed =~? '^#:endfold$'
     return '<1'
   endif
+
+  ":3 +1 | `{#: `
+  if l:trimmed =~? '^{#: '
+    return '>1'
+  endif
+
+  ":3 -1 | `{#:endfold #}`
+  if l:trimmed =~? '^{#:endfold #}$'
+    return '<1'
+  endif
   " endfold
 
   ":3 +2 | `#:2`
@@ -851,18 +861,28 @@ function! g:HTMLFoldExpr()
     return '>2'
   endif
 
-  ":3 +1 | ` {% call `
+  ":3 -2 | `#:endfold2`
+  if l:trimmed =~? '^#:endfold2'
+    return '<2'
+  endif
+
+  ":3 +2 | `{#:2 `
+  if l:trimmed =~? '^{#:2 '
+    return '>2'
+  endif
+
+  ":3 -2 | `{#:endfold2 #}`
+  if l:trimmed =~? '^{#:endfold2 #}'
+    return '<2'
+  endif
+
+  ":3 +2 | `{% call `
   if getline(v:lnum) =~? '  {% call '
     return '>2'
   endif
 
   if getline(v:lnum) =~? '  {%- call '
     return '>2'
-  endif
-
-  ":3 -2 | `#:endfold2`
-  if l:trimmed =~? '^#:endfold2'
-    return '<2'
   endif
   " endfold
 
@@ -883,6 +903,12 @@ function! g:HTMLFoldText()
     return l:prefix . '' . l:trimmed[4:]
   elseif l:trimmed[:1] ==# '{%'
     return l:prefix . l:trimmed
+  elseif l:trimmed[:2] ==# '{#:'
+    let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+    let l:trimmed = substitute(l:trimmed, '{', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '#', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '}', '', 'g')
+    return l:prefix . '▸   ' . l:trimmed
   elseif l:trimmed[:1] ==# '{#'
     let l:trimmed = strpart(l:trimmed, 5, l:size - 5)
     let l:trimmed = substitute(l:trimmed, '{', '', 'g')
