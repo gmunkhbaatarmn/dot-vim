@@ -23,3 +23,47 @@ snippet contest
 
 	for line in sys.stdin:
 	    line
+
+snippet ctf_rsa
+	import gmpy2
+	from Crypto.Util import number
+	from Crypto.PublicKey import RSA
+
+
+	cipher = number.bytes_to_long("string")
+
+	# get "e", "n" from public key
+	k = RSA.importKey(open("public-key.pem").read())
+	e = k.key.e
+	n = k.key.n
+
+	e = 65537
+	n = 123456789
+
+	p = 123
+	q = n / p
+
+	assert gmpy2.is_prime(p)
+	assert gmpy2.is_prime(q)
+	assert p * q == n
+
+	phi = (p - 1) * (q - 1)
+	d = gmpy2.invert(e, phi)
+
+	print number.long_to_bytes(pow(cipher, d, n))
+
+snippet ctf_pil
+	from PIL import Image
+
+	img = Image.open("name.jpg")
+	print img.size
+
+	x, y = 0, 0
+	width, height = 100, 100
+	img.crop((x, y, x + width, y + height))
+	img.transpose(Image.FLIP_LEFT_RIGHT)
+	img.transpose(Image.FLIP_TOP_BOTTOM)
+	img.transpose(Image.ROTATE_90)
+	img.transpose(Image.ROTATE_180)
+	img.transpose(Image.ROTATE_270)
+	img.save("output.png")
