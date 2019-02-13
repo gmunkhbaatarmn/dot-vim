@@ -39,6 +39,10 @@ let g:ale_open_list = 1
 let g:ale_python_flake8_options = '--select F --ignore E402,E501'
 let g:ale_stylus_stylelint_executable = ''
 let g:ale_sass_stylelint_executable = 'sasslint'
+let g:ale_linters = {
+\   'php': ['php', 'phpcs'],
+\}
+let g:ale_php_phpcs_standard = 'psr1,psr2,psr12'
 
 highlight link ALEErrorLine error
 highlight link ALEWarningLine warning
