@@ -537,7 +537,173 @@ autocmd vimrc FileType cpp syn keyword cRepeat For Rep
 autocmd vimrc FileType cpp syn match cComment /;/
 
 ":1 PHP
+":2 PHPFoldExpr
+function! g:PHPFoldExpr()
+  ":3 Variable reset
+  if v:lnum == 1
+    let s:fold = 0           " fold level
+    let s:fold_1_start = ''
+  endif
+  " endfold
+
+  ":3 +1 | <indent> function start
+  if getline(v:lnum) =~? '^\s\{4\}public function '
+    let s:fold = 1
+    let s:fold_1_start = 'public function'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^\s\{4\}private function '
+    let s:fold = 1
+    let s:fold_1_start = 'private function'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^\s\{4\}public static function '
+    let s:fold = 1
+    let s:fold_1_start = 'public static function'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^\s\{4\}final public function '
+    let s:fold = 1
+    let s:fold_1_start = 'final public function'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^\s\{4\}function '
+    let s:fold = 1
+    let s:fold_1_start = 'function'
+    return '>1'
+  endif
+
+  ":3 -1 | <indent> function close (type change)
+  if getline(v:lnum) =~# '^\s\{4\}}'
+  if getline(v:lnum + 2) =~# '^\s\{4\}public function '
+  if s:fold_1_start !=# 'public function'
+    let s:fold = 0
+    return '<1'
+  endif
+  endif
+  endif
+
+  if getline(v:lnum) =~# '^\s\{4\}}'
+  if getline(v:lnum + 2) =~# '^\s\{4\}private function '
+  if s:fold_1_start !=# 'private function'
+    let s:fold = 0
+    return '<1'
+  endif
+  endif
+  endif
+
+  if getline(v:lnum) =~# '^\s\{4\}}'
+  if getline(v:lnum + 2) =~# '^\s\{4\}public static function '
+  if s:fold_1_start !=# 'public static function'
+    let s:fold = 0
+    return '<1'
+  endif
+  endif
+  endif
+
+  if getline(v:lnum) =~# '^\s\{4\}}'
+  if getline(v:lnum + 2) =~# '^\s\{4\}final public function '
+    if s:fold_1_start !=# 'final public function'
+    let s:fold = 0
+    return '<1'
+  endif
+  endif
+  endif
+
+  if getline(v:lnum) =~# '^\s\{4\}}'
+  if getline(v:lnum + 2) =~# '^\s\{4\}function '
+  if s:fold_1_start !=# 'function'
+    let s:fold = 0
+    return '<1'
+  endif
+  endif
+  endif
+
+  ":3 -1 | <indent> function close (next is comment)
+  if getline(v:lnum) =~# '^\s\{4\}}'
+  if getline(v:lnum + 1) =~# ''
+  if getline(v:lnum + 2) =~# '//'
+  if s:fold ==# 1 && s:fold_1_start !=# '1_title'
+    let s:fold = 0
+    return '<1'
+  endif
+  endif
+  endif
+  endif
+
+  ":3 -1 | <indent> function close (last)
+  if getline(v:lnum) =~# '^\s\{4\}}'
+  if getline(v:lnum + 1) =~# '^}'
+    let s:fold = 1
+    return '<1'
+  endif
+  endif
+
+  ":3 +1 | // title
+  if getline(v:lnum) =~# '^\s\{4,\}// [A-Z0-9\e]'
+  if s:fold == 0
+      let s:fold_1_start = '1_title'
+      return '>1'
+  endif
+  endif
+
+  ":3 -1 | // endfold
+  if getline(v:lnum) =~# '^\s\{4\}// endfold'
+    let s:fold = 0
+    return '<1'
+  endif
+  " endfold
+
+  ":3 +2 | // title
+  if getline(v:lnum) =~# '^\s\{8,\}// [A-Z0-9\e]'
+    if s:fold == 0
+      return '>1'
+    endif
+    if s:fold == 1
+      return '>2'
+    endif
+  endif
+
+  ":3 -2 | // endfold
+  if getline(v:lnum) =~# '^\s\{8,\}// endfold'
+    if s:fold == 1
+      return '<2'
+    endif
+    if s:fold == 2
+      return '<3'
+    endif
+  endif
+  " endfold
+
+  return '='
+endfunction
+" endfold
+":2 PHPFoldText
+function! g:PHPFoldText()
+  let l:line = getline(v:foldstart)
+  return l:line
+
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
+
+  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+  return l:prefix . '▸ ' . l:line
+  return l:prefix . '▸   ' . l:trimmed
+endfunction
+" endfold
+
+autocmd vimrc FileType php setlocal foldmethod=expr foldexpr=g:PHPFoldExpr() foldtext=g:PHPFoldText()
 autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F5> :w<CR>:!time php "%"<CR>|endif
+autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F9> :w<CR>:!php -l '%'<CR>| endif
+
+" Highlight `#Regular-word`
+autocmd vimrc FileType php syn match Comment "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e+0 containedin=phpStringSingle contained
 
 ":1 Markdown
 autocmd vimrc BufEnter Notes     setlocal filetype=markdown
