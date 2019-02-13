@@ -494,6 +494,14 @@ endfunction
 
 autocmd vimrc FileType make setlocal foldmethod=expr foldexpr=g:MakefileFoldExpr() foldtext=g:MakefileFoldText()
 
+":1 C#
+function! g:CSFoldText()
+  return getline(v:foldstart)
+endfunction
+
+autocmd vimrc FileType cs setlocal foldmethod=marker foldtext=g:CSFoldText()
+autocmd vimrc FileType cs setlocal foldmarker=//\:,endfold
+
 ":1 C
 autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
@@ -1108,7 +1116,7 @@ autocmd vimrc FileType cpp,c,java,snippets,make
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 " no tab use. tab = 4 space
-autocmd vimrc FileType python,sh,php
+autocmd vimrc FileType python,sh,php,cs
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " no tab use. tab = 2 space
