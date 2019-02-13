@@ -36,7 +36,7 @@ let g:ale_set_signs = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
-let g:ale_python_flake8_args = '--select F'
+let g:ale_python_flake8_options = '--select F --ignore E402,E501'
 let g:ale_stylus_stylelint_executable = ''
 let g:ale_sass_stylelint_executable = 'sasslint'
 
