@@ -37,7 +37,6 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_python_flake8_options = '--select F --ignore E402,E501'
-let g:ale_stylus_stylelint_executable = ''
 let g:ale_sass_stylelint_executable = 'sasslint'
 let g:ale_linters = {
 \   'php': ['php', 'phpcs'],
@@ -76,7 +75,6 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
-Plugin 'wavded/vim-stylus'         " todo: remove vim-stylus
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'mitsuhiko/vim-jinja'
