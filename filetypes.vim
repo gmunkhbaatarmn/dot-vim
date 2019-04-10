@@ -297,9 +297,19 @@ autocmd vimrc FileType python match OverLength /\%100v.\+/
 
 autocmd vimrc BufWritePost,InsertLeave *.py setlocal filetype=python
 
-autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < '%:r.txt'<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!flake8 '%'                 <CR>| endif
+fun! s:PythonVersion()
+  if getline(1) =~# '^#!.*/bin/env\s\+python3\>'
+    autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python3 '%'            <CR>| endif
+    autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python3 '%' < '%:r.txt'<CR>| endif
+    autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!python3 -m flake8 '%'                 <CR>| endif
+  else
+    autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
+    autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < '%:r.txt'<CR>| endif
+    autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!python -m flake8 '%'                 <CR>| endif
+  endif
+endfun
+
+autocmd BufNewFile,BufRead *.py call s:PythonVersion()
 
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
