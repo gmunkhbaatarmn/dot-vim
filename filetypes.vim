@@ -309,7 +309,7 @@ fun! s:PythonVersion()
   endif
 endfun
 
-autocmd BufNewFile,BufRead *.py call s:PythonVersion()
+autocmd vimrc BufNewFile,BufRead *.py call s:PythonVersion()
 
 ":2 Python custom highlights
 autocmd vimrc FileType python syn match DocKeyword "Returns" containedin=pythonString contained
@@ -731,6 +731,10 @@ autocmd vimrc BufEnter Reference setlocal filetype=markdown
 ":2 MarkdownFoldText
 function! g:MarkdownFoldText()
   let l:text = getline(v:foldstart)
+  if l:text ==# '---'
+    let l:text = getline(v:foldstart + 1)
+  endif
+
   let l:text = '▸' . l:text[1:]
   let l:text = substitute(l:text, '#', ' ', 'g')
 
@@ -765,9 +769,18 @@ function! g:MarkdownFoldExpr()
     return '<1'
   endif
 
+  if getline(v:lnum) ==# '<!-- endfold -->'
+    return '<1'
+  endif
+
+  " Regular headers
+  if getline(v:lnum) ==# '---'
+    return '>1'
+  endif
+
   " Regular headers
   let l:depth = match(l:line, '\(^#\+\)\@<=\( .*$\)\@=')
-  if l:depth > 0
+  if l:depth > 0 && l:depth <= 2
     return '>' . l:depth
   endif
 
