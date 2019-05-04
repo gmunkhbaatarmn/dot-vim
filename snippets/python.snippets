@@ -1,5 +1,5 @@
 snippet env
-	#!/usr/bin/env python
+	#!/usr/bin/env python3
 	# -*- coding: utf-8 -*-
 snippet utf
 	# coding: utf-8
@@ -25,6 +25,7 @@ snippet contest
 	    line
 
 snippet ctf_rsa
+	#!/usr/bin/env python3
 	import gmpy2
 	from Crypto.Util import number
 	from Crypto.PublicKey import RSA
@@ -50,13 +51,14 @@ snippet ctf_rsa
 	phi = (p - 1) * (q - 1)
 	d = gmpy2.invert(e, phi)
 
-	print number.long_to_bytes(pow(cipher, d, n))
+	print(number.long_to_bytes(pow(cipher, d, n)))
 
 snippet ctf_pil
+	#!/usr/bin/env python3
 	from PIL import Image
 
 	img = Image.open("name.jpg")
-	print img.size
+	print(img.size)
 
 	x, y = 0, 0
 	width, height = 100, 100
@@ -67,3 +69,14 @@ snippet ctf_pil
 	img.transpose(Image.ROTATE_180)
 	img.transpose(Image.ROTATE_270)
 	img.save("output.png")
+
+snippet ctf_nc
+	#!/usr/bin/env python3
+	import pwn
+
+
+	conn = pwn.remote("ip-or-address", port-in-int)
+	r = conn.recvuntil(":")
+	r = conn.recvline(":")
+	conn.send("%s\n" % command)
+	conn.interactive
