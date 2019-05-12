@@ -257,7 +257,7 @@ endif
 
 if has('gui_running') && system('uname') =~# 'Darwin'
   set macligatures
-  set guifont=Fira\ Code:h14        " Change GUI font
+  set guifont=Fira\ Code:h15        " Change GUI font
 endif
 
 if system('uname') =~# 'Darwin'
