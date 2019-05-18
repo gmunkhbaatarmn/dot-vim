@@ -780,7 +780,7 @@ function! g:MarkdownFoldExpr()
 
   " Regular headers
   let l:depth = match(l:line, '\(^#\+\)\@<=\( .*$\)\@=')
-  if l:depth > 0 && l:depth <= 2
+  if l:depth > 0 && l:depth <= 1
     return '>' . l:depth
   endif
 
