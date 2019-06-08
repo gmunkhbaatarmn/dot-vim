@@ -48,7 +48,10 @@ snippet ctf_rsa
 	assert gmpy2.is_prime(q)
 	assert p * q == n
 
-	phi = (p - 1) * (q - 1)
+	if p != q:
+	    phi = (p - 1) * (q - 1)
+	else:
+	    phi = p * (q - 1)
 	d = gmpy2.invert(e, phi)
 
 	print(number.long_to_bytes(pow(cipher, d, n)))
@@ -80,3 +83,10 @@ snippet ctf_nc
 	r = conn.recvline(":")
 	conn.send("%s\n" % command)
 	conn.interactive
+
+snippet ctf_xor
+	import itertools
+
+	def xor(s, key):
+	    key = key * (len(s) / len(key) + 1)
+	    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(s, key))
