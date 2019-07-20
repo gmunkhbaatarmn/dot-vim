@@ -402,6 +402,41 @@ autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <C-s>      :w<
 autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |imap <C-s> <ESC>:w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
 
 ":1 Javascript
+":2 JavascriptFoldExpr
+function! g:JavascriptFoldExpr()
+  let l:trimmed = substitute(getline(v:lnum), '^\s*\(.\{-}\)\s*$', '\1', '')
+
+  ":3 +1 | `//: `
+  if l:trimmed =~? '^//: '
+    return '>1'
+  endif
+
+  ":3 +1 | `//:1 `
+  if l:trimmed =~? '^//:1 '
+    return '>1'
+  endif
+
+  ":3 -1 | `// endfold`
+  if l:trimmed =~? '^// endfold$'
+    return '<1'
+  endif
+  " endfold
+
+  ":3 +2 | `//:2 `
+  if l:trimmed =~? '^//:2 '
+    return '>2'
+  endif
+
+  ":3 -2 | `// endfold2`
+  if l:trimmed =~? '^// endfold2'
+    return '<2'
+  endif
+  " endfold
+
+  return '='
+endfunction
+
+":2 JavascriptFoldText
 function! g:JavascriptFoldText()
   let l:line = getline(v:foldstart)
   let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -412,7 +447,9 @@ function! g:JavascriptFoldText()
   let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
   return l:prefix . '▸   ' . l:trimmed
 endfunction
-autocmd vimrc FileType javascript setlocal foldmethod=marker foldmarker=\/\/\:,\/\/\ endfold foldtext=g:JavascriptFoldText()
+" endfold
+
+autocmd vimrc FileType javascript setlocal foldmethod=expr foldexpr=g:JavascriptFoldExpr() foldtext=g:JavascriptFoldText()
 autocmd vimrc FileType javascript setlocal autoindent
 autocmd vimrc BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time node "%" <CR>| endif
 
