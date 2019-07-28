@@ -432,6 +432,17 @@ function! g:JavascriptFoldExpr()
     return '<2'
   endif
   " endfold
+  "
+  ":3 +3 | `//:2 `
+  if l:trimmed =~? '^//:3 '
+    return '>3'
+  endif
+
+  ":3 -3 | `// endfold3`
+  if l:trimmed =~? '^// endfold3'
+    return '<3'
+  endif
+  " endfold
 
   return '='
 endfunction
