@@ -594,6 +594,7 @@ autocmd vimrc BufEnter * if &filetype == 'cpp' |nmap <F5>   :w<CR>:!time "%:p:h/
 autocmd vimrc BufEnter * if &filetype == 'cpp' |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt <CR>| endif
 
 autocmd vimrc FileType cpp syn keyword normal long
+autocmd vimrc FileType cpp syn keyword normal float
 autocmd vimrc FileType cpp syn keyword cType string
 autocmd vimrc FileType cpp syn keyword cType Vector
 autocmd vimrc FileType cpp syn keyword cType Pair
