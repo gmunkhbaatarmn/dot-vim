@@ -2,6 +2,8 @@ call NERDTreeAddPathFilter('NERDTreeCustomIgnoreFilter')
 
 function! NERDTreeCustomIgnoreFilter(params)
   let l:pathlist = [
+        \ $HOME . '/Applications (Parallels)',
+        \ $HOME . '/Applications',
         \ $HOME . '/Desktop',
         \ $HOME . '/Documents',
         \ $HOME . '/Downloads',
@@ -10,7 +12,9 @@ function! NERDTreeCustomIgnoreFilter(params)
         \ $HOME . '/Movies',
         \ $HOME . '/Music',
         \ $HOME . '/Pictures',
+        \ $HOME . '/Parallels',
         \ $HOME . '/Videos',
+        \ $HOME . '/Public',
         \]
 
   let l:patterns = [
