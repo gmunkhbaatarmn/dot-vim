@@ -10,6 +10,7 @@ function! g:PythonFoldExpr()
   if v:lnum == 1
     let s:fold = 0          " fold level
     let s:in_docstring = 0  " in docstring
+    let s:in_import = 0
   endif
   " endfold
 
@@ -36,33 +37,49 @@ function! g:PythonFoldExpr()
     ":3 +1 | import lines start
     if getline(v:lnum - 1) !~? '^\(from\|import\) '
     if getline(v:lnum + 0) =~? '^\(from\|import\) '
+      let s:in_import = 1
       return '>1'
     endif
     endif
 
     ":3 =1 | import lines middle
-    if getline(v:lnum - 1) =~? '^\(from\|import\) '
-    if getline(v:lnum + 0) =~? '^\(from\|import\) '
-      return '='
-    endif
-    endif
+    " if getline(v:lnum - 1) =~? '^\(from\|import\) '
+    " if getline(v:lnum + 0) =~? '^\(from\|import\) '
+    "   return '='
+    " endif
+    " endif
 
     ":3 -1 | import lines close
-    if getline(v:lnum - 1) =~? '^\(from\|import\) '
-    if getline(v:lnum - 0) !~? '^\(from\|import\) '
-      return '<1'
-    endif
+    " if getline(v:lnum - 1) =~? '^\(from\|import\) '
+    " if getline(v:lnum - 0) !~? '^\(from\|import\) '
+    "   return '<1'
+    " endif
+    " endif
+
+    if s:in_import
+      if getline(v:lnum + 0) !~? '\v\S'
+        let s:in_import = 0
+        return '<1'
+      endif
     endif
     " endfold
 
+    if s:in_import
+      return '='
+    endif
+
     ":3 +1 | decorator start
+    if getline(v:lnum) =~? '^@click.'
+      return '='
+    endif
+
     if getline(v:lnum) =~? '^@'
       let s:fold = 1
       return '>1'
     endif
 
     ":3 =1 | decorator's next line
-    if getline(v:lnum - 1) =~? '^@'
+    if getline(v:lnum - 1) =~? '^@' && getline(v:lnum - 1) !~? '^@click.'
       return '='
     endif
 
