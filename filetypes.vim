@@ -302,10 +302,12 @@ fun! s:PythonVersion()
     autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python3 '%'            <CR>| endif
     autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python3 '%' < '%:r.txt'<CR>| endif
     autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!python3 -m flake8 '%'                 <CR>| endif
+    let g:ale_python_flake8_executable = 'python3'
   else
     autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F5>   :w<CR>:!time python '%'            <CR>| endif
     autocmd vimrc BufEnter * if &filetype == 'python' |nmap <S-F5> :w<CR>:!time python '%' < '%:r.txt'<CR>| endif
     autocmd vimrc BufEnter * if &filetype == 'python' |nmap <F9>   :w<CR>:!python -m flake8 '%'                 <CR>| endif
+    let g:ale_python_flake8_executable = 'python2'
   endif
 endfun
 

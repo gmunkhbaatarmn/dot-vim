@@ -36,7 +36,8 @@ let g:ale_set_signs = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
-let g:ale_python_flake8_options = '--select F --ignore E402,E501'
+let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
+let g:ale_python_flake8_options = '-m flake8 --select F --ignore E402,E501'
 let g:ale_sass_stylelint_executable = 'sasslint'
 let g:ale_linters = {
 \   'php': ['php', 'phpcs'],
