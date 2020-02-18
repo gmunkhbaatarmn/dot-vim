@@ -942,6 +942,17 @@ function! g:HTMLFoldExpr()
     return '>1'
   endif
 
+  ":3 +1 | `<!--: `
+  if l:trimmed =~? '^<!--: '
+    return '>1'
+  endif
+
+
+  ":3 -1 | `<!-- endfold -->`
+  if l:trimmed =~? '^<!-- endfold -->'
+    return '<1'
+  endif
+
   ":3 -1 | `#:endfold`
   if l:trimmed =~? '^#:endfold$'
     return '<1'
