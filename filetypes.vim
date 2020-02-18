@@ -484,6 +484,7 @@ autocmd vimrc FileType javascript setlocal autoindent
 autocmd vimrc BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time node "%" <CR>| endif
 
 " Highlight `[selector]`
+autocmd vimrc FileType javascript syn match Constant "\[[a-zA-Z0-9_-]\+=\"[a-zA-Z0-9_\ -]\+\"\]"hs=s+0,he=e-0 containedin=JsString contained
 autocmd vimrc FileType javascript syn match Constant "\[[a-zA-Z0-9_\=-]\+\]"hs=s+0,he=e-0 containedin=JsString contained
 
 ":1 Ruby
