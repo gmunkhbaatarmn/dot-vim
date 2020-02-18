@@ -1,11 +1,13 @@
 snippet env
 	#!/usr/bin/env python3
-	# -*- coding: utf-8 -*-
+	# coding: utf-8
 snippet utf
 	# coding: utf-8
 snippet __main__
 	if __name__ == "__main__":
 	    ${1:main()}
+snippet noqa
+	noqa: #${1:F123}
 snippet pdb
 	__import__('pdb').set_trace()
 snippet from
@@ -85,9 +87,41 @@ snippet ctf_nc
 	conn.send("%s\n" % command)
 	conn.interactive
 
+snippet ctf_ssh
+	import pwn
+	import warnings
+
+	warnings.filterwarnings(action="ignore", module=".*paramiko.*")
+
+	conn = pwn.ssh(host="<HOST>", user="<USER>", password="<PASSWORD>", port=PORT_INTEGER)
+	conn.interactive()
+
+snippet ctf_irc
+	import pwn
+
+	nick = "name"
+	host = "ip or domain"
+	channel = "#channel"
+
+	conn = pwn.remote("irc.root-me.org", 6667)
+	conn.send("NICK %s\r\n" % nick)
+	conn.send("USER %s %s %s :%s\r\n" % (nick, nick, nick, nick))
+	conn.send("JOIN %s\r\n" % channel)
+	r = conn.recvuntil("KEYWORD") + conn.recvline()
+	print(r)
+	conn.interactive()
+
 snippet ctf_xor
 	import itertools
 
 	def xor(s, key):
 	    key = key * (len(s) / len(key) + 1)
 	    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(s, key))
+
+snippet ctf_requests
+	import requests
+
+	session = requests.Session()
+	r = session.get(url, allow_redirects=False)
+	print(r.headers)
+	print(r.content)
