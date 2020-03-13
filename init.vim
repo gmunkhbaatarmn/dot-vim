@@ -2,7 +2,7 @@ set encoding=utf-8
 scriptencoding utf-8
 
 ":1 Vundle setup
-set runtimepath+=~/.vim/bundle/Vundle.vim
+set runtimepath+=$HOME/.vim/bundle/Vundle.vim
 
 call call('vundle#rc', [])
 let g:vundle_default_git_proto = 'git'
