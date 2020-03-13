@@ -1,6 +1,7 @@
 scriptencoding utf-8
 
 ":1 Python
+
 let $PYTHONDONTWRITEBYTECODE = 1
 let $PYTHONIOENCODING = 'utf-8'
 
@@ -313,6 +314,9 @@ autocmd vimrc FileType python setlocal textwidth=99
 autocmd vimrc FileType python match OverLength /\%100v.\+/
 
 autocmd vimrc BufWritePost,InsertLeave *.py setlocal filetype=python
+
+let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
+let g:ale_python_flake8_options = '-m flake8 --select F --ignore E402,E501'
 
 fun! s:PythonVersion()
   if getline(1) =~# '^#!.*/bin/env\s\+python3\>'
@@ -1123,6 +1127,8 @@ function! g:SassFoldExpr()
   return '='
 endfunction
 
+let g:ale_sass_stylelint_executable = 'sasslint'
+
 autocmd vimrc FileType sass setlocal foldmethod=expr foldexpr=g:SassFoldExpr() foldtext=g:SassFoldText()
 autocmd vimrc FileType sass setlocal iskeyword-=#,-
 autocmd vimrc FileType sass setlocal iskeyword+=$
@@ -1154,13 +1160,13 @@ autocmd vimrc FileType help nnoremap <buffer> <BS> <C-T>
 autocmd vimrc BufEnter *.gitignore setlocal filetype=gitconfig
 autocmd vimrc BufEnter *.conf setlocal filetype=dosini
 
-":1 Tab configuration for filetypes
-" use tab. tabsize = 4
-" autocmd vimrc FileType php
-"   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+":1 Remove trailing spaces
+autocmd vimrc BufWritePre *.py,*.html,*.js,*.sass,*.vim
+  \ :%s/\s\+$//e
 
+":1 Tab configuration for filetypes
 " use tab. tabsize = 2
-autocmd vimrc FileType cpp,c,java,snippets,make
+autocmd vimrc FileType java,snippets,make
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 " no tab use. tab = 4 space
@@ -1168,6 +1174,4 @@ autocmd vimrc FileType python,sh,php,cs
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " no tab use. tab = 2 space
-autocmd vimrc FileType css,vim,json,javascript,yaml,markdown,lua,ruby,coffee,htmljinja
-  \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-" endfold
+" (all others)
