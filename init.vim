@@ -21,7 +21,6 @@ let g:vim_markdown_frontmatter = 1
 
 ":1 Plugins
 " Features
-Plugin 'ap/vim-css-color'
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
 

@@ -49,6 +49,9 @@ colorscheme jellybeans
 
 ":1 Plugin: Goyo
 Plugin 'junegunn/goyo.vim'
+
+":1 Plugin: CSS Color (color previewer)
+Plugin 'ap/vim-css-color'
 " endfold
 
 " Completion and code analysis
