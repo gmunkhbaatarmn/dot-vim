@@ -19,3 +19,16 @@ let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3            " Single click always
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
+" endfold
+
+" Interface
+":1 Plugin: Jellybeans
+Plugin 'nanotech/jellybeans.vim'
+
+let g:jellybeans_overrides = {
+      \'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
+      \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
+      \}
+
+colorscheme jellybeans
+" endfold

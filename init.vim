@@ -35,14 +35,6 @@ let g:ale_open_list = 1
 highlight link ALEErrorLine error
 highlight link ALEWarningLine warning
 
-":1 Plugin: Jellybeans
-Plugin 'nanotech/jellybeans.vim'
-
-let g:jellybeans_overrides = {
-      \'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
-      \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
-      \}
-
 ":1 Plugin: Markdown
 Plugin 'plasticboy/vim-markdown'
 
@@ -102,8 +94,6 @@ augroup vimrc
 augroup END
 
 ":1 Aesthetic customizations
-colorscheme jellybeans
-
 " Ruler format
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
 
