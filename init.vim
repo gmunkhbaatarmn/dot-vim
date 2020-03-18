@@ -7,6 +7,12 @@ call call('vundle#rc', [])
 
 source $HOME/.vim/plugins.vim      " Plugins
 
+":1 Only on: Mac OS
+if system('uname') =~# 'Darwin'
+  set clipboard=unnamed,unnamedplus    " Fix Mac OS clipboard issue
+endif
+" endfold
+
 ":1 Plugin: Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'

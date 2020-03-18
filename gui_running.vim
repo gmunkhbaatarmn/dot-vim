@@ -9,7 +9,6 @@ endif
 if has('gui_running') && has('gui_macvim')
   set macligatures
   set guifont=Fira\ Code:h15      " Change GUI font
-  set clipboard=unnamed           " Use the OS clipboard by default
   set visualbell                  " Disable error sound
 
   " Window tab settings
