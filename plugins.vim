@@ -44,3 +44,18 @@ let g:jellybeans_overrides = {
 
 colorscheme jellybeans
 " endfold
+
+" Completion and code analysis
+":1 Plugin: ALE (Asynchronous Lint Engine)
+Plugin 'dense-analysis/ale'
+
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_set_signs = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+
+highlight link ALEErrorLine error
+highlight link ALEWarningLine warning
