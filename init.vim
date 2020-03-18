@@ -19,17 +19,7 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 
 ":1 Plugin: NERDTree
-Plugin 'scrooloose/nerdtree'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-" Fast toggle
-map <F2> :NERDTreeToggle<CR>
-
-let g:NERDTreeMapOpenVSplit = 'a'
-let g:NERDTreeCaseSensitiveSort = 1
-let g:NERDTreeMouseMode = 3            " Single click always
-let g:NERDTreeWinPos = 'right'
-let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 
 ":1 Plugin: ALE (Asynchronous Lint Engine)
 Plugin 'w0rp/ale'
