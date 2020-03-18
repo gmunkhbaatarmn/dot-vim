@@ -1,6 +1,7 @@
 " Startup
 ":1 Plugin: Vundle
 Plugin 'VundleVim/Vundle.vim'
+
 let g:vundle_default_git_proto = 'git'
 
 ":1 Plugin: localrc
@@ -27,6 +28,9 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightColor = {
       \'.*_TESTS$': '3AFFDB',
       \}
+
+":1 Plugin: CtrlP
+Plugin 'ctrlpvim/ctrlp.vim'
 " endfold
 
 " Interface
