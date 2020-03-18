@@ -21,7 +21,6 @@ let g:vim_markdown_frontmatter = 1
 
 ":1 Plugins
 " Features
-Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
 
 " Filetype supports

@@ -34,6 +34,9 @@ let g:NERDTreePatternMatchHighlightColor = {
 
 ":1 Plugin: CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
+
+":1 Plugin: Tabular
+Plugin 'godlygeek/tabular'
 " endfold
 
 " Interface
