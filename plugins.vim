@@ -21,6 +21,9 @@ let g:NERDTreeMouseMode = 3            " Single click always
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 
+" Also: ~/.vim/.nerdtree-bookmarks
+" Also: ~/.vim/nerdtree_plugin/path_filters.vim
+
 ":1 Plugin: NERDTree syntax hightlight
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -46,6 +49,13 @@ colorscheme jellybeans
 " endfold
 
 " Completion and code analysis
+":1 Plugin: Snipmate
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+
+" Also: ~/.vim/snippets/
+
 ":1 Plugin: ALE (Asynchronous Lint Engine)
 Plugin 'dense-analysis/ale'
 

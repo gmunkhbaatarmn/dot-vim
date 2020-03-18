@@ -13,11 +13,6 @@ if system('uname') =~# 'Darwin'
 endif
 " endfold
 
-":1 Plugin: Snipmate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-
 ":1 Plugin: Markdown
 Plugin 'plasticboy/vim-markdown'
 
