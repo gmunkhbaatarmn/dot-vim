@@ -39,18 +39,6 @@ let g:NERDTreeMapOpenInTab = '<C-S-t>'
 let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
 " endfold
 
-":1 NERDTree syntax hightlight
-" let g:NERDTreeFileExtensionHighlightFullName = 1
-" let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-
-" let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-" let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-
-let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreePatternMatchHighlightColor['.*_TESTS$'] = '3AFFDB'
-" endfold
-
 " Identify the syntax hightlighting group used at the cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"

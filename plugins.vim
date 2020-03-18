@@ -19,6 +19,14 @@ let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3            " Single click always
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
+
+":1 Plugin: NERDTree syntax hightlight
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightColor = {
+      \'.*_TESTS$': '3AFFDB',
+      \}
 " endfold
 
 " Interface

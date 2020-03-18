@@ -18,9 +18,6 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 
-":1 Plugin: NERDTree
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-
 ":1 Plugin: ALE (Asynchronous Lint Engine)
 Plugin 'w0rp/ale'
 
