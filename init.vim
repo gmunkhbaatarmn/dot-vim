@@ -1,13 +1,11 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-":1 Vundle setup
+" Enable plugins feature
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim
-
 call call('vundle#rc', [])
-let g:vundle_default_git_proto = 'git'
 
-Plugin 'VundleVim/Vundle.vim'
+source $HOME/.vim/plugins.vim      " Plugins
 
 ":1 Plugin: Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
