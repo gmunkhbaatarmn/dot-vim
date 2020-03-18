@@ -24,7 +24,6 @@ let g:vim_markdown_frontmatter = 1
 Plugin 'ap/vim-css-color'
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
-Plugin 'junegunn/goyo.vim'
 
 " Filetype supports
 Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script

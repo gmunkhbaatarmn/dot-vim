@@ -46,6 +46,9 @@ let g:jellybeans_overrides = {
       \}
 
 colorscheme jellybeans
+
+":1 Plugin: Goyo
+Plugin 'junegunn/goyo.vim'
 " endfold
 
 " Completion and code analysis
