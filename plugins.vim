@@ -35,6 +35,9 @@ let g:NERDTreePatternMatchHighlightColor = {
 ":1 Plugin: CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 
+":1 Plugin: TComment
+Plugin 'tomtom/tcomment_vim'
+
 ":1 Plugin: Tabular
 Plugin 'godlygeek/tabular'
 " endfold
