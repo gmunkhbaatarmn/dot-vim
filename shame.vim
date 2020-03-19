@@ -13,26 +13,27 @@ noremap n <right>
 noremap j d
 " disabled    (was: move up)
 noremap k <nop>
-" search next (was: move to right character)
-noremap l n
-" search prev (was: move to up line)
-noremap L N
 
 " up, down leap
 noremap H 6g<Down>
 noremap T 6g<Up>
 
-" goto line beginning
-noremap D ^
+":1 Dvorak: mappings
+" Goto line beginning
 noremap _ ^
 
-" goto line end
-noremap N $
+" Goto line end
 noremap - $
 
-" to command line mode
+" To command line mode
 noremap s :
 noremap S :
+
+" Search next (was: move to right character)
+noremap l n
+
+" Search prev (was: move to up line)
+noremap L N
 
 ":1 Dvorak: NERDTree
 let g:NERDTreeMapOpenInTab = '<C-S-t>'

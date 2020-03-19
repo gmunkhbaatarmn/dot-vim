@@ -9,7 +9,7 @@ nmap <leader>l :set list!<CR>
 nmap <leader>r :set wrap!<CR>
 " endfold
 
-":1 Window move
+":1 Move between windows
 nmap <leader>d <C-w><LEFT>
 nmap <leader>n <C-w><RIGHT>
 nmap <leader>t <C-w><UP>
@@ -22,7 +22,7 @@ function! g:ToggleKeymap()
     set keymap=mongolian-dvorak
     let g:current_keymap = 'mongolian-dvorak'
   else
-    set keymap=""
+    set keymap=
     let g:current_keymap = ''
   endif
 endfunction
@@ -34,7 +34,6 @@ imap <F8>  <ESC>:call ToggleKeymap()<CR>a
 " endfold
 
 " Easy fold toggle
-nmap <Space> za
 nmap e za
 
 " Easy fold toggle (fix for `quickfix` filetype)

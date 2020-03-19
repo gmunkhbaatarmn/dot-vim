@@ -47,9 +47,10 @@ Plugin 'godlygeek/tabular'
 Plugin 'nanotech/jellybeans.vim'
 
 let g:jellybeans_overrides = {
-      \'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
-      \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
-      \}
+  \'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
+  \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
+  \'SignColumn': { 'guifg': '151515', 'guibg': '151515' },
+  \}
 
 colorscheme jellybeans
 
