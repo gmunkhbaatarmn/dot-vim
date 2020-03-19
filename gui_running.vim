@@ -12,13 +12,13 @@ if has('gui_running') && has('gui_macvim')
   set visualbell                  " Disable error sound
 
   " Window tab settings
-  map <D-1> 1gk
-  map <D-2> 2gk
-  map <D-3> 3gk
-  map <D-4> 4gk
-  map <D-5> 5gk
-  map <D-6> 6gk
-  map <D-7> 7gk
-  map <D-8> 8gk
-  map <D-9> 9gk
+  map <D-1> 1gt
+  map <D-2> 2gt
+  map <D-3> 3gt
+  map <D-4> 4gt
+  map <D-5> 5gt
+  map <D-6> 6gt
+  map <D-7> 7gt
+  map <D-8> 8gt
+  map <D-9> 9gt
 endif
