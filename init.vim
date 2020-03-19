@@ -11,32 +11,6 @@ set shiftwidth=2                       " Number of spaces to use in (auto)indent
 set softtabstop=2                      " Number of spaces in tab when editing
 set expandtab                          " Use spaces instead of tab
 
-" Enable plugins feature
-set runtimepath+=$HOME/.vim/bundle/Vundle.vim
-call call('vundle#rc', [])
-
-source $HOME/.vim/plugins.vim          " Plugins
-source $HOME/.vim/filetypes.vim        " Languages
-
-":1 Only on: Mac OS
-if system('uname') =~# 'Darwin'
-  set clipboard=unnamed,unnamedplus    " Use the OS clipboard by default
-endif
-" endfold
-
-":1 Plugins: Filetype supports
-Plugin 'plasticboy/vim-markdown'
-
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_frontmatter = 1
-
-Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
-Plugin 'pangloss/vim-javascript'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'mitsuhiko/vim-jinja'
-" endfold
-
 ":1 Standard configurations
 syntax on                              " Enable syntax processing
 filetype on                            " Enable file type detection
@@ -78,6 +52,27 @@ set formatoptions+=n                   " Recognize numbered list in text formatt
 set nonumber                           " Disable line numbers
 set numberwidth=4                      " Line number width
 set foldcolumn=4                       " Same as line number width
+" endfold
+
+" Enable plugins feature
+set runtimepath+=$HOME/.vim/bundle/Vundle.vim
+call call('vundle#rc', [])
+
+source $HOME/.vim/plugins.vim          " Plugins
+source $HOME/.vim/filetypes.vim        " Languages
+
+":1 Only on: Mac OS
+if system('uname') =~# 'Darwin'
+  set clipboard=unnamed,unnamedplus    " Use the OS clipboard by default
+endif
+" endfold
+
+":1 Plugins: Filetype supports
+Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
+Plugin 'pangloss/vim-javascript'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'mitsuhiko/vim-jinja'
 " endfold
 
 source $HOME/.vim/gui_running.vim      " GUI only settings

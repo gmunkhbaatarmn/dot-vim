@@ -491,10 +491,6 @@ autocmd vimrc BufEnter * if &filetype == 'javascript' |nmap <F5> :w<CR>:!time no
 autocmd vimrc FileType javascript syn match Constant "\[[a-zA-Z0-9_-]\+=\"[a-zA-Z0-9_\ -]\+\"\]"hs=s+0,he=e-0 containedin=JsString contained
 autocmd vimrc FileType javascript syn match Constant "\[[a-zA-Z0-9_\=-]\+\]"hs=s+0,he=e-0 containedin=JsString contained
 
-":1 Ruby
-autocmd vimrc BufEnter * if &filetype == 'ruby' |nmap <F5>   :w<CR>:!time ruby "%"            <CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'ruby' |nmap <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>| endif
-
 ":1 Java
 autocmd vimrc FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HERE,END\ CUT\ HERE
 
@@ -781,83 +777,7 @@ autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F9> :w<CR>:!php -l '%'<CR>
 " Highlight `#Regular-word`
 autocmd vimrc FileType php syn match Comment "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e+0 containedin=phpStringSingle contained
 
-":1 Markdown
-autocmd vimrc BufEnter Notes     setlocal filetype=markdown
-autocmd vimrc BufEnter Reference setlocal filetype=markdown
-
-":2 MarkdownFoldText
-function! g:MarkdownFoldText()
-  let l:text = getline(v:foldstart)
-  if l:text ==# '---'
-    let l:text = getline(v:foldstart + 1)
-  endif
-
-  let l:text = '▸' . l:text[1:]
-  let l:text = substitute(l:text, '#', ' ', 'g')
-
-  return l:text
-endfunction
-
-":2 MarkdownFoldExpr
-function! g:MarkdownFoldExpr()
-  ":3 Variable reset
-  if v:lnum == 1
-    let s:in_fencedoc = 0  " in fence doc
-  endif
-  " endfold
-
-  let l:line = getline(v:lnum)
-
-  if s:in_fencedoc
-    " close fence doc
-    if l:line =~? '```'
-      let s:in_fencedoc = 0
-    endif
-    return '='
-  else
-    " start fence doc
-    if l:line =~? '```'
-      let s:in_fencedoc = 1
-      return '='
-    endif
-  endif
-
-  if getline(v:lnum) ==# '> endfold'
-    return '<1'
-  endif
-
-  if getline(v:lnum) ==# '<!-- endfold -->'
-    return '<1'
-  endif
-
-  " Regular headers
-  if getline(v:lnum) ==# '---'
-    return '>1'
-  endif
-
-  " Regular headers
-  let l:depth = match(l:line, '\(^#\+\)\@<=\( .*$\)\@=')
-  if l:depth > 0 && l:depth <= 1
-    return '>' . l:depth
-  endif
-
-  return '='
-endfunction
-" endfold
-
-autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F5> :w<CR>:!html-book "%"; open "%:r.html"<CR>;|endif
-autocmd vimrc BufEnter * if &filetype == 'markdown' |nmap <F9> :w<CR>:!pdf-book "%"; open "%:r.pdf"<CR>;|endif
-autocmd vimrc FileType markdown setlocal foldmethod=expr foldexpr=g:MarkdownFoldExpr() foldtext=g:MarkdownFoldText()
-
-" Syntax: `#123` (github issue number)
-autocmd vimrc FileType markdown syn match Function '#[0-9]\+'
-autocmd vimrc FileType markdown syn match String '=>'
-autocmd vimrc FileType markdown syn match String '\[[^]]\+\]'
-
-" Syntax: `label:`
-autocmd vimrc FileType markdown syn match Float '[^ ]\+:'
-
-":2 Markdown: simple todo-list manager
+":1 Markdown: simple todo-list manager
 function! MarkdownToggle()
   let l:line = getline('.')
 
