@@ -4,7 +4,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 let g:vundle_default_git_proto = 'git'
 
-":1 Plugin: localrc
+":1 Plugin: LocalRC
 Plugin 'thinca/vim-localrc'
 " endfold
 
@@ -59,6 +59,9 @@ Plugin 'ap/vim-css-color'
 
 ":1 Plugin: Goyo
 Plugin 'junegunn/goyo.vim'
+
+":1 Plugin: Accelerated `jk`
+Plugin 'rhysd/accelerated-jk'
 " endfold
 
 " Completion and code analysis

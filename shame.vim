@@ -2,23 +2,67 @@
 " 1. not decided where to put the code
 " 2. ugly codes that need refactor
 
-":1 Dvorak: 'hjkl' change
-" left, down, up, right
-noremap d <left>
-noremap h g<down>
-noremap t g<up>
-noremap n <right>
+":1 Dvorak: Move down  (use "h" instead of "j")
+map h g<down>
+map H 6g<down>
 
-" delete text (was: move down)
-noremap j d
-" disabled    (was: move up)
+" accelerate on normal mode
+nmap h <Plug>(accelerated_jk_gj)
+nmap H 6<Plug>(accelerated_jk_gj)
+
+" todo: <C-h>
+" todo: handle replaced command: "h" (no mapping)
+" no action needed for no mapping
+
+" todo: handle replaced command: "H" (no mapping)
+" no action needed for no mapping
+
+" todo: handle replaced key: "j" (move up)
+" noremap j d
+
+" todo: handle replaced key: "J" (join lines, minimum of two lines)
+" noremap J D
+
+":1 Dvorak: Move up    (use "t" instead of "k")
+map t g<up>
+map T 6g<up>
+
+" accelerate on normal mode
+nmap t <Plug>(accelerated_jk_gk)
+nmap T 6<Plug>(accelerated_jk_gk)
+
+" todo: <C-t>
+" todo: help page <t>
+
+" todo: handle replaced command: "t" (...)
+" todo: handle replaced command: "T" (...)
+
+" todo: handle replaced key: "k"
 noremap k <nop>
 
-" up, down leap
-noremap H 6g<Down>
-noremap T 6g<Up>
+" todo: handle replaced key: "K"
+noremap K <nop>
 
-":1 Dvorak: mappings
+":1 Dvorak: Move left  (use "d" instead of "h")
+map d <left>
+
+" todo: handle replaced command: "d" (...)
+noremap j d
+
+" todo: handle replaced command: "D" (...)
+" todo: handle replaced key: "h"
+" todo: handle replaced key: "H"
+
+":1 Dvorak: Move right (use "n" instead of "l")
+map n <right>
+
+" todo: handle replaced command: "n" (...)
+" todo: handle replaced command: "N" (...)
+" todo: handle replaced key: "l"
+" todo: handle replaced key: "l"
+" endfold
+
+":1 Dvorak: Mappings
 " Goto line beginning
 noremap _ ^
 
