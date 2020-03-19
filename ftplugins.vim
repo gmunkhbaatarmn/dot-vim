@@ -495,44 +495,7 @@ autocmd vimrc FileType javascript syn match Constant "\[[a-zA-Z0-9_\=-]\+\]"hs=s
 autocmd vimrc FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HERE,END\ CUT\ HERE
 
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
-
-":1 Yaml
-":2 YamlFoldText
-function! g:YamlFoldText()
-  let l:line = getline(v:foldstart)
-
-  if l:line =~? '^[a-z0-9-_]\+:'
-    return l:line
-  elseif l:line[:2] ==# '  #'
-    return '  ▸ ' . l:line[4:]
-  else
-    return '▸   ' . l:line[4:]
-  endif
-endfunction
-
-":2 YamlFoldExpr
-function! g:YamlFoldExpr()
-  if getline(v:lnum) =~? '^# endfold$'
-    return '<1'
-  endif
-
-  if getline(v:lnum) =~? '^[a-z0-9-_]\+:'
-    return '>1'
-  endif
-
-  if getline(v:lnum) =~? '^  # -'
-    return '>2'
-  endif
-
-  return '='
-endfunction
 " endfold
-
-autocmd vimrc FileType yaml setlocal foldmethod=expr foldexpr=g:YamlFoldExpr() foldtext=g:YamlFoldText()
-autocmd vimrc FileType yaml setlocal foldmarker=#\:,endfold
-autocmd vimrc FileType yaml highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd vimrc FileType yaml match OverLength /\%120v.\+/
 
 ":1 Makefile
 ":2 MakefileFoldExpr

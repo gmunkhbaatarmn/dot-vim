@@ -160,17 +160,54 @@ autocmd vimrc FileType markdown
 autocmd vimrc FileType markdown
   \ syntax match PreProc '[^ ]\+:'
 
-":1 Filetype: Ruby
-Plugin 'vim-ruby/vim-ruby'
+":1 Filetype: Yaml
+function! g:YamlFoldText()
+  ":2 ...
+  let l:line = getline(v:foldstart)
 
-" Improve rendering speed
-let g:ruby_no_expensive = 1
+  " First level label
+  if l:line =~? '^[a-z0-9-_]\+:'
+    return l:line
+  endif
 
-autocmd vimrc BufEnter * if &filetype == 'ruby' |
-  \ nmap <F5>   :w<CR>:!time ruby "%"             <CR>|endif
+  if l:line[:2] ==# '  # -'
+    return '  ▸ ' . l:line[4:]
+  endif
 
-autocmd vimrc BufEnter * if &filetype == 'ruby' |
-  \ nmap <S-F5> :w<CR>:!time ruby "%" < input.txt <CR>|endif
+  return '▸  ' . l:line[3:]
+  " endfold2
+endfunction
+
+function! g:YamlFoldExpr()
+  ":2 ...
+  if getline(v:lnum) =~? '^# endfold$'
+    return '<1'
+  endif
+
+  " First level label
+  if getline(v:lnum) =~? '^[a-z0-9-_]\+:'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '#:'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^  # -'
+    return '>2'
+  endif
+
+  return '='
+  " endfold2
+endfunction
+
+autocmd vimrc FileType yaml
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:YamlFoldExpr()
+  \ | setlocal foldtext=g:YamlFoldText()
+
+autocmd vimrc FileType yaml
+  \ setlocal foldmarker=#\:,endfold
 
 ":1 Filetype: Snippet
 function! g:SnippetsFoldExpr()
@@ -188,3 +225,15 @@ autocmd vimrc FileType snippets
   \   setlocal foldmethod=expr
   \ | setlocal foldexpr=g:SnippetsFoldExpr()
   \ | setlocal foldtext=getline(v:foldstart)
+
+":1 Filetype: Ruby
+Plugin 'vim-ruby/vim-ruby'
+
+" Improve rendering speed
+let g:ruby_no_expensive = 1
+
+autocmd vimrc BufEnter * if &filetype == 'ruby' |
+  \ nmap <F5>   :w<CR>:!time ruby "%"             <CR>|endif
+
+autocmd vimrc BufEnter * if &filetype == 'ruby' |
+  \ nmap <S-F5> :w<CR>:!time ruby "%" < input.txt <CR>|endif
