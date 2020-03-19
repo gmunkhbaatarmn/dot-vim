@@ -1,26 +1,35 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+augroup vimrc
+  autocmd!
+augroup END
+
+" Tab Configuration
+set tabstop=2                          " Number of visual spaces per TAB
+set shiftwidth=2                       " Number of spaces to use in (auto)indent
+set softtabstop=2                      " Number of spaces in tab when editing
+set expandtab                          " Use spaces instead of tab
+
 " Enable plugins feature
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim
 call call('vundle#rc', [])
 
-source $HOME/.vim/plugins.vim      " Plugins
+source $HOME/.vim/plugins.vim          " Plugins
+source $HOME/.vim/filetypes.vim        " Languages
 
 ":1 Only on: Mac OS
 if system('uname') =~# 'Darwin'
-  set clipboard=unnamed,unnamedplus    " Fix Mac OS clipboard issue
+  set clipboard=unnamed,unnamedplus    " Use the OS clipboard by default
 endif
 " endfold
 
-":1 Plugin: Markdown
+":1 Plugins: Filetype supports
 Plugin 'plasticboy/vim-markdown'
 
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_frontmatter = 1
 
-":1 Plugins
-" Filetype supports
 Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
@@ -57,19 +66,9 @@ set gdefault                           " Add the g flag to search/replace by def
 set nojoinspaces                       " No insert two spaces in line join (gq)
 set tags=.git/tags;./tags;tags         " Improve ctags support
 
-augroup vimrc
-  autocmd!
-augroup END
-
 ":1 Aesthetic customizations
 " Ruler format
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
-
-" Tab Configuration
-set tabstop=2                          " Number of visual spaces per TAB
-set shiftwidth=2                       " Number of spaces to use in (auto)indent
-set softtabstop=2                      " Number of spaces in tab when editing
-set expandtab                          " Use spaces instead of tab
 
 set listchars=tab:▸\ ,eol:¬            " Character to show tab, end of line
 set listchars+=trail:~                 " Character to show trailing spaces

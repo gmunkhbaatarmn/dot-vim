@@ -9,6 +9,9 @@ Plugin 'thinca/vim-localrc'
 " endfold
 
 " Commands
+":1 Plugin: TComment
+Plugin 'tomtom/tcomment_vim'
+
 ":1 Plugin: NERDTree
 Plugin 'preservim/nerdtree'
 
@@ -35,9 +38,6 @@ let g:NERDTreePatternMatchHighlightColor = {
 ":1 Plugin: CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 
-":1 Plugin: TComment
-Plugin 'tomtom/tcomment_vim'
-
 ":1 Plugin: Tabular
 Plugin 'godlygeek/tabular'
 " endfold
@@ -53,11 +53,11 @@ let g:jellybeans_overrides = {
 
 colorscheme jellybeans
 
-":1 Plugin: Goyo
-Plugin 'junegunn/goyo.vim'
-
 ":1 Plugin: CSS Color (color previewer)
 Plugin 'ap/vim-css-color'
+
+":1 Plugin: Goyo
+Plugin 'junegunn/goyo.vim'
 " endfold
 
 " Completion and code analysis
