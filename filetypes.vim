@@ -149,8 +149,8 @@ endfunction
 
 autocmd vimrc FileType markdown
   \   setlocal foldmethod=expr
-  \ | setlocal foldtext=g:MarkdownFoldText()
   \ | setlocal foldexpr=g:MarkdownFoldExpr()
+  \ | setlocal foldtext=g:MarkdownFoldText()
 
 " Syntax: `=>`
 autocmd vimrc FileType markdown
@@ -171,3 +171,20 @@ autocmd vimrc BufEnter * if &filetype == 'ruby' |
 
 autocmd vimrc BufEnter * if &filetype == 'ruby' |
   \ nmap <S-F5> :w<CR>:!time ruby "%" < input.txt <CR>|endif
+
+":1 Filetype: Snippet
+function! g:SnippetsFoldExpr()
+  if getline(v:lnum) =~? '^snippet '
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^# endfold$'
+    return '<1'
+  endif
+
+  return '='
+endfunction
+autocmd vimrc FileType snippets
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:SnippetsFoldExpr()
+  \ | setlocal foldtext=getline(v:foldstart)

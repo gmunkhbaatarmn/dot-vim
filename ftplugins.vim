@@ -1037,21 +1037,6 @@ autocmd vimrc FileType sass setlocal foldmethod=expr foldexpr=g:SassFoldExpr() f
 autocmd vimrc FileType sass setlocal iskeyword-=#,-
 autocmd vimrc FileType sass setlocal iskeyword+=$
 
-":1 Snippets
-function! g:SnippetsFoldExpr()
-  if getline(v:lnum) =~? '^snippet '
-    return '>1'
-  endif
-
-  if getline(v:lnum) =~? '^# endfold$'
-    return '<1'
-  endif
-
-  return '='
-endfunction
-autocmd vimrc FileType snippets setlocal foldmethod=expr foldtext=getline(v:foldstart)
-autocmd vimrc FileType snippets setlocal foldexpr=g:SnippetsFoldExpr()
-
 ":1 Other
 autocmd vimrc BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
 autocmd vimrc BufEnter Makefile nmap <F5> :w<CR>:!make<CR>
