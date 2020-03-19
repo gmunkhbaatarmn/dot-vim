@@ -1,7 +1,6 @@
 scriptencoding utf-8
 
 ":1 Python
-
 let $PYTHONDONTWRITEBYTECODE = 1
 let $PYTHONIOENCODING = 'utf-8'
 
@@ -495,6 +494,9 @@ autocmd vimrc FileType javascript syn match Constant "\[[a-zA-Z0-9_\=-]\+\]"hs=s
 autocmd vimrc FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HERE,END\ CUT\ HERE
 
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
+autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
+
+
 " endfold
 
 ":1 Makefile
