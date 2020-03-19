@@ -28,7 +28,7 @@ set wildmenu                           " Show autocomplete menus
 set splitbelow                         " New (split) window opens on bottom
 set splitright                         " New (split) window opens on right
 set autoread                           " Auto update if changed outside of Vim
-set noerrorbells novisualbell          " No sound on errors
+set visualbell t_vb=                   " No beep or flash on terminal
 set ruler laststatus=0                 " Use ruler instead of status line
 set backspace=indent,eol,start         " Allow backspace in insert mode
 set lazyredraw                         " Redraw only when we need to
