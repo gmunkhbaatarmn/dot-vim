@@ -501,22 +501,6 @@ autocmd vimrc FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HE
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 
-":1 Vim (Vimscript)
-function! g:VimFoldText()
-  let l:line = getline(v:foldstart)
-  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let l:leading_spaces = stridx(l:line, l:trimmed)
-  let l:prefix = repeat(' ', l:leading_spaces)
-  let l:size = strlen(l:trimmed)
-
-  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
-  return l:prefix . '▸   ' . l:trimmed
-endfunction
-autocmd vimrc FileType vim setlocal foldmethod=marker foldmarker=\"\:,\"\ endfold foldtext=g:VimFoldText()
-
-autocmd vimrc FileType vim syn match DocKeyword "\\." containedin=vimString contained
-autocmd vimrc FileType vim hi default link DocKeyword Comment
-
 ":1 Yaml
 ":2 YamlFoldText
 function! g:YamlFoldText()

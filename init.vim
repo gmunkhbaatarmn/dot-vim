@@ -31,7 +31,6 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_frontmatter = 1
 
 Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'hynek/vim-python-pep8-indent'
