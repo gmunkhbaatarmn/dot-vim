@@ -1,29 +1,13 @@
 scriptencoding utf-8
 
-":1 FileType: Make (Makefile)
-function! g:MakefileFoldExpr()
-  ":2 ...
-  " Case: start with 'COMMAND:'
-  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
-    return '>1'
-  endif
+" For each FileType:
+"
+"   - General
+"   - Fold
+"   - Mapping
+"   - Syntax
 
-  if getline(v:lnum) =~? '^# endfold$'
-    return '<1'
-  endif
-
-  return '='
-  " endfold2
-endfunction
-
-autocmd vimrc FileType make
-  \   setlocal foldmethod=expr
-  \ | setlocal foldexpr=g:MakefileFoldExpr()
-  \ | setlocal foldtext=getline(v:foldstart)[:-2]
-
-autocmd vimrc FileType make
-  \ nmap <buffer> <F5> :w<CR>:!make<CR>
-
+" General purpose usage
 ":1 FileType: Markdown
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rhysd/vim-gfm-syntax'
@@ -133,13 +117,39 @@ autocmd vimrc FileType markdown
   \ | setlocal foldexpr=g:MarkdownFoldExpr()
   \ | setlocal foldtext=g:MarkdownFoldText()
 
-" Syntax: `=>`
+" Highlight: `=>`
 autocmd vimrc FileType markdown
   \ syntax match String  '=>'
 
-" Syntax: `label:`
+" Highlight: `label:`
 autocmd vimrc FileType markdown
   \ syntax match PreProc '[^ ]\+:'
+" endfold
+
+" Project development
+":1 FileType: Make (Makefile)
+function! g:MakefileFoldExpr()
+  ":2 ...
+  " Case: start with 'COMMAND:'
+  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^# endfold$'
+    return '<1'
+  endif
+
+  return '='
+  " endfold2
+endfunction
+
+autocmd vimrc FileType make
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:MakefileFoldExpr()
+  \ | setlocal foldtext=getline(v:foldstart)[:-2]
+
+autocmd vimrc FileType make
+  \ nmap <buffer> <F5> :w<CR>:!make<CR>
 
 ":1 FileType: Yaml
 function! g:YamlFoldText()
@@ -190,6 +200,87 @@ autocmd vimrc FileType yaml
 autocmd vimrc FileType yaml
   \ setlocal foldmarker=#\:,endfold
 
+":1 FileType: Javascript
+function! g:JavascriptFoldExpr()
+  ":2 ...
+  let l:trimmed = substitute(getline(v:lnum), '^\s*\(.\{-}\)\s*$', '\1', '')
+
+  ":3 +1 | `//: `
+  if l:trimmed =~? '^//: '
+    return '>1'
+  endif
+
+  ":3 +1 | `//:1 `
+  if l:trimmed =~? '^//:1 '
+    return '>1'
+  endif
+
+  ":3 -1 | `// endfold`
+  if l:trimmed =~? '^// endfold$'
+    return '<1'
+  endif
+  " endfold
+
+  ":3 +2 | `//:2 `
+  if l:trimmed =~? '^//:2 '
+    return '>2'
+  endif
+
+  ":3 -2 | `// endfold2`
+  if l:trimmed =~? '^// endfold2'
+    return '<2'
+  endif
+  " endfold
+  "
+  ":3 +3 | `//:3 `
+  if l:trimmed =~? '^//:3 '
+    return '>3'
+  endif
+
+  ":3 -3 | `// endfold3`
+  if l:trimmed =~? '^// endfold3'
+    return '<3'
+  endif
+  " endfold
+
+  return '='
+  " endfold2
+endfunction
+
+function! g:JavascriptFoldText()
+  ":2 ...
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
+
+  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+  return l:prefix . '▸   ' . l:trimmed
+  " endfold2
+endfunction
+
+autocmd vimrc FileType javascript
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:JavascriptFoldExpr()
+  \ | setlocal foldtext=g:JavascriptFoldText()
+
+autocmd vimrc FileType javascript
+  \ nmap <buffer> <F5> :w<CR>:!time node '%'<CR>
+
+" Highlight: `[selector]`
+" Highlight: `[selector=attribute]`
+autocmd vimrc FileType javascript
+  \ syntax match Constant "\[[a-zA-Z0-9_\=-]\+\]"hs=s+0,he=e-0
+  \ containedin=JsString contained
+
+" Highlight: `[selector="attributte"]`
+autocmd vimrc FileType javascript
+  \ syntax match Constant "\[[a-zA-Z0-9_-]\+=\"[a-zA-Z0-9_\ -]\+\"\]"hs=s+0,he=e-0
+  \ containedin=JsString contained
+" endfold
+
+" Vim (to sharpen the saw)
 ":1 FileType: Snippet
 function! g:SnippetsFoldExpr()
   if getline(v:lnum) =~? '^snippet '
@@ -207,7 +298,6 @@ autocmd vimrc FileType snippets
   \   setlocal foldmethod=expr
   \ | setlocal foldexpr=g:SnippetsFoldExpr()
   \ | setlocal foldtext=getline(v:foldstart)
-" endfold
 
 ":1 FileType: Vim (VimScript)
 Plugin 'vim-jp/syntax-vim-ex'
@@ -249,10 +339,13 @@ autocmd vimrc FileType vim
   \ | setlocal foldmarker=\"\:,\"\ endfold
   \ | setlocal foldtext=g:VimFoldText()
 
-" Syntax: highlight escaped characters
+" Highlight: escaped characters
 autocmd vimrc FileType vim
-  \ syntax match Comment "\\." containedin=vimString contained
+  \ syntax match Comment '\\.'
+  \ containedin=vimString contained
+" endfold
 
+" Other
 ":1 FileType: Ruby
 Plugin 'vim-ruby/vim-ruby'
 
@@ -260,7 +353,7 @@ Plugin 'vim-ruby/vim-ruby'
 let g:ruby_no_expensive = 1
 
 autocmd vimrc FileType ruby
-  \ nmap <buffer> <F5>   :w<CR>:!time ruby "%"<CR>
+  \ nmap <buffer> <F5>   :w<CR>:!time ruby '%'<CR>
 
 autocmd vimrc FileType ruby
-  \ nmap <buffer> <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>
+  \ nmap <buffer> <S-F5> :w<CR>:!time ruby '%' < input.txt<CR>
