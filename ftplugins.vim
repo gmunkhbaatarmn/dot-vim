@@ -499,28 +499,6 @@ autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; 
 
 " endfold
 
-":1 Makefile
-":2 MakefileFoldExpr
-function! g:MakefileFoldExpr()
-  " Case: start with 'COMMAND:'
-  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
-    return '>1'
-  endif
-  if getline(v:lnum) =~? '^# endfold$'
-    return '<1'
-  endif
-
-  return '='
-endfunction
-
-":2 MakefileFoldText
-function! g:MakefileFoldText()
-  return strpart(getline(v:foldstart), 0, strlen(getline(v:foldstart)) - 1)
-endfunction
-" endfold
-
-autocmd vimrc FileType make setlocal foldmethod=expr foldexpr=g:MakefileFoldExpr() foldtext=g:MakefileFoldText()
-
 ":1 C#
 function! g:CSFoldText()
   return getline(v:foldstart)
@@ -1003,9 +981,6 @@ autocmd vimrc FileType sass setlocal iskeyword-=#,-
 autocmd vimrc FileType sass setlocal iskeyword+=$
 
 ":1 Other
-autocmd vimrc BufEnter Rakefile nmap <F5> :w<CR>:!rake<CR>
-autocmd vimrc BufEnter Makefile nmap <F5> :w<CR>:!make<CR>
-
 autocmd vimrc FileType help nnoremap <buffer> <CR> <C-]>
 autocmd vimrc FileType help nnoremap <buffer> <BS> <C-T>
 " endfold

@@ -1,50 +1,30 @@
 scriptencoding utf-8
 
-":1 Filetype: Vim (VimScript)
-Plugin 'vim-jp/syntax-vim-ex'
-
-let g:vimsyntax_noerror = 1
-let g:vim_indent_cont = &shiftwidth
-
-function! g:VimFoldText()
+":1 FileType: Make (Makefile)
+function! g:MakefileFoldExpr()
   ":2 ...
-  let l:line = getline(v:foldstart)
-
-  " for standard {{{ marker
-  if l:line =~# ' {{' . '{$'
-    " remove first character
-    let l:line = strpart(l:line, 1)
-
-    " remove leading fold mark
-    let l:line = substitute(l:line, ' {{' . '{1', '', '')
-    let l:line = substitute(l:line, ' {{' . '{2', '', '')
-    let l:line = substitute(l:line, ' {{' . '{',  '', '')
-
-    return '▸' . l:line
-  else
-    " next: refactor below lines
-    let l:line = getline(v:foldstart)
-    let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
-    let l:leading_spaces = stridx(l:line, l:trimmed)
-    let l:prefix = repeat(' ', l:leading_spaces)
-    let l:size = strlen(l:trimmed)
-
-    let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
-    return l:prefix . '▸   ' . l:trimmed
+  " Case: start with 'COMMAND:'
+  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
+    return '>1'
   endif
+
+  if getline(v:lnum) =~? '^# endfold$'
+    return '<1'
+  endif
+
+  return '='
   " endfold2
 endfunction
 
-autocmd vimrc FileType vim
-  \   setlocal foldmethod=marker
-  \ | setlocal foldmarker=\"\:,\"\ endfold
-  \ | setlocal foldtext=g:VimFoldText()
+autocmd vimrc FileType make
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:MakefileFoldExpr()
+  \ | setlocal foldtext=getline(v:foldstart)[:-2]
 
-" Syntax: highlight escaped characters
-autocmd vimrc FileType vim
-  \ syntax match Comment "\\." containedin=vimString contained
+autocmd vimrc FileType make
+  \ nmap <buffer> <F5> :w<CR>:!make<CR>
 
-":1 Filetype: Markdown
+":1 FileType: Markdown
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rhysd/vim-gfm-syntax'
 
@@ -79,6 +59,7 @@ Plugin 'rhysd/vim-gfm-syntax'
 " endfold2
 
 let g:vim_markdown_folding_disabled = 1   " Disable header fold
+let g:vim_markdown_override_foldtext = 0  " Disable plugin's fold text
 let g:vim_markdown_frontmatter = 1        " Enable YAML header
 
 " autocmd vimrc FileType markdown
@@ -95,7 +76,7 @@ function! g:MarkdownFoldText()
   endif
 
   let l:text = '▸' . l:text[1:]
-  let l:text = substitute(l:text, '#', ' ', 'g')
+  " let l:text = substitute(l:text, '#', ' ', 'g')
 
   return l:text
   " endfold2
@@ -160,7 +141,7 @@ autocmd vimrc FileType markdown
 autocmd vimrc FileType markdown
   \ syntax match PreProc '[^ ]\+:'
 
-":1 Filetype: Yaml
+":1 FileType: Yaml
 function! g:YamlFoldText()
   ":2 ...
   let l:line = getline(v:foldstart)
@@ -209,7 +190,7 @@ autocmd vimrc FileType yaml
 autocmd vimrc FileType yaml
   \ setlocal foldmarker=#\:,endfold
 
-":1 Filetype: Snippet
+":1 FileType: Snippet
 function! g:SnippetsFoldExpr()
   if getline(v:lnum) =~? '^snippet '
     return '>1'
@@ -221,19 +202,65 @@ function! g:SnippetsFoldExpr()
 
   return '='
 endfunction
+
 autocmd vimrc FileType snippets
   \   setlocal foldmethod=expr
   \ | setlocal foldexpr=g:SnippetsFoldExpr()
   \ | setlocal foldtext=getline(v:foldstart)
+" endfold
 
-":1 Filetype: Ruby
+":1 FileType: Vim (VimScript)
+Plugin 'vim-jp/syntax-vim-ex'
+
+let g:vimsyntax_noerror = 1
+let g:vim_indent_cont = &shiftwidth
+
+function! g:VimFoldText()
+  ":2 ...
+  let l:line = getline(v:foldstart)
+
+  " for standard {{{ marker
+  if l:line =~# ' {{' . '{$'
+    " remove first character
+    let l:line = strpart(l:line, 1)
+
+    " remove leading fold mark
+    let l:line = substitute(l:line, ' {{' . '{1', '', '')
+    let l:line = substitute(l:line, ' {{' . '{2', '', '')
+    let l:line = substitute(l:line, ' {{' . '{',  '', '')
+
+    return '▸' . l:line
+  else
+    " next: refactor below lines
+    let l:line = getline(v:foldstart)
+    let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+    let l:leading_spaces = stridx(l:line, l:trimmed)
+    let l:prefix = repeat(' ', l:leading_spaces)
+    let l:size = strlen(l:trimmed)
+
+    let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+    return l:prefix . '▸   ' . l:trimmed
+  endif
+  " endfold2
+endfunction
+
+autocmd vimrc FileType vim
+  \   setlocal foldmethod=marker
+  \ | setlocal foldmarker=\"\:,\"\ endfold
+  \ | setlocal foldtext=g:VimFoldText()
+
+" Syntax: highlight escaped characters
+autocmd vimrc FileType vim
+  \ syntax match Comment "\\." containedin=vimString contained
+
+":1 FileType: Ruby
 Plugin 'vim-ruby/vim-ruby'
 
 " Improve rendering speed
 let g:ruby_no_expensive = 1
 
-autocmd vimrc BufEnter * if &filetype == 'ruby' |
-  \ nmap <F5>   :w<CR>:!time ruby "%"             <CR>|endif
+autocmd vimrc FileType ruby
+  \ nmap <buffer> <F5>   :w<CR>:!time ruby "%"<CR>
 
-autocmd vimrc BufEnter * if &filetype == 'ruby' |
-  \ nmap <S-F5> :w<CR>:!time ruby "%" < input.txt <CR>|endif
+autocmd vimrc FileType ruby
+  \ nmap <buffer> <S-F5> :w<CR>:!time ruby "%" < input.txt<CR>
