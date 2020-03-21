@@ -71,7 +71,6 @@ endif
 Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
 Plugin 'pangloss/vim-javascript'
 Plugin 'hail2u/vim-css3-syntax'
-Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'mitsuhiko/vim-jinja'
 " endfold
 
