@@ -12,11 +12,6 @@ set softtabstop=2                      " Number of spaces in tab when editing
 set expandtab                          " Use spaces instead of tab
 
 ":1 Standard configurations
-syntax on                              " Enable syntax processing
-filetype on                            " Enable file type detection
-filetype plugin on                     " Enable plugins
-filetype indent on                     " Enable indent
-
 set autoindent                         " Enable auto indent
 set nobackup nowritebackup noswapfile  " Disable backup
 

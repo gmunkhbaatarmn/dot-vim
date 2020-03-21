@@ -656,6 +656,9 @@ autocmd vimrc FileType javascript
 autocmd vimrc FileType javascript
   \ syntax match Constant "\[[a-zA-Z0-9_-]\+=\"[a-zA-Z0-9_\ -]\+\"\]"hs=s+0,he=e-0
   \ containedin=JsString contained
+
+":1 FileType: Requirements
+Plugin 'raimon49/requirements.txt.vim'
 " endfold
 
 " Vim (to sharpen the saw)
