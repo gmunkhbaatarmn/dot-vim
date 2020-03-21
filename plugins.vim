@@ -62,6 +62,47 @@ Plugin 'junegunn/goyo.vim'
 
 ":1 Plugin: Accelerated `jk`
 Plugin 'rhysd/accelerated-jk'
+
+":1 Plugin: QF (QuickFix)
+Plugin 'romainl/vim-qf'
+
+let g:qf_auto_quit = 0
+let g:qf_auto_resize = 0
+
+function! g:QFToggle(stay)
+  " Just a copy of `vim-qf` plugin's `ToggleQfWindow(stay)`
+  " But uses `copen` instead of `cwindow`
+
+  ":2 ...
+  " save the view if the current window is not a quickfix window
+  if get(g:, 'qf_save_win_view', 1)  && !qf#IsQfWindow(winnr())
+    let winview = winsaveview()
+  else
+    let winview = {}
+  endif
+
+  " if one of the windows is a quickfix window close it and return
+  if qf#IsQfWindowOpen()
+    cclose
+    if !empty(winview)
+      call winrestview(winview)
+    endif
+  else
+    copen
+    if qf#IsQfWindowOpen()
+      wincmd p
+      if !empty(winview)
+        call winrestview(winview)
+      endif
+      if !a:stay
+        wincmd p
+      endif
+    endif
+  endif
+  " endfold2
+endfunction
+
+nmap <C-f> :call g:QFToggle(1)<CR>
 " endfold
 
 " Completion and code analysis
@@ -77,11 +118,14 @@ Plugin 'dense-analysis/ale'
 
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
+let g:ale_keep_list_window_open = 0
 let g:ale_set_signs = 0
+let g:ale_set_highlights = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
+let g:ale_linters = {}
 
 highlight link ALEErrorLine error
 highlight link ALEWarningLine warning

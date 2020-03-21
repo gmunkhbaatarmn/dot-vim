@@ -57,5 +57,8 @@ imap <C-s> <ESC>:w!<CR>
 nmap <C-b> :close<CR>
 imap <C-b> <ESC>:close<CR>
 
+" Delete buffer
+nmap <leader>b :bdelete<CR>
+
 " Window tab
 nmap <C-t> :tabnew<CR>
