@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " This file is for:
 " 1. not decided where to put the code
 " 2. ugly codes that need refactor

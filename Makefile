@@ -11,8 +11,7 @@ ci-init:
 
 ci-test:
 	@# vim-vint
-	vint --style-problem ftplugins.vim
-	vint --style-problem gui_running.vim
+	vint --style-problem filetypes.vim
 	vint --style-problem init.vim
 	vint --style-problem mappings.vim
 	vint --style-problem shame.vim
