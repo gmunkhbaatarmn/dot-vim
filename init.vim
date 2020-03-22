@@ -60,6 +60,27 @@ source $HOME/.vim/filetypes.vim        " Languages
 if system('uname') =~# 'Darwin'
   set clipboard=unnamed,unnamedplus    " Use the OS clipboard by default
 endif
+
+":1 Only on: MacVim
+if has('gui_running') && has('gui_macvim')
+  set macligatures
+  set guifont=Fira\ Code:h15      " Change GUI font
+  set guioptions-=L               " Remove scroll in splitted window
+  set guicursor+=n-c:hor10-Cursor " Change cursor shape to underscore
+  set guicursor+=a:blinkon0       " Disable cursor blinking
+  set visualbell                  " Disable error sound
+
+  " Window tab settings
+  map <D-1> 1gt
+  map <D-2> 2gt
+  map <D-3> 3gt
+  map <D-4> 4gt
+  map <D-5> 5gt
+  map <D-6> 6gt
+  map <D-7> 7gt
+  map <D-8> 8gt
+  map <D-9> 9gt
+endif
 " endfold
 
 ":1 Plugins: Filetype supports
@@ -69,6 +90,5 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'mitsuhiko/vim-jinja'
 " endfold
 
-source $HOME/.vim/gui_running.vim      " GUI only settings
 source $HOME/.vim/mappings.vim         " Keyboard mappings
 source $HOME/.vim/shame.vim            " Quick and dirty solutions

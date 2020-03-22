@@ -32,8 +32,8 @@ Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightColor = {
-      \'.*_TESTS$': '3AFFDB',
-      \}
+  \'.*_TESTS$': '3AFFDB',
+  \}
 
 ":1 Plugin: CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
