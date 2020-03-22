@@ -153,7 +153,7 @@ function! g:PythonFoldExpr()
   if s:in_docstring
     ":3 in dostring
     " Docstring close
-    if getline(v:lnum) =~? '.*"""$'
+    if getline(v:lnum) =~? '.*"""'
       let s:in_docstring = 0
     endif
 
@@ -577,6 +577,33 @@ autocmd vimrc FileType yaml
 
 autocmd vimrc FileType yaml
   \ setlocal foldmarker=#\:,endfold
+
+":1 FileType: Shell (sh, zsh)
+function! g:ShellFoldText()
+  ":2 ...
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
+
+  let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+  return l:prefix . '▸   ' . l:trimmed
+  " endfold2
+endfunction
+
+autocmd vimrc FileType sh
+  \ nmap <F5> :w<CR>:!bash "%"<CR>
+
+autocmd vimrc FileType sh
+  \   setlocal foldmethod=marker
+  \ | setlocal foldmarker=#:,#\ endfold
+  \ | setlocal foldtext=g:ShellFoldText()
+
+autocmd vimrc FileType zsh
+  \   setlocal foldmethod=marker
+  \ | setlocal foldmarker=#:,#\ endfold
+  \ | setlocal foldtext=g:ShellFoldText()
 
 ":1 FileType: Javascript
 function! g:JavascriptFoldExpr()

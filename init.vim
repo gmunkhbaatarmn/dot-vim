@@ -71,5 +71,4 @@ Plugin 'mitsuhiko/vim-jinja'
 
 source $HOME/.vim/gui_running.vim      " GUI only settings
 source $HOME/.vim/mappings.vim         " Keyboard mappings
-source $HOME/.vim/ftplugins.vim        " Filetype configs
 source $HOME/.vim/shame.vim            " Quick and dirty solutions
