@@ -12,6 +12,7 @@ set softtabstop=2                      " Number of spaces in tab when editing
 set expandtab                          " Use spaces instead of tab
 
 ":1 Standard configurations
+syntax enable
 set autoindent                         " Enable auto indent
 set nobackup nowritebackup noswapfile  " Disable backup
 
@@ -50,6 +51,7 @@ set foldcolumn=4                       " Same as line number width
 " endfold
 
 " Enable plugins feature
+filetype off
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim
 call call('vundle#rc', [])
 
@@ -92,3 +94,6 @@ Plugin 'mitsuhiko/vim-jinja'
 
 source $HOME/.vim/mappings.vim         " Keyboard mappings
 source $HOME/.vim/shame.vim            " Quick and dirty solutions
+
+call vundle#end()                      " Required by Vundle
+filetype plugin indent on              " Required by Vundle
