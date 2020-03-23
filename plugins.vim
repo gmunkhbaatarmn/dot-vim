@@ -30,6 +30,7 @@ let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 ":1 Plugin: NERDTree syntax hightlight
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
+let g:NERDTreeSyntaxDisableDefaultExtensions = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightColor = {
   \'.*_TESTS$': '3AFFDB',
