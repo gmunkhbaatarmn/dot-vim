@@ -117,6 +117,7 @@ Plugin 'garbas/vim-snipmate'
 ":1 Plugin: ALE (Asynchronous Lint Engine)
 Plugin 'dense-analysis/ale'
 
+let g:ale_linters_explicit = 1         " Linters disabled in default
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 1
