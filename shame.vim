@@ -454,7 +454,9 @@ function! g:HTMLFoldText()
 endfunction
 " endfold
 
-autocmd vimrc BufNewFile,BufRead *.html setlocal filetype=htmljinja
+" let g:htmljinja_disable_html_upgrade = 0
+
+autocmd vimrc BufEnter *.html setlocal filetype=htmljinja
 autocmd vimrc FileType htmljinja setlocal foldmethod=expr foldexpr=g:HTMLFoldExpr() foldtext=g:HTMLFoldText()
 autocmd vimrc FileType htmljinja setlocal textwidth=159
 autocmd vimrc FileType htmljinja match OverLength /\%160v.\+/
