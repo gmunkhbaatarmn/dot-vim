@@ -132,6 +132,10 @@ autocmd vimrc FileType markdown
 Plugin 'vim-python/python-syntax'
 Plugin 'Vimjas/vim-python-pep8-indent'
 
+" ENV variables for GUI
+let $PYTHONDONTWRITEBYTECODE = 1
+let $PYTHONIOENCODING = 'utf-8'
+
 let g:python_highlight_all = 1
 let g:python_slow_sync = 0
 
