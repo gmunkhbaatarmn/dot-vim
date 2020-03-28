@@ -53,20 +53,6 @@ let g:vim_markdown_frontmatter = 1        " Enable YAML header
   " todo: \ | setlocal formatoptions=tcroqn2
   " todo: \ | setlocal comments=n:>
 
-function! g:MarkdownFoldText()
-  ":2 ...
-  let l:text = getline(v:foldstart)
-  if l:text ==# '---'
-    let l:text = getline(v:foldstart + 1)
-  endif
-
-  let l:text = '▸' . l:text[1:]
-  " let l:text = substitute(l:text, '#', ' ', 'g')
-
-  return l:text
-  " endfold2
-endfunction
-
 function! g:MarkdownFoldExpr()
   ":2 ...
   " Variable reset
@@ -113,10 +99,24 @@ function! g:MarkdownFoldExpr()
   " endfold2
 endfunction
 
+function! g:MarkdownFoldText2()
+  ":2 ...
+  let l:text = getline(v:foldstart)
+  if l:text ==# '---'
+    let l:text = getline(v:foldstart + 1)
+  endif
+
+  let l:text = '▸' . l:text[1:]
+  " let l:text = substitute(l:text, '#', ' ', 'g')
+
+  return l:text
+  " endfold2
+endfunction
+
 autocmd vimrc FileType markdown
   \   setlocal foldmethod=expr
   \ | setlocal foldexpr=g:MarkdownFoldExpr()
-  \ | setlocal foldtext=g:MarkdownFoldText()
+  \ | setlocal foldtext=g:MarkdownFoldText2()
 
 " Highlight: `=>`
 autocmd vimrc FileType markdown
