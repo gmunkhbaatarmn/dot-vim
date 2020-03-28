@@ -62,3 +62,7 @@ nmap <leader>b :bdelete<CR>
 
 " Window tab
 nmap <C-t> :tabnew<CR>
+
+" Omni function complete
+imap <C-space> <C-x><C-o>
+imap <C-@> <C-x><C-o>

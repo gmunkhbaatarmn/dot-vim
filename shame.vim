@@ -307,13 +307,8 @@ function! MarkdownToggle()
   call setline('.', l:line)
 endfunction
 
-" GUI version
-nmap <C-Space> :call MarkdownToggle()<CR>
-vmap <C-Space> :call MarkdownToggle()<CR>
-
-" Terminal version
-nmap <C-@> :call MarkdownToggle()<CR>
-vmap <C-@> :call MarkdownToggle()<CR>
+nmap <C-d> :call MarkdownToggle()<CR>
+vmap <C-d> :call MarkdownToggle()<CR>
 
 autocmd vimrc FileType markdown syn match TodoLine '^\s*\-\(\n\s\+[^- ].*\)*'
 autocmd vimrc FileType markdown syn match OpenLine '^\s*\- +.*\(\n\s\+[^- ].*\)*'
