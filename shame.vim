@@ -31,29 +31,23 @@ if has('gui_running') && has('gui_macvim')
 endif
 " endfold
 
-" Tab Configuration
 set expandtab                          " Use spaces instead of tab
-
-":1 Standard configurations
-syntax enable
-set nobackup nowritebackup noswapfile  " Disable backup
-
 set signcolumn=no
-set hlsearch                           " Highlight search result
-set wildmenu                           " Show autocomplete menus
-set autoread                           " Auto update if changed outside of Vim
-set visualbell t_vb=                   " No beep or flash on terminal
-set ruler laststatus=0                 " Use ruler instead of status line
-set lazyredraw                         " Redraw only when we need to
-set shellslash                         " Always use unix style slash /
 set gdefault                           " Add the g flag to search/replace by default
 set nojoinspaces                       " No insert two spaces in line join (gq)
-set tags=.git/tags;./tags;tags         " Improve ctags support
+
+":1 Standard configurations
+set autoread                           " Auto update if changed outside of Vim
+syntax enable
+
+set nobackup nowritebackup noswapfile  " Disable backup
+set hlsearch                           " Highlight search result
+set wildmenu                           " Show autocomplete menus
+set visualbell t_vb=                   " No beep or flash on terminal
+set ruler laststatus=0                 " Use ruler instead of status line
 
 ":1 Aesthetic customizations
-" Ruler format
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
-
 set listchars=tab:▸\ ,eol:¬            " Character to show tab, end of line
 set listchars+=trail:~                 " Character to show trailing spaces
 set linebreak                          " Define line break
