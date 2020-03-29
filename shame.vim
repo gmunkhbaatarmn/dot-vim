@@ -4,7 +4,23 @@ scriptencoding utf-8
 " 1. not decided where to put the code
 " 2. ugly codes that need refactor
 
+Plugin 'chrisbra/csv.vim'
+Plugin 'MTDL9/vim-log-highlighting'
+Plugin 'chr4/nginx.vim'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'tpope/vim-git'
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'junegunn/gv.vim'
+
+Plugin 'lambdalisue/suda.vim'
+command SudoSave :w suda://%
+
+Plugin 'dstein64/vim-startuptime'
+" command :Startuptime
+
 ":1 Lua
+" Plugin 'tbastos/vim-lua'
 ":2 LuaFoldExpr
 function! g:LuaFoldExpr()
   if getline(v:lnum) =~? '^end -- fold$'
