@@ -120,7 +120,7 @@ Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Install: pip install python-language-server
 if executable('pyls')
-  au User lsp_setup call lsp#register_server({
+  autocmd vimrc User lsp_setup call lsp#register_server({
     \'name': 'pyls',
     \'cmd': {server_info->['pyls']},
     \'whitelist': ['python'],

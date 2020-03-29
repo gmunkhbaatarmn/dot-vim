@@ -4,6 +4,73 @@ scriptencoding utf-8
 " 1. not decided where to put the code
 " 2. ugly codes that need refactor
 
+":1 Only on: Mac OS
+if system('uname') =~# 'Darwin'
+  set clipboard=unnamed,unnamedplus     " Use the OS clipboard by default
+endif
+
+":1 Only on: MacVim
+if has('gui_running') && has('gui_macvim')
+  set macligatures
+  set guifont=Fira\ Code:h15            " Change GUI font
+  set guioptions-=L                     " Remove scroll in splitted window
+  set guicursor+=n-c:hor10-Cursor       " Change cursor shape to underscore
+  set guicursor+=a:blinkon0             " Disable cursor blinking
+  set visualbell                        " Disable error sound
+
+  " Window tab settings
+  map <D-1> 1gt
+  map <D-2> 2gt
+  map <D-3> 3gt
+  map <D-4> 4gt
+  map <D-5> 5gt
+  map <D-6> 6gt
+  map <D-7> 7gt
+  map <D-8> 8gt
+  map <D-9> 9gt
+endif
+" endfold
+
+" Tab Configuration
+set expandtab                          " Use spaces instead of tab
+
+":1 Standard configurations
+syntax enable
+set nobackup nowritebackup noswapfile  " Disable backup
+
+set signcolumn=no
+set hlsearch                           " Highlight search result
+set wildmenu                           " Show autocomplete menus
+set autoread                           " Auto update if changed outside of Vim
+set visualbell t_vb=                   " No beep or flash on terminal
+set ruler laststatus=0                 " Use ruler instead of status line
+set lazyredraw                         " Redraw only when we need to
+set shellslash                         " Always use unix style slash /
+set gdefault                           " Add the g flag to search/replace by default
+set nojoinspaces                       " No insert two spaces in line join (gq)
+set tags=.git/tags;./tags;tags         " Improve ctags support
+
+":1 Aesthetic customizations
+" Ruler format
+set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
+
+set listchars=tab:▸\ ,eol:¬            " Character to show tab, end of line
+set listchars+=trail:~                 " Character to show trailing spaces
+set linebreak                          " Define line break
+set showbreak=…                        " Add mark on wrapped long line
+set fillchars=vert:\|,fold:\           " Make foldtext line more clean
+set formatoptions+=n                   " Recognize numbered list in text formatting
+set numberwidth=4                      " Line number width
+set foldcolumn=4                       " Same as line number width
+" endfold
+
+":1 Plugins: Filetype supports
+Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
+Plugin 'pangloss/vim-javascript'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'mitsuhiko/vim-jinja'
+" endfold
+
 Plugin 'chrisbra/csv.vim'
 Plugin 'MTDL9/vim-log-highlighting'
 Plugin 'chr4/nginx.vim'
