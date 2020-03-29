@@ -450,7 +450,6 @@ endfunction
 
 autocmd vimrc FileType python
   \   setlocal tabstop=4
-  \ | setlocal softtabstop=4
   \ | setlocal shiftwidth=4
   \ | setlocal expandtab
 
@@ -521,7 +520,6 @@ endfunction
 " use tab. tabsize = 2
 autocmd vimrc FileType make
   \   setlocal tabstop=2
-  \ | setlocal softtabstop=2
   \ | setlocal shiftwidth=2
   \ | setlocal noexpandtab
 
@@ -709,7 +707,6 @@ endfunction
 " use tab. tabsize = 2
 autocmd vimrc FileType snippets
   \   setlocal tabstop=2
-  \ | setlocal softtabstop=2
   \ | setlocal shiftwidth=2
   \ | setlocal noexpandtab
 
