@@ -107,9 +107,16 @@ nmap <C-f> :call g:QFToggle(1)<CR>
 " endfold
 
 " Completion and code analysis
+":1 Plugin: AsyncComplete
+Plugin 'prabirshrestha/asyncomplete.vim'
+
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+imap <c-@>     <Plug>(asyncomplete_force_refresh)
+
 ":1 Plugin: LSP
 Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Install: pip install python-language-server
 if executable('pyls')
@@ -119,27 +126,6 @@ if executable('pyls')
     \'whitelist': ['python'],
     \})
 endif
-
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-
-  " setlocal foldmethod=expr
-  " 	\ foldexpr=lsp#ui#vim#folding#foldexpr()
-  " 	\ foldtext=lsp#ui#vim#folding#foldtext()
-
-  " nmap <silent><buffer> K      <Plug>(lsp-hover)
-  " nmap <silent><buffer> <C-]>  <Plug>(lsp-definition)
-  " nmap <silent><buffer> g<C-]> <Plug>(lsp-peek-definition)
-  " nmap <silent><buffer> gd     <Plug>(lsp-peek-declaration)
-  " nmap <silent><buffer> gi     <Plug>(lsp-peek-implementation)
-  " nmap <silent><buffer> gy     <Plug>(lsp-peek-type-definition)
-  " nmap <silent><buffer> gY     <Plug>(lsp-type-hierarchy)
-  " nmap <silent><buffer> ,s     <Plug>(lsp-signature-help)
-  " nmap <silent><buffer> gr     <Plug>(lsp-references)
-  " nmap         <buffer> <F2>   <Plug>(lsp-rename)
-endfunction
-
-autocmd User lsp_buffer_enabled call <SID>on_lsp_buffer_enabled()
 
 ":1 Plugin: Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
