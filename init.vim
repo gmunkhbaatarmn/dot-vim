@@ -20,6 +20,7 @@ set backspace=indent,eol,start          " Intuitive backspacing in insert mode
 
 " Editor UI
 set nonumber                            " Don't show line numbers
+set list                                " Show hidden characters
 
 " Tabs and Indents
 set tabstop=2                           " The number of spaces a tab is

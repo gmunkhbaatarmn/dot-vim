@@ -48,8 +48,7 @@ set ruler laststatus=0                 " Use ruler instead of status line
 
 ":1 Aesthetic customizations
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
-set listchars=tab:▸\ ,eol:¬            " Character to show tab, end of line
-set listchars+=trail:~                 " Character to show trailing spaces
+set listchars=tab:⋮\ ,nbsp:␣,trail:·   " Symbols for hidden characters
 set linebreak                          " Define line break
 set showbreak=…                        " Add mark on wrapped long line
 set fillchars=vert:\|,fold:\           " Make foldtext line more clean

@@ -5,7 +5,6 @@ let g:mapleader = ','
 nmap <leader>, :execute 'set number! foldcolumn=' . (!&foldcolumn * 4)<CR>
 nmap <leader>f :set foldmethod=indent<CR>
 nmap <leader>m :set foldmethod=marker<CR>
-nmap <leader>l :set list!<CR>
 nmap <leader>r :set wrap!<CR>
 " endfold
 

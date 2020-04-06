@@ -36,8 +36,8 @@ Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 let g:NERDTreeSyntaxDisableDefaultExtensions = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightColor = {
-  \'.*_TESTS$': '3AFFDB',
-  \}
+  \ '.*_TESTS$': '3AFFDB',
+  \ }
 
 ":1 Plugin: CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -51,10 +51,10 @@ Plugin 'godlygeek/tabular'
 Plugin 'nanotech/jellybeans.vim'
 
 let g:jellybeans_overrides = {
-  \'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
-  \'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
-  \'SignColumn': { 'guifg': '151515', 'guibg': '151515' },
-  \}
+  \ 'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
+  \ 'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
+  \ 'SignColumn': { 'guifg': '151515', 'guibg': '151515' },
+  \ }
 
 colorscheme jellybeans
 
@@ -126,10 +126,10 @@ Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 " Install: pip install python-language-server
 if executable('pyls')
   autocmd vimrc User lsp_setup call lsp#register_server({
-    \'name': 'pyls',
-    \'cmd': {server_info->['pyls']},
-    \'whitelist': ['python'],
-    \})
+    \ 'name': 'pyls',
+    \ 'cmd': {server_info->['pyls']},
+    \ 'whitelist': ['python'],
+    \ })
 endif
 
 ":1 Plugin: Snipmate
