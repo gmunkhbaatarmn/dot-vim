@@ -13,45 +13,10 @@ scriptencoding utf-8
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rhysd/vim-gfm-syntax'
 
-":2 todo: review below lines
-" let g:vim_markdown_frontmatter = 1
-" let g:vim_markdown_strikethrough = 1
-" let g:vim_markdown_folding_level = 6
-" let g:vim_markdown_override_foldtext = 1
-" let g:vim_markdown_folding_style_pythonic = 1
-" let g:vim_markdown_conceal = 0
-" let g:vim_markdown_conceal_code_blocks = 0
-" let g:vim_markdown_edit_url_in = 'vsplit'
-" let g:vim_markdown_auto_insert_bullets = 1
-" let g:vim_markdown_new_list_item_indent = 0
-" let g:vim_markdown_toc_autofit = 0
-" let g:vim_markdown_fenced_languages = [
-"   \ 'c++=cpp',
-"   \ 'viml=vim',
-"   \ 'bash=sh',
-"   \ 'ini=dosini',
-"   \ 'js=javascript',
-"   \ 'json=javascript',
-"   \ 'jsx=javascriptreact',
-"   \ 'tsx=typescriptreact',
-"   \ 'docker=Dockerfile',
-"   \ 'makefile=make',
-"   \ 'py=python'
-"   \ ]
-" let g:gfm_syntax_enable_always = 0
-" let g:gfm_syntax_highlight_emoji = 0
-" let g:gfm_syntax_enable_filetypes = ['markdown']
-" endfold2
-
-let g:vim_markdown_folding_disabled = 1   " Disable header fold
-let g:vim_markdown_override_foldtext = 0  " Disable plugin's fold text
-let g:vim_markdown_frontmatter = 1        " Enable YAML header
-
-" autocmd vimrc FileType markdown
-"   \   setlocal conceallevel=0
-  " todo: \ | setlocal autoindent
-  " todo: \ | setlocal formatoptions=tcroqn2
-  " todo: \ | setlocal comments=n:>
+let g:vim_markdown_folding_disabled = 1           " Disable header fold
+let g:vim_markdown_override_foldtext = 0          " Disable plugin's fold text
+let g:vim_markdown_frontmatter = 1                " Enable YAML header
+let g:vim_markdown_auto_insert_bullets = 0        " Disabled due problems when wrapping text
 
 function! g:MarkdownFoldExpr()
   ":2 ...
@@ -101,6 +66,7 @@ endfunction
 
 function! g:MarkdownFoldText2()
   ":2 ...
+  " function name `MarkdownFoldText` is already defined
   let l:text = getline(v:foldstart)
   if l:text ==# '---'
     let l:text = getline(v:foldstart + 1)
@@ -117,17 +83,9 @@ autocmd vimrc FileType markdown
   \   setlocal foldmethod=expr
   \ | setlocal foldexpr=g:MarkdownFoldExpr()
   \ | setlocal foldtext=g:MarkdownFoldText2()
-
-" Highlight: `=>`
-autocmd vimrc FileType markdown
-  \ syntax match String  '=>'
-
-" Highlight: `label:`
-autocmd vimrc FileType markdown
-  \ syntax match PreProc '[^ ]\+:'
 " endfold
 
-" Programming
+" General programming
 ":1 FileType: Python
 Plugin 'vim-python/python-syntax'
 Plugin 'Vimjas/vim-python-pep8-indent'
@@ -606,7 +564,9 @@ autocmd vimrc FileType zsh
   \   setlocal foldmethod=marker
   \ | setlocal foldmarker=#:,#\ endfold
   \ | setlocal foldtext=g:ShellFoldText()
+" endfold
 
+" Web development
 ":1 FileType: Javascript
 function! g:JavascriptFoldExpr()
   ":2 ...
