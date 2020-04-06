@@ -9,8 +9,11 @@ Plugin 'thinca/vim-localrc'
 " endfold
 
 " Commands
-":1 Plugin: TComment
-Plugin 'tomtom/tcomment_vim'
+":1 Plugin: CommentAnyWay
+Plugin 'tyru/caw.vim'
+
+let g:caw_no_default_keymappings = 1
+map gc <Plug>(caw:hatpos:toggle)
 
 ":1 Plugin: NERDTree
 Plugin 'preservim/nerdtree'
