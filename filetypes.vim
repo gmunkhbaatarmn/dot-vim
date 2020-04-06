@@ -648,6 +648,11 @@ autocmd vimrc FileType javascript
 
 ":1 FileType: Requirements
 Plugin 'raimon49/requirements.txt.vim'
+
+":1 FileType: Log
+Plugin 'MTDL9/vim-log-highlighting'
+
+autocmd vimrc BufEnter *.log setlocal filetype=log
 " endfold
 
 " Vim (to sharpen the saw)

@@ -66,7 +66,6 @@ Plugin 'mitsuhiko/vim-jinja'
 " endfold
 
 Plugin 'chrisbra/csv.vim'
-Plugin 'MTDL9/vim-log-highlighting'
 Plugin 'chr4/nginx.vim'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'tpope/vim-git'
