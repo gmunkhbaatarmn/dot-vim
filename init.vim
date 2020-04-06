@@ -8,6 +8,7 @@ if has('termguicolors') && $COLORTERM =~# 'truecolor\|24bit'
 endif
 
 ":1 General
+set mouse=a                             " Enable mouse
 set hidden                              " Hide buffers when abandoned instead of unload
 set fileformats=unix,dos,mac            " Use Unix as the standard file type
 set synmaxcol=2500                      " Don't syntax highlight long lines
