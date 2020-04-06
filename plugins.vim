@@ -13,7 +13,7 @@ Plugin 'thinca/vim-localrc'
 Plugin 'tyru/caw.vim'
 
 let g:caw_no_default_keymappings = 1
-map gc <Plug>(caw:hatpos:toggle)
+map c <Plug>(caw:hatpos:toggle)
 
 ":1 Plugin: NERDTree
 Plugin 'preservim/nerdtree'

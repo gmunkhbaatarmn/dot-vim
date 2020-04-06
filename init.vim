@@ -4,7 +4,7 @@ scriptencoding utf-8
 ":1 Init
 " Enables 24-bit RGB color in the terminal
 if has('termguicolors') && $COLORTERM =~# 'truecolor\|24bit'
-	set termguicolors
+  set termguicolors
 endif
 
 ":1 General
