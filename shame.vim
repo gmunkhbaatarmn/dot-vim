@@ -78,6 +78,8 @@ command SudoSave :w suda://%
 Plugin 'dstein64/vim-startuptime'
 " command :Startuptime
 
+Plugin 'thinca/vim-localrc'
+
 ":1 Lua
 " Plugin 'tbastos/vim-lua'
 ":2 LuaFoldExpr
