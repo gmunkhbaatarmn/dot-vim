@@ -1,19 +1,12 @@
-" Startup
-":1 Plugin: Vundle
-Plugin 'VundleVim/Vundle.vim'
-
-let g:vundle_default_git_proto = 'git'
-" endfold
-
 " Commands
 ":1 Plugin: CommentAnyWay
-Plugin 'tyru/caw.vim'
+Plug 'tyru/caw.vim'
 
 let g:caw_no_default_keymappings = 1
 map c <Plug>(caw:hatpos:toggle)
 
 ":1 Plugin: NERDTree
-Plugin 'preservim/nerdtree'
+Plug 'preservim/nerdtree'
 
 " Fast toggle
 map <F2> :NERDTreeToggle<CR>
@@ -28,7 +21,7 @@ let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 " Also: ~/.vim/nerdtree_plugin/path_filters.vim
 
 ":1 Plugin: NERDTree syntax hightlight
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 let g:NERDTreeSyntaxDisableDefaultExtensions = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
@@ -37,15 +30,15 @@ let g:NERDTreePatternMatchHighlightColor = {
   \ }
 
 ":1 Plugin: CtrlP
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 ":1 Plugin: Tabular
-Plugin 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 " endfold
 
 " Interface
 ":1 Plugin: Jellybeans
-Plugin 'nanotech/jellybeans.vim'
+Plug 'nanotech/jellybeans.vim'
 
 let g:jellybeans_overrides = {
   \ 'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
@@ -53,20 +46,18 @@ let g:jellybeans_overrides = {
   \ 'SignColumn': { 'guifg': '151515', 'guibg': '151515' },
   \ }
 
-colorscheme jellybeans
-
 ":1 Plugin: CSS Color (color previewer)
-Plugin 'ap/vim-css-color'
+Plug 'ap/vim-css-color'
 
 ":1 Plugin: Goyo
-Plugin 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 nmap ,g :Goyo<CR>
 
 ":1 Plugin: Accelerated `jk`
-Plugin 'rhysd/accelerated-jk'
+Plug 'rhysd/accelerated-jk'
 
 ":1 Plugin: QF (QuickFix)
-Plugin 'romainl/vim-qf'
+Plug 'romainl/vim-qf'
 
 let g:qf_auto_quit = 0
 let g:qf_auto_resize = 0
@@ -109,7 +100,7 @@ nmap <C-f> :call g:QFToggle(1)<CR>
 
 " Completion and code analysis
 ":1 Plugin: AsyncComplete
-Plugin 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
 
 let g:asyncomplete_auto_popup = 0
 
@@ -117,9 +108,9 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 imap <c-@>     <Plug>(asyncomplete_force_refresh)
 
 ":1 Plugin: LSP
-Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
-Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Install: pip install python-language-server
 if executable('pyls')
@@ -131,14 +122,14 @@ if executable('pyls')
 endif
 
 ":1 Plugin: Snipmate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
 
 " Also: ~/.vim/snippets/
 
 ":1 Plugin: ALE (Asynchronous Lint Engine)
-Plugin 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 let g:ale_linters_explicit = 1         " Linters disabled in default
 let g:ale_lint_on_save = 1

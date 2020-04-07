@@ -58,27 +58,27 @@ set foldcolumn=4                       " Same as line number width
 " endfold
 
 ":1 Plugins: Filetype supports
-Plugin 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
-Plugin 'pangloss/vim-javascript'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'mitsuhiko/vim-jinja'
+Plug 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
+Plug 'pangloss/vim-javascript'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'mitsuhiko/vim-jinja'
 " endfold
 
-Plugin 'chrisbra/csv.vim'
-Plugin 'chr4/nginx.vim'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'tpope/vim-git'
+Plug 'chrisbra/csv.vim'
+Plug 'chr4/nginx.vim'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'tpope/vim-git'
 
-Plugin 'tpope/vim-fugitive'
-Plugin 'junegunn/gv.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 
-Plugin 'lambdalisue/suda.vim'
+Plug 'lambdalisue/suda.vim'
 command SudoSave :w suda://%
 
-Plugin 'dstein64/vim-startuptime'
+Plug 'dstein64/vim-startuptime'
 " command :Startuptime
 
-Plugin 'thinca/vim-localrc'
+Plug 'thinca/vim-localrc'
 
 ":1 Lua
 " Plugin 'tbastos/vim-lua'

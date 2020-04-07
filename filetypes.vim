@@ -10,8 +10,8 @@ scriptencoding utf-8
 
 " General purpose usage
 ":1 FileType: Markdown
-Plugin 'plasticboy/vim-markdown'
-Plugin 'rhysd/vim-gfm-syntax'
+Plug 'plasticboy/vim-markdown'
+Plug 'rhysd/vim-gfm-syntax'
 
 let g:vim_markdown_folding_disabled = 1           " Disable header fold
 let g:vim_markdown_override_foldtext = 0          " Disable plugin's fold text
@@ -87,8 +87,8 @@ autocmd vimrc FileType markdown
 
 " General programming
 ":1 FileType: Python
-Plugin 'vim-python/python-syntax'
-Plugin 'Vimjas/vim-python-pep8-indent'
+Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 " ENV variables for GUI
 let $PYTHONDONTWRITEBYTECODE = 1
@@ -647,10 +647,10 @@ autocmd vimrc FileType javascript
   \ containedin=JsString contained
 
 ":1 FileType: Requirements
-Plugin 'raimon49/requirements.txt.vim'
+Plug 'raimon49/requirements.txt.vim'
 
 ":1 FileType: Log
-Plugin 'MTDL9/vim-log-highlighting'
+Plug 'MTDL9/vim-log-highlighting'
 
 autocmd vimrc BufEnter *.log setlocal filetype=log
 " endfold
@@ -681,7 +681,7 @@ autocmd vimrc FileType snippets
   \ | setlocal foldtext=getline(v:foldstart)
 
 ":1 FileType: Vim (VimScript)
-Plugin 'vim-jp/syntax-vim-ex'
+Plug 'vim-jp/syntax-vim-ex'
 
 let g:vimsyntax_noerror = 1
 let g:vim_indent_cont = &shiftwidth
@@ -728,7 +728,7 @@ autocmd vimrc FileType vim
 
 " Other
 ":1 FileType: Ruby
-Plugin 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby'
 
 " Improve rendering speed
 let g:ruby_no_expensive = 1

@@ -34,16 +34,13 @@ augroup vimrc
   autocmd!
 augroup END
 
-" Vundle: begin
-filetype off
-set runtimepath+=$HOME/.vim/bundle/Vundle.vim
-call call('vundle#rc', [])
+call plug#begin('~/.vim/plugged')
 
 source $HOME/.vim/plugins.vim           " Plugins
 source $HOME/.vim/filetypes.vim         " Languages
 source $HOME/.vim/mappings.vim          " Keyboard mappings
 source $HOME/.vim/shame.vim             " Quick and dirty solutions
 
-" Vundle: end
-call vundle#end()
-filetype plugin indent on
+call plug#end()
+
+colorscheme jellybeans
