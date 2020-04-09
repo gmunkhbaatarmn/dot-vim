@@ -1,0 +1,33 @@
+diff --git a/autoload/ctrlp.vim b/autoload/ctrlp.vim
+index d1e2369..ef0292c 100644
+--- a/autoload/ctrlp.vim
++++ b/autoload/ctrlp.vim
+@@ -123,8 +123,8 @@ let [s:lcmap, s:prtmaps] = ['nn <buffer> <silent>', {
+ 	\ 'PrtDelete()':          ['<del>'],
+ 	\ 'PrtDeleteWord()':      ['<c-w>'],
+ 	\ 'PrtClear()':           ['<c-u>'],
+-	\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+-	\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
++	\ 'PrtSelectMove("j")':   ['<c-h>', '<down>'],
++	\ 'PrtSelectMove("k")':   ['<c-t>', '<up>'],
+ 	\ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+ 	\ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+ 	\ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+@@ -133,7 +133,7 @@ let [s:lcmap, s:prtmaps] = ['nn <buffer> <silent>', {
+ 	\ 'PrtHistory(1)':        ['<c-p>'],
+ 	\ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+ 	\ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+-	\ 'AcceptSelection("t")': ['<c-t>'],
++	\ 'AcceptSelection("t")': ['<c-k>'],
+ 	\ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+ 	\ 'ToggleFocus()':        ['<s-tab>'],
+ 	\ 'ToggleRegex()':        ['<c-r>'],
+@@ -145,7 +145,7 @@ let [s:lcmap, s:prtmaps] = ['nn <buffer> <silent>', {
+ 	\ 'PrtInsert()':          ['<c-\>'],
+ 	\ 'PrtCurStart()':        ['<c-a>'],
+ 	\ 'PrtCurEnd()':          ['<c-e>'],
+-	\ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
++	\ 'PrtCurLeft()':         ['<c-j>', '<left>', '<c-^>'],
+ 	\ 'PrtCurRight()':        ['<c-l>', '<right>'],
+ 	\ 'PrtClearCache()':      ['<F5>'],
+ 	\ 'PrtDeleteEnt()':       ['<F7>'],

@@ -1,0 +1,32 @@
+diff --git a/after/syntax/markdown/gfm.vim b/after/syntax/markdown/gfm.vim
+index 369c12d..0bff34f 100644
+--- a/after/syntax/markdown/gfm.vim
++++ b/after/syntax/markdown/gfm.vim
+@@ -32,6 +32,7 @@ if g:gfm_syntax_highlight_emoji
+     if g:gfm_syntax_emoji_conceal && has('conceal')
+         call gfm_syntax#emoji#apply_conceal()
+     endif
++    syn match githubFlavoredMarkdownEmoji "[^`:]\+:" display
+ endif
+ 
+ " Issue number
+@@ -39,6 +40,7 @@ endif
+ " #123
+ if g:gfm_syntax_highlight_issue_number
+     syn match githubFlavoredMarkdownIssueNumber "#\@<!#\d\+\>" display
++    syn match githubFlavoredMarkdownIssueNumber "=>" display
+ endif
+ 
+ " Table
+diff --git a/doc/tags b/doc/tags
+new file mode 100644
+index 0000000..b177c96
+--- /dev/null
++++ b/doc/tags
+@@ -0,0 +1,6 @@
++gfm-syntax	gfm-syntax.txt	/*gfm-syntax*
++vim-gfm-syntax	gfm-syntax.txt	/*vim-gfm-syntax*
++vim-gfm-syntax-contents	gfm-syntax.txt	/*vim-gfm-syntax-contents*
++vim-gfm-syntax-install	gfm-syntax.txt	/*vim-gfm-syntax-install*
++vim-gfm-syntax-introduction	gfm-syntax.txt	/*vim-gfm-syntax-introduction*
++vim-gfm-syntax-license	gfm-syntax.txt	/*vim-gfm-syntax-license*

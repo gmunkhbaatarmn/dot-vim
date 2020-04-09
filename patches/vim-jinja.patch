@@ -1,0 +1,14 @@
+diff --git a/syntax/jinja.vim b/syntax/jinja.vim
+index 5585b6e..6041af9 100644
+--- a/syntax/jinja.vim
++++ b/syntax/jinja.vim
+@@ -47,6 +47,9 @@ syn region jinjaRaw matchgroup=jinjaRawDelim start="{%\s*raw\s*%}" end="{%\s*end
+ " Jinja comments
+ syn region jinjaComment matchgroup=jinjaCommentDelim start="{#" end="#}" containedin=ALLBUT,jinjaTagBlock,jinjaVarBlock,jinjaString
+ 
++" Jinja line comment
++syn region jinjaComment matchgroup=jinjaCommentDelim start="#:" end="$" keepend containedin=ALLBUT,jinjaTagBlock,jinjaVarBlock,jinjaRaw,jinjaString,jinjaNested,jinjaComment
++
+ " Block start keywords.  A bit tricker.  We only highlight at the start of a
+ " tag block and only if the name is not followed by a comma or equals sign
+ " which usually means that we have to deal with an assignment.
