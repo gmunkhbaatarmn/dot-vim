@@ -567,6 +567,141 @@ autocmd vimrc FileType zsh
 " endfold
 
 " Web development
+":1 FileType: HTML
+function! g:HTMLFoldExpr()
+  ":2 HTMLFoldExpr
+  let l:trimmed = substitute(getline(v:lnum), '^\s*\(.\{-}\)\s*$', '\1', '')
+
+  ":3 +1 | `{% macro `
+  if getline(v:lnum) =~? '^{% macro '
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^{%- macro '
+    return '>1'
+  endif
+
+  ":3 +1 | `{% call `
+  if getline(v:lnum) =~? '^{% call '
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^{%- call '
+    return '>1'
+  endif
+
+  ":3 +1 | `#: `
+  if l:trimmed =~? '^#: '
+    return '>1'
+  endif
+
+  ":3 +1 | `<!--: `
+  if l:trimmed =~? '^<!--: '
+    return '>1'
+  endif
+
+
+  ":3 -1 | `<!-- endfold -->`
+  if l:trimmed =~? '^<!-- endfold -->'
+    return '<1'
+  endif
+
+  ":3 -1 | `#:endfold`
+  if l:trimmed =~? '^#:endfold$'
+    return '<1'
+  endif
+
+  ":3 +1 | `{#: `
+  if l:trimmed =~? '^{#: '
+    return '>1'
+  endif
+
+  ":3 -1 | `{#:endfold #}`
+  if l:trimmed =~? '^{#:endfold #}$'
+    return '<1'
+  endif
+  " endfold
+
+  ":3 +2 | `#:2`
+  if l:trimmed =~? '^#:2'
+    return '>2'
+  endif
+
+  ":3 -2 | `#:endfold2`
+  if l:trimmed =~? '^#:endfold2'
+    return '<2'
+  endif
+
+  ":3 +2 | `{#:2 `
+  if l:trimmed =~? '^{#:2 '
+    return '>2'
+  endif
+
+  ":3 -2 | `{#:endfold2 #}`
+  if l:trimmed =~? '^{#:endfold2 #}'
+    return '<2'
+  endif
+
+  ":3 +2 | `{% call `
+  if getline(v:lnum) =~? '  {% call '
+    return '>2'
+  endif
+
+  if getline(v:lnum) =~? '  {%- call '
+    return '>2'
+  endif
+  " endfold
+
+  return '='
+  " endfold2
+endfunction
+
+function! g:HTMLFoldText()
+  ":2 HTMLFoldText
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+  let l:prefix = repeat(' ', l:leading_spaces)
+  let l:size = strlen(l:trimmed)
+
+  if l:trimmed[:3] ==# '#: <'
+    return l:prefix . '' . l:trimmed[3:]
+  elseif l:trimmed[:4] ==# '#:2 <'
+    return l:prefix . '' . l:trimmed[4:]
+  elseif l:trimmed[:1] ==# '{%'
+    return l:prefix . l:trimmed
+  elseif l:trimmed[:2] ==# '{#:'
+    let l:trimmed = strpart(l:trimmed, 4, l:size - 4)
+    let l:trimmed = substitute(l:trimmed, '{', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '#', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '}', '', 'g')
+    return l:prefix . '▸   ' . l:trimmed
+  elseif l:trimmed[:1] ==# '{#'
+    let l:trimmed = strpart(l:trimmed, 5, l:size - 5)
+    let l:trimmed = substitute(l:trimmed, '{', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '#', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '}', '', 'g')
+    return l:prefix . l:trimmed
+  elseif l:trimmed[0] ==# '#'
+    let l:trimmed = strpart(l:trimmed, 3, l:size - 3)
+    let l:trimmed = substitute(l:trimmed, '{', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '#', '', 'g')
+    let l:trimmed = substitute(l:trimmed, '}', '', 'g')
+    return l:prefix . '▸  ' . l:trimmed
+  else
+    return l:prefix . l:trimmed
+  endif
+  " endfold2
+endfunction
+
+autocmd vimrc BufEnter *.html
+  \   setlocal filetype=htmljinja
+
+autocmd vimrc FileType htmljinja
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:HTMLFoldExpr()
+  \ | setlocal foldtext=g:HTMLFoldText()
+
 ":1 FileType: Javascript
 function! g:JavascriptFoldExpr()
   ":2 ...

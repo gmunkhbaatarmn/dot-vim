@@ -1,3 +1,8 @@
+" For each plugin:
+"
+"   - Command
+"   - Mapping
+
 " Commands
 ":1 Plugin: CommentAnyWay
 Plug 'tyru/caw.vim'
