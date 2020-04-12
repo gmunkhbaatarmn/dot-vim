@@ -792,6 +792,52 @@ Plug 'MTDL9/vim-log-highlighting'
 autocmd vimrc BufEnter *.log setlocal filetype=log
 " endfold
 
+" Competitive programming
+":1 FileType: C++
+function! g:CppFoldText()
+  ":2 ...
+  let l:line = getline(v:foldstart)
+  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:leading_spaces = stridx(l:line, l:trimmed)
+
+  let l:nucolwidth = &foldcolumn + &number * &numberwidth
+  let l:windowwidth = winwidth(0) - l:nucolwidth - 3
+  let l:foldedlinecount = v:foldend - v:foldstart
+
+  " expand tabs into spaces
+  let l:onetab = strpart('          ', 0, &tabstop)
+  let l:line = substitute(l:line, '\t', l:onetab, 'g')
+
+  let l:line = strpart(l:line, l:leading_spaces * &tabstop + 12, l:windowwidth - 2 -len(l:foldedlinecount))
+  let l:fillcharcount = l:windowwidth - len(l:line) - len(l:foldedlinecount)
+  return repeat(l:onetab, l:leading_spaces). '▸' . printf('%3s', l:foldedlinecount) . ' lines ' . l:line . '' . repeat(' ', l:fillcharcount) . '(' . l:foldedlinecount . ')' . ' '
+  " endfold2
+endfunction
+
+autocmd vimrc FileType cpp
+  \   setlocal foldmethod=marker
+  \ | setlocal foldmarker=\/\/\ created\:,\/\/\ end
+  \ | setlocal foldtext=g:CppFoldText()
+
+autocmd vimrc FileType cpp
+  \ nmap <buffer> <F9> :w<CR>:!g++ "%" -std=c++11 -Wall -o "%:p:h/%:r" -O3<CR>
+autocmd vimrc FileType cpp
+  \ nmap <buffer> <F5> :w<CR>:!time "%:p:h/%:r"<CR>
+autocmd vimrc FileType cpp
+  \ nmap <buffer> <S-F5> :w<CR>:!time "%:p:h/%:r" < "%:r.txt" <CR>
+
+autocmd vimrc FileType cpp syn keyword normal long
+autocmd vimrc FileType cpp syn keyword normal float
+autocmd vimrc FileType cpp syn keyword cType string
+autocmd vimrc FileType cpp syn keyword cType Vector
+autocmd vimrc FileType cpp syn keyword cType Pair
+autocmd vimrc FileType cpp syn keyword cType Set
+autocmd vimrc FileType cpp syn keyword cType Long
+autocmd vimrc FileType cpp syn keyword cType stringstream
+autocmd vimrc FileType cpp syn keyword cRepeat For Rep
+autocmd vimrc FileType cpp syn match cComment /;/
+" endfold
+
 " Vim (to sharpen the saw)
 ":1 FileType: Snippet
 function! g:SnippetsFoldExpr()

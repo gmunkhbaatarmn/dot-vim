@@ -146,50 +146,6 @@ autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; 
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 " endfold
 
-":1 C
-autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F9>   :w<CR>:!gcc "%" -Wall -lm -o "%:p:h/a"<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'c' |nmap <F5>   :w<CR>:!time "%:p:h/a"                <CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'c' |nmap <S-F5> :w<CR>:!time "%:p:h/a" < input.txt    <CR>| endif
-
-":1 C++
-":2 CppFoldText
-function! g:CppFoldText()
-  let l:line = getline(v:foldstart)
-  let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let l:leading_spaces = stridx(l:line, l:trimmed)
-
-  let l:nucolwidth = &foldcolumn + &number * &numberwidth
-  let l:windowwidth = winwidth(0) - l:nucolwidth - 3
-  let l:foldedlinecount = v:foldend - v:foldstart
-
-  " expand tabs into spaces
-  let l:onetab = strpart('          ', 0, &tabstop)
-  let l:line = substitute(l:line, '\t', l:onetab, 'g')
-
-  let l:line = strpart(l:line, l:leading_spaces * &tabstop + 12, l:windowwidth - 2 -len(l:foldedlinecount))
-  let l:fillcharcount = l:windowwidth - len(l:line) - len(l:foldedlinecount)
-  return repeat(l:onetab, l:leading_spaces). '▸' . printf('%3s', l:foldedlinecount) . ' lines ' . l:line . '' . repeat(' ', l:fillcharcount) . '(' . l:foldedlinecount . ')' . ' '
-endfunction
-" endfold
-
-autocmd vimrc FileType cpp setlocal foldmethod=marker foldmarker=\/\/\ created\:,\/\/\ end
-autocmd vimrc FileType cpp setlocal foldtext=g:CppFoldText()
-
-autocmd vimrc BufEnter * if &filetype == 'cpp' |nmap <F9>   :w<CR>:!g++ "%" -std=c++11 -Wall -o "%:p:h/%:r" -O3<CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'cpp' |nmap <F5>   :w<CR>:!time "%:p:h/%:r"             <CR>| endif
-autocmd vimrc BufEnter * if &filetype == 'cpp' |nmap <S-F5> :w<CR>:!time "%:p:h/%:r" < "%:r.txt" <CR>| endif
-
-autocmd vimrc FileType cpp syn keyword normal long
-autocmd vimrc FileType cpp syn keyword normal float
-autocmd vimrc FileType cpp syn keyword cType string
-autocmd vimrc FileType cpp syn keyword cType Vector
-autocmd vimrc FileType cpp syn keyword cType Pair
-autocmd vimrc FileType cpp syn keyword cType Set
-autocmd vimrc FileType cpp syn keyword cType Long
-autocmd vimrc FileType cpp syn keyword cType stringstream
-autocmd vimrc FileType cpp syn keyword cRepeat For Rep
-autocmd vimrc FileType cpp syn match cComment /;/
-
 ":1 PHP
 ":2 PHPFoldExpr
 function! g:PHPFoldExpr()
