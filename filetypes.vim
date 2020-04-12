@@ -694,6 +694,8 @@ function! g:HTMLFoldText()
   " endfold2
 endfunction
 
+let g:htmljinja_disable_detection = 1
+
 autocmd vimrc BufEnter *.html
   \   setlocal filetype=htmljinja
 
