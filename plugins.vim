@@ -14,7 +14,8 @@ map c <Plug>(caw:hatpos:toggle)
 Plug 'preservim/nerdtree'
 
 " Fast toggle
-map <F2> :NERDTreeToggle<CR>
+map ,<Space> :NERDTreeToggle<CR>
+
 
 let g:NERDTreeMapOpenVSplit = 'a'
 let g:NERDTreeCaseSensitiveSort = 1
