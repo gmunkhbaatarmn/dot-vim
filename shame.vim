@@ -64,7 +64,6 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'mitsuhiko/vim-jinja'
 " endfold
 
-Plug 'chrisbra/csv.vim'
 Plug 'chr4/nginx.vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'tpope/vim-git'
