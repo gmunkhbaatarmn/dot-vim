@@ -43,4 +43,9 @@ source $HOME/.vim/shame.vim             " Quick and dirty solutions
 
 call plug#end()
 
-colorscheme jellybeans
+if has('gui_running') && has('gui_macvim')
+  set background=light
+  colorscheme PaperColor
+else
+  colorscheme jellybeans
+endif

@@ -71,6 +71,17 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
+Plug 'NLKNguyen/papercolor-theme'
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \       'override': {
+  \         'folded_bg': ['eeeeee', '255'],
+  \       }
+  \     }
+  \   }
+  \ }
+
 Plug 'lambdalisue/suda.vim'
 command SudoSave :w suda://%
 
