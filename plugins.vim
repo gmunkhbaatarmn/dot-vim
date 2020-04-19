@@ -108,7 +108,7 @@ nmap <C-f> :call g:QFToggle(1)<CR>
 ":1 Plugin: AsyncComplete
 Plug 'prabirshrestha/asyncomplete.vim'
 
-let g:asyncomplete_auto_popup = 0
+" let g:asyncomplete_auto_popup = 0
 
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 imap <c-@>     <Plug>(asyncomplete_force_refresh)
