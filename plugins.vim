@@ -16,7 +16,6 @@ Plug 'preservim/nerdtree'
 " Fast toggle
 map ,<Space> :NERDTreeToggle<CR>
 
-
 let g:NERDTreeMapOpenVSplit = 'a'
 let g:NERDTreeCaseSensitiveSort = 1
 let g:NERDTreeMouseMode = 3            " Single click always
@@ -43,13 +42,25 @@ Plug 'godlygeek/tabular'
 " endfold
 
 " Interface
-":1 Plugin: Jellybeans
+":1 Plugin: Jellybeans theme
 Plug 'nanotech/jellybeans.vim'
 
 let g:jellybeans_overrides = {
   \ 'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
   \ 'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
   \ 'SignColumn': { 'guifg': '151515', 'guibg': '151515' },
+  \ }
+
+":1 Plugin: Papercolor theme
+Plug 'NLKNguyen/papercolor-theme'
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \       'override': {
+  \         'folded_bg': ['#eeeeee', '255'],
+  \       }
+  \     }
+  \   }
   \ }
 
 ":1 Plugin: CSS Color (color previewer)

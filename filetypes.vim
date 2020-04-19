@@ -568,6 +568,8 @@ autocmd vimrc FileType zsh
 
 " Web development
 ":1 FileType: HTML
+Plug 'mitsuhiko/vim-jinja'
+
 function! g:HTMLFoldExpr()
   ":2 HTMLFoldExpr
   let l:trimmed = substitute(getline(v:lnum), '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -705,6 +707,8 @@ autocmd vimrc FileType htmljinja
   \ | setlocal foldtext=g:HTMLFoldText()
 
 ":1 FileType: Javascript
+Plug 'pangloss/vim-javascript'
+
 function! g:JavascriptFoldExpr()
   ":2 ...
   let l:trimmed = substitute(getline(v:lnum), '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -921,3 +925,44 @@ autocmd vimrc FileType ruby
 
 autocmd vimrc FileType ruby
   \ nmap <buffer> <S-F5> :w<CR>:!time ruby '%' < input.txt<CR>
+
+":1 FileType: Lua
+Plug 'tbastos/vim-lua'
+
+":2 LuaFoldExpr
+function! g:LuaFoldExpr()
+  if getline(v:lnum) =~? '^end -- fold$'
+    return '<1'
+  endif
+
+  if getline(v:lnum) =~? '^local function '
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~? '^function '
+    return '>1'
+  endif
+
+  return '='
+endfunction
+
+":2 LuaFoldText
+function! g:LuaFoldText()
+  let l:line = getline(v:foldstart)
+
+  return l:line
+
+  if l:line =~? '^[a-z0-9-_]\+:'
+    return l:line
+  elseif l:line[:2] ==# '  #'
+    return '  ▸ ' . l:line[4:]
+  else
+    return '▸   ' . l:line[4:]
+  endif
+endfunction
+" endfold2
+
+autocmd vimrc FileType lua
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:LuaFoldExpr()
+  \ | setlocal foldtext=g:LuaFoldText()

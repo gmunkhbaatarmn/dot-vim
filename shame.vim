@@ -48,30 +48,13 @@ set formatoptions+=n                    " Recognize numbered list in text format
 set numberwidth=4                       " Line number width
 set foldcolumn=4                        " Same as line number width
 
-":1 Plugins: Filetype supports
+Plug 'thinca/vim-localrc'
 Plug 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
-Plug 'pangloss/vim-javascript'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'mitsuhiko/vim-jinja'
-" endfold
-
 Plug 'chr4/nginx.vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'tpope/vim-git'
-
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-
-Plug 'NLKNguyen/papercolor-theme'
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': {
-  \       'override': {
-  \         'folded_bg': ['eeeeee', '255'],
-  \       }
-  \     }
-  \   }
-  \ }
 
 Plug 'lambdalisue/suda.vim'
 command SudoSave :w suda://%
@@ -79,50 +62,47 @@ command SudoSave :w suda://%
 Plug 'dstein64/vim-startuptime'
 " command :Startuptime
 
-Plug 'thinca/vim-localrc'
+":1 Markdown: simple todo-list manager
+function! MarkdownToggle()
+  let l:line = getline('.')
 
-":1 Lua
-" Plugin 'tbastos/vim-lua'
-":2 LuaFoldExpr
-function! g:LuaFoldExpr()
-  if getline(v:lnum) =~? '^end -- fold$'
-    return '<1'
+  " GitHub task friendly todo-list
+  if match(l:line, '^\s*- \[ \]') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- \[ \]s*', '\1- \[x\]', '')
+  elseif match(l:line, '^\s*- \[x\]') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- \[x\]s*', '\1- \[ \]', '')
+
+  " Simple todo-list
+  elseif match(l:line, '^\s*- +') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- +\s*', '\1- ✓ ', '')
+  elseif match(l:line, '^\(\s*\)- ✓') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- ✓\s*', '\1- ✗ ', '')
+  elseif match(l:line, '^\(\s*\)- ✗') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- ✗\s*', '\1- ', '')
+  elseif match(l:line, '^\s*-') == 0
+    let l:line = substitute(l:line, '^\(\s*\)-\s*', '\1- + ', '')
   endif
 
-  if getline(v:lnum) =~? '^local function '
-    return '>1'
-  endif
-
-  if getline(v:lnum) =~? '^function '
-    return '>1'
-  endif
-
-  return '='
+  call setline('.', l:line)
 endfunction
 
-":2 LuaFoldText
-function! g:LuaFoldText()
-  let l:line = getline(v:foldstart)
+nmap <C-d> :call MarkdownToggle()<CR>
+vmap <C-d> :call MarkdownToggle()<CR>
 
-  return l:line
+autocmd vimrc FileType markdown syn match TodoLine '^\s*\-\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match OpenLine '^\s*\- +.*\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match DoneLine '^\s*\- ✓.*\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match SkipLine '^\s*\- ✗.*\(\n\s\+[^- ].*\)*'
 
-  if l:line =~? '^[a-z0-9-_]\+:'
-    return l:line
-  elseif l:line[:2] ==# '  #'
-    return '  ▸ ' . l:line[4:]
-  else
-    return '▸   ' . l:line[4:]
-  endif
-endfunction
-" endfold2
+autocmd vimrc FileType markdown syn match DoneLine '^\s*\- \[x\].*\(\n\s\+[^- ].*\)*'
 
-autocmd vimrc BufEnter *.script setlocal filetype=lua
-autocmd vimrc FileType lua setlocal foldmethod=marker foldmarker=function\ ,end
-autocmd vimrc FileType lua setlocal foldmethod=expr foldexpr=g:LuaFoldExpr() foldtext=g:LuaFoldText()
+autocmd vimrc FileType markdown hi def link TodoLine Normal
+autocmd vimrc FileType markdown hi def link OpenLine String
+autocmd vimrc FileType markdown hi def link DoneLine htmlTagName
+autocmd vimrc FileType markdown hi def link SkipLine Comment
+" endfold
 
-autocmd vimrc FileType lua syn match Keyword "self"
-
-":1 Coffeescript
+":1 FileType: Coffeescript
 function! g:CoffeeFoldText()
   let l:line = getline(v:foldstart)
   let l:trimmed = substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
@@ -141,14 +121,13 @@ autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <F5>       :w<
 autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |nmap <C-s>      :w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
 autocmd vimrc BufEnter *.js.coffee if &filetype == 'coffee' |imap <C-s> <ESC>:w<CR>:!coffee -c -b -p "%" > "%:r"<CR>| endif
 
-":1 Java
+":1 FileType: Java
 autocmd vimrc FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HERE,END\ CUT\ HERE
 
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
-" endfold
 
-":1 PHP
+":1 FileType: PHP
 ":2 PHPFoldExpr
 function! g:PHPFoldExpr()
   ":3 Variable reset
@@ -317,50 +296,12 @@ autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F9> :w<CR>:!php -l '%'<CR>
 " Highlight `#Regular-word`
 autocmd vimrc FileType php syn match Comment "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e+0 containedin=phpStringSingle contained
 
-":1 Markdown: simple todo-list manager
-function! MarkdownToggle()
-  let l:line = getline('.')
+":1 FileType: CSS
+Plug 'hail2u/vim-css3-syntax'
 
-  " GitHub task friendly todo-list
-  if match(l:line, '^\s*- \[ \]') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- \[ \]s*', '\1- \[x\]', '')
-  elseif match(l:line, '^\s*- \[x\]') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- \[x\]s*', '\1- \[ \]', '')
-
-  " Simple todo-list
-  elseif match(l:line, '^\s*- +') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- +\s*', '\1- ✓ ', '')
-  elseif match(l:line, '^\(\s*\)- ✓') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- ✓\s*', '\1- ✗ ', '')
-  elseif match(l:line, '^\(\s*\)- ✗') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- ✗\s*', '\1- ', '')
-  elseif match(l:line, '^\s*-') == 0
-    let l:line = substitute(l:line, '^\(\s*\)-\s*', '\1- + ', '')
-  endif
-
-  call setline('.', l:line)
-endfunction
-
-nmap <C-d> :call MarkdownToggle()<CR>
-vmap <C-d> :call MarkdownToggle()<CR>
-
-autocmd vimrc FileType markdown syn match TodoLine '^\s*\-\(\n\s\+[^- ].*\)*'
-autocmd vimrc FileType markdown syn match OpenLine '^\s*\- +.*\(\n\s\+[^- ].*\)*'
-autocmd vimrc FileType markdown syn match DoneLine '^\s*\- ✓.*\(\n\s\+[^- ].*\)*'
-autocmd vimrc FileType markdown syn match SkipLine '^\s*\- ✗.*\(\n\s\+[^- ].*\)*'
-
-autocmd vimrc FileType markdown syn match DoneLine '^\s*\- \[x\].*\(\n\s\+[^- ].*\)*'
-
-autocmd vimrc FileType markdown hi def link TodoLine Normal
-autocmd vimrc FileType markdown hi def link OpenLine String
-autocmd vimrc FileType markdown hi def link DoneLine htmlTagName
-autocmd vimrc FileType markdown hi def link SkipLine Comment
-" endfold
-
-":1 CSS
 autocmd vimrc FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
 
-":1 Sass
+":1 FileType: Sass
 function! g:SassFoldText()
   return getline(v:foldstart)
 endfunction
@@ -415,7 +356,7 @@ autocmd vimrc FileType sass setlocal foldmethod=expr foldexpr=g:SassFoldExpr() f
 autocmd vimrc FileType sass setlocal iskeyword-=#,-
 autocmd vimrc FileType sass setlocal iskeyword+=$
 
-":1 Other
+":1 FileType: Help
 autocmd vimrc FileType help nnoremap <buffer> <CR> <C-]>
 autocmd vimrc FileType help nnoremap <buffer> <BS> <C-T>
 " endfold
@@ -434,7 +375,7 @@ autocmd vimrc FileType java
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 " no tab use. tab = 4 space
-autocmd vimrc FileType php,cs
+autocmd vimrc FileType php
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 " endfold
 
@@ -525,29 +466,14 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-" Highlight over length lines
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-
-":1 :SourcePrint
+":1 SourcePrint
 function! g:SourcePrint()
-  colo macvim
   set background=light
   TOhtml
   w! ~/vim-source.html
   bdelete!
   !open ~/vim-source.html
-  color jellybeans
   set background=dark
 endfunction
 
 command! SourcePrint :call g:SourcePrint()
-
-":1 :ProseMode
-function! ProseMode()
-  call goyo#execute(0, [])
-  set nocopyindent
-  set nosmartindent noai nolist noshowmode noshowcmd
-  set complete+=s
-endfunction
-
-command! ProseMode call ProseMode()
