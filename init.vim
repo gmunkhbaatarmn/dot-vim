@@ -12,6 +12,7 @@ set mouse=a                             " Enable mouse
 set hidden                              " Hide buffers when abandoned instead of unload
 set fileformats=unix,dos,mac            " Use Unix as the standard file type
 set synmaxcol=2500                      " Don't syntax highlight long lines
+set visualbell                          " Use visual bell instead of beeping
 
 " Behavior
 set nowrap                              " No wrap by default
@@ -28,6 +29,13 @@ set shiftwidth=2                        " Number of spaces to use in auto(indent
 set softtabstop=-1                      " Automatically keeps in sync with shiftwidth
 set autoindent                          " Use same indenting on new lines
 set shiftround                          " Round indent to multiple of 'shiftwidth'
+
+set expandtab                           " On pressing tab, insert spaces
+
+" Searching
+set incsearch                           " Incremental search
+
+set hlsearch                            " Highlight search result
 " endfold
 
 augroup vimrc

@@ -31,31 +31,22 @@ if has('gui_running') && has('gui_macvim')
 endif
 " endfold
 
-set expandtab                          " Use spaces instead of tab
+set gdefault                            " Add the g flag to search/replace by default
 set signcolumn=no
-set gdefault                           " Add the g flag to search/replace by default
-set nojoinspaces                       " No insert two spaces in line join (gq)
-
-":1 Standard configurations
-set autoread                           " Auto update if changed outside of Vim
-syntax enable
-
-set nobackup nowritebackup noswapfile  " Disable backup
-set hlsearch                           " Highlight search result
-set wildmenu                           " Show autocomplete menus
-set visualbell t_vb=                   " No beep or flash on terminal
-set ruler laststatus=0                 " Use ruler instead of status line
-
-":1 Aesthetic customizations
+set nojoinspaces                        " No insert two spaces in line join (gq)
+set autoread                            " Auto update if changed outside of Vim
+set nobackup nowritebackup noswapfile   " Disable backup
+set wildmenu                            " Show autocomplete menus
+set t_vb=                               " No beep or flash on terminal
+set ruler laststatus=0                  " Use ruler instead of status line
 set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
-set listchars=tab:⋮\ ,nbsp:␣,trail:·   " Symbols for hidden characters
-set linebreak                          " Define line break
-set showbreak=…                        " Add mark on wrapped long line
-set fillchars=vert:\|,fold:\           " Make foldtext line more clean
-set formatoptions+=n                   " Recognize numbered list in text formatting
-set numberwidth=4                      " Line number width
-set foldcolumn=4                       " Same as line number width
-" endfold
+set listchars=tab:⋮\ ,nbsp:␣,trail:·    " Symbols for hidden characters
+set linebreak                           " Define line break
+set showbreak=…                         " Add mark on wrapped long line
+set fillchars=vert:\|,fold:\            " Make foldtext line more clean
+set formatoptions+=n                    " Recognize numbered list in text formatting
+set numberwidth=4                       " Line number width
+set foldcolumn=4                        " Same as line number width
 
 ":1 Plugins: Filetype supports
 Plug 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
