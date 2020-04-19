@@ -12,7 +12,7 @@ endif
 ":1 Only on: MacVim
 if has('gui_running') && has('gui_macvim')
   set macligatures
-  set guifont=Fira\ Code:h15            " Change GUI font
+  set guifont=FiraCodeNerdFontComplete-Regular:h15
   set guioptions-=L                     " Remove scroll in splitted window
   set guicursor+=n-c:hor10-Cursor       " Change cursor shape to underscore
   set guicursor+=a:blinkon0             " Disable cursor blinking
