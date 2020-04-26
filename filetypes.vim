@@ -706,6 +706,9 @@ autocmd vimrc FileType htmljinja
   \ | setlocal foldexpr=g:HTMLFoldExpr()
   \ | setlocal foldtext=g:HTMLFoldText()
 
+autocmd vimrc FileType htmljinja
+  \ let b:caw_wrap_oneline_comment = ['{#', '#}']
+
 ":1 FileType: Javascript
 Plug 'pangloss/vim-javascript'
 
