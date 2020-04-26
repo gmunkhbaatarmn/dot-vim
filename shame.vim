@@ -461,6 +461,9 @@ let g:NERDTreeMapOpenInTab = '<C-S-t>'
 let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
 " endfold
 
+" Fix for column edit
+imap <C-c> <ESC>
+
 " Identify the syntax hightlighting group used at the cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
