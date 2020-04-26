@@ -1,0 +1,13 @@
+diff --git a/colors/PaperColor.vim b/colors/PaperColor.vim
+index 09a3452..e88fc1f 100755
+--- a/colors/PaperColor.vim
++++ b/colors/PaperColor.vim
+@@ -1146,7 +1146,7 @@ fun! s:apply_syntax_highlightings()
+     exec 'hi LineNr' . s:fg_linenumber_fg . s:bg_linenumber_bg
+     exec 'hi Conceal' . s:fg_linenumber_fg . s:bg_linenumber_bg
+     exec 'hi VertSplit' . s:fg_vertsplit_bg . s:bg_vertsplit_fg
+-    exec 'hi FoldColumn' . s:fg_folded_fg . s:bg_background . s:ft_none
++    exec 'hi FoldColumn' . ' guifg=#eeeeee' . s:bg_background . s:ft_none
+   endif
+ 
+   exec 'hi Cursor' . s:fg_cursor_fg . s:bg_cursor_bg
