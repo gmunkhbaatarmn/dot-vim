@@ -4,103 +4,19 @@ scriptencoding utf-8
 " 1. not decided where to put the code
 " 2. ugly codes that need refactor
 
-":1 Only on: Mac OS
-if system('uname') =~# 'Darwin'
-  set clipboard=unnamed,unnamedplus     " Use the OS clipboard by default
-endif
-
-":1 Only on: MacVim
-if has('gui_running') && has('gui_macvim')
-  set macligatures
-  set guifont=FiraCodeNerdFontComplete-Regular:h15
-  set guioptions-=L                     " Remove scroll in splitted window
-  set guicursor+=n-c:hor10-Cursor       " Change cursor shape to underscore
-  set guicursor+=a:blinkon0             " Disable cursor blinking
-  set visualbell                        " Disable error sound
-
-  " Window tab settings
-  map <D-1> 1gt
-  map <D-2> 2gt
-  map <D-3> 3gt
-  map <D-4> 4gt
-  map <D-5> 5gt
-  map <D-6> 6gt
-  map <D-7> 7gt
-  map <D-8> 8gt
-  map <D-9> 9gt
-endif
-" endfold
-
-set gdefault                            " Add the g flag to search/replace by default
-set signcolumn=no
-set nojoinspaces                        " No insert two spaces in line join (gq)
-set autoread                            " Auto update if changed outside of Vim
-set nobackup nowritebackup noswapfile   " Disable backup
-set wildmenu                            " Show autocomplete menus
-set t_vb=                               " No beep or flash on terminal
-set ruler laststatus=0                  " Use ruler instead of status line
-set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
-set listchars=tab:⋮\ ,nbsp:␣,trail:·    " Symbols for hidden characters
-set linebreak                           " Define line break
-set showbreak=…                         " Add mark on wrapped long line
-set fillchars=vert:\|,fold:\            " Make foldtext line more clean
-set formatoptions+=n                    " Recognize numbered list in text formatting
-set numberwidth=4                       " Line number width
-set foldcolumn=4                        " Same as line number width
-
-Plug 'thinca/vim-localrc'
-Plug 'kchmck/vim-coffee-script'  " todo: remove vim-coffee-script
-Plug 'chr4/nginx.vim'
-Plug 'ekalinin/Dockerfile.vim'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
-Plug 'lambdalisue/suda.vim'
-command SudoSave :w suda://%
-
-Plug 'dstein64/vim-startuptime'
-" command :Startuptime
-
-":1 Markdown: simple todo-list manager
-function! MarkdownToggle()
-  let l:line = getline('.')
-
-  " GitHub task friendly todo-list
-  if match(l:line, '^\s*- \[ \]') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- \[ \]s*', '\1- \[x\]', '')
-  elseif match(l:line, '^\s*- \[x\]') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- \[x\]s*', '\1- \[ \]', '')
-
-  " Simple todo-list
-  elseif match(l:line, '^\s*- +') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- +\s*', '\1- ✓ ', '')
-  elseif match(l:line, '^\(\s*\)- ✓') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- ✓\s*', '\1- ✗ ', '')
-  elseif match(l:line, '^\(\s*\)- ✗') == 0
-    let l:line = substitute(l:line, '^\(\s*\)- ✗\s*', '\1- ', '')
-  elseif match(l:line, '^\s*-') == 0
-    let l:line = substitute(l:line, '^\(\s*\)-\s*', '\1- + ', '')
-  endif
-
-  call setline('.', l:line)
-endfunction
-
-nmap <C-d> :call MarkdownToggle()<CR>
-vmap <C-d> :call MarkdownToggle()<CR>
-
-autocmd vimrc FileType markdown syn match TodoLine '^\s*\-\(\n\s\+[^- ].*\)*'
-autocmd vimrc FileType markdown syn match OpenLine '^\s*\- +.*\(\n\s\+[^- ].*\)*'
-autocmd vimrc FileType markdown syn match DoneLine '^\s*\- ✓.*\(\n\s\+[^- ].*\)*'
-autocmd vimrc FileType markdown syn match SkipLine '^\s*\- ✗.*\(\n\s\+[^- ].*\)*'
-
-autocmd vimrc FileType markdown syn match DoneLine '^\s*\- \[x\].*\(\n\s\+[^- ].*\)*'
-
-autocmd vimrc FileType markdown hi def link TodoLine Normal
-autocmd vimrc FileType markdown hi def link OpenLine String
-autocmd vimrc FileType markdown hi def link DoneLine htmlTagName
-autocmd vimrc FileType markdown hi def link SkipLine Comment
+":1 Only on: Mac OS
+if system('uname') =~# 'Darwin'
+  set clipboard=unnamed,unnamedplus     " Use the OS clipboard by default
+endif
 " endfold
+
+set rulerformat=%50(%=%f\ %y%m%r%w\ %l,%c%V\ %P%)
+
+" set linebreak                           " Define line break
 
 ":1 FileType: Coffeescript
 function! g:CoffeeFoldText()
@@ -379,95 +295,73 @@ autocmd vimrc FileType php
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 " endfold
 
-":1 Dvorak: Move down  (use "h" instead of "j")
-map h g<down>
-map H 6g<down>
-
-" accelerate on normal mode
-nmap h <Plug>(accelerated_jk_gj)
-nmap H 6<Plug>(accelerated_jk_gj)
-
-" todo: <C-h>
-" todo: handle replaced command: "h" (no mapping)
-" no action needed for no mapping
-
-" todo: handle replaced command: "H" (no mapping)
-" no action needed for no mapping
-
-" todo: handle replaced key: "j" (move up)
-" noremap j d
-
-" todo: handle replaced key: "J" (join lines, minimum of two lines)
-" noremap J D
-
-":1 Dvorak: Move up    (use "t" instead of "k")
-map t g<up>
-map T 6g<up>
-
-" accelerate on normal mode
-nmap t <Plug>(accelerated_jk_gk)
-nmap T 6<Plug>(accelerated_jk_gk)
-
-" todo: <C-t>
-" todo: help page <t>
-
-" todo: handle replaced command: "t" (...)
-" todo: handle replaced command: "T" (...)
-
-" todo: handle replaced key: "k"
-noremap k <nop>
-
-" todo: handle replaced key: "K"
-noremap K <nop>
-
-":1 Dvorak: Move left  (use "d" instead of "h")
-map d <left>
-
-" todo: handle replaced command: "d" (...)
-noremap j d
-
-" todo: handle replaced command: "D" (...)
-" todo: handle replaced key: "h"
-" todo: handle replaced key: "H"
-
-":1 Dvorak: Move right (use "n" instead of "l")
-map n <right>
-
-" todo: handle replaced command: "n" (...)
-" todo: handle replaced command: "N" (...)
-" todo: handle replaced key: "l"
-" todo: handle replaced key: "l"
-" endfold
-
-":1 Dvorak: Mappings
-" Goto line beginning
-noremap _ ^
-
-" Goto line end
-noremap - $
-
-" To command line mode
-noremap s :
-noremap S :
-
-" Search next (was: move to right character)
-noremap l n
-
-" Search prev (was: move to up line)
-noremap L N
-
-":1 Dvorak: NERDTree
-let g:NERDTreeMapOpenInTab = '<C-S-t>'
-let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
-" endfold
-
-" Fix for column edit
-imap <C-c> <ESC>
-
 " Identify the syntax hightlighting group used at the cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+":1 Markdown: simple todo-list manager
+function! MarkdownToggle()
+  let l:line = getline('.')
+
+  " GitHub task friendly todo-list
+  if match(l:line, '^\s*- \[ \]') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- \[ \]s*', '\1- \[x\]', '')
+  elseif match(l:line, '^\s*- \[x\]') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- \[x\]s*', '\1- \[ \]', '')
+
+  " Simple todo-list
+  elseif match(l:line, '^\s*- +') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- +\s*', '\1- ✓ ', '')
+  elseif match(l:line, '^\(\s*\)- ✓') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- ✓\s*', '\1- ✗ ', '')
+  elseif match(l:line, '^\(\s*\)- ✗') == 0
+    let l:line = substitute(l:line, '^\(\s*\)- ✗\s*', '\1- ', '')
+  elseif match(l:line, '^\s*-') == 0
+    let l:line = substitute(l:line, '^\(\s*\)-\s*', '\1- + ', '')
+  endif
+
+  call setline('.', l:line)
+endfunction
+
+nmap <C-d> :call MarkdownToggle()<CR>
+vmap <C-d> :call MarkdownToggle()<CR>
+
+autocmd vimrc FileType markdown syn match TodoLine '^\s*\-\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match OpenLine '^\s*\- +.*\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match DoneLine '^\s*\- ✓.*\(\n\s\+[^- ].*\)*'
+autocmd vimrc FileType markdown syn match SkipLine '^\s*\- ✗.*\(\n\s\+[^- ].*\)*'
+
+autocmd vimrc FileType markdown syn match DoneLine '^\s*\- \[x\].*\(\n\s\+[^- ].*\)*'
+
+autocmd vimrc FileType markdown hi def link TodoLine Normal
+autocmd vimrc FileType markdown hi def link OpenLine String
+autocmd vimrc FileType markdown hi def link DoneLine htmlTagName
+autocmd vimrc FileType markdown hi def link SkipLine Comment
+" endfold
+
+":1 Plugin: [Disabled] ALE (Asynchronous Lint Engine)
+" Plug 'dense-analysis/ale'
+"
+" let g:ale_linters_explicit = 1         " Linters disabled in default
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_text_changed = 0
+" let g:ale_lint_on_enter = 1
+" let g:ale_keep_list_window_open = 0
+" let g:ale_set_signs = 0
+" let g:ale_set_highlights = 0
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+" let g:ale_open_list = 1
+" let g:ale_linters = {}
+"
+" highlight link ALEErrorLine error
+" highlight link ALEWarningLine warning
+"
+" let g:ale_linters['python'] = ['flake8']
+" let g:ale_python_flake8_executable = 'python_universal'
+" let g:ale_python_flake8_options = '-m flake8 --select F --ignore E402,E501'
+" endfold
 
 ":1 SourcePrint
 function! g:SourcePrint()

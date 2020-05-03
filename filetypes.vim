@@ -97,10 +97,7 @@ let $PYTHONIOENCODING = 'utf-8'
 let g:python_highlight_all = 1
 let g:python_slow_sync = 0
 
-let g:ale_linters['python'] = ['flake8']
-let g:ale_python_flake8_executable = 'python_universal'
-let g:ale_python_flake8_options = '-m flake8 --select F --ignore E402,E501'
-
+" Folding
 function! g:PythonFoldExpr()
   ":2 ...
   ":3 Variable reset
@@ -406,6 +403,8 @@ function! g:PythonFoldText()
   " endfold2
 endfunction
 
+" endfold2
+
 autocmd vimrc FileType python
   \   setlocal tabstop=4
   \ | setlocal shiftwidth=4
@@ -552,15 +551,10 @@ function! g:ShellFoldText()
   " endfold2
 endfunction
 
-autocmd vimrc FileType sh
+autocmd vimrc FileType sh,zsh
   \ nmap <F5> :w<CR>:!bash "%"<CR>
 
-autocmd vimrc FileType sh
-  \   setlocal foldmethod=marker
-  \ | setlocal foldmarker=#:,#\ endfold
-  \ | setlocal foldtext=g:ShellFoldText()
-
-autocmd vimrc FileType zsh
+autocmd vimrc FileType sh,zsh
   \   setlocal foldmethod=marker
   \ | setlocal foldmarker=#:,#\ endfold
   \ | setlocal foldtext=g:ShellFoldText()
@@ -797,6 +791,9 @@ Plug 'raimon49/requirements.txt.vim'
 Plug 'MTDL9/vim-log-highlighting'
 
 autocmd vimrc BufEnter *.log setlocal filetype=log
+
+":1 FileType: Docker
+Plug 'ekalinin/Dockerfile.vim'
 " endfold
 
 " Competitive programming

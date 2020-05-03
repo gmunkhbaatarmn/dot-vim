@@ -30,9 +30,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 let g:NERDTreeSyntaxDisableDefaultExtensions = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightColor = {
-  \ '.*_TESTS$': '3AFFDB',
-  \ }
 
 ":1 Plugin: CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
@@ -42,32 +39,15 @@ Plug 'godlygeek/tabular'
 " endfold
 
 " Interface
-":1 Plugin: Jellybeans theme
-Plug 'nanotech/jellybeans.vim'
-
-let g:jellybeans_overrides = {
-  \ 'Folded':     { 'guifg': '8fbfdc', 'guibg': '151515' },
-  \ 'FoldColumn': { 'guifg': '151515', 'guibg': '151515' },
-  \ 'SignColumn': { 'guifg': '151515', 'guibg': '151515' },
-  \ }
-
-":1 Plugin: Papercolor theme
-Plug 'NLKNguyen/papercolor-theme'
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': {
-  \       'override': {
-  \         'folded_bg': ['#eeeeee', '255'],
-  \       }
-  \     }
-  \   }
-  \ }
+":1 Plugin: Indent Line
+Plug 'Yggdroot/indentLine'
 
 ":1 Plugin: CSS Color (color previewer)
 Plug 'ap/vim-css-color'
 
 ":1 Plugin: Goyo
 Plug 'junegunn/goyo.vim'
+
 nmap ,g :Goyo<CR>
 
 ":1 Plugin: Accelerated `jk`
@@ -124,6 +104,17 @@ Plug 'prabirshrestha/asyncomplete.vim'
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 imap <c-@>     <Plug>(asyncomplete_force_refresh)
 
+":1 Plugin: AsyncComplete Buffer
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+
+au vimrc User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+  \ 'name': 'buffer',
+  \ 'whitelist': ['*'],
+  \ 'blacklist': ['exe'],
+	\ 'events': ['InsertEnter'],
+  \ 'completor': function('asyncomplete#sources#buffer#completor'),
+  \ }))
+
 ":1 Plugin: LSP
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -144,21 +135,3 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 
 " Also: ~/.vim/snippets/
-
-":1 Plugin: ALE (Asynchronous Lint Engine)
-Plug 'dense-analysis/ale'
-
-let g:ale_linters_explicit = 1         " Linters disabled in default
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_enter = 1
-let g:ale_keep_list_window_open = 0
-let g:ale_set_signs = 0
-let g:ale_set_highlights = 0
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
-let g:ale_linters = {}
-
-highlight link ALEErrorLine error
-highlight link ALEWarningLine warning
