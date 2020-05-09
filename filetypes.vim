@@ -17,6 +17,7 @@ let g:vim_markdown_folding_disabled = 1           " Disable header fold
 let g:vim_markdown_override_foldtext = 0          " Disable plugin's fold text
 let g:vim_markdown_frontmatter = 1                " Enable YAML header
 let g:vim_markdown_auto_insert_bullets = 0        " Disabled due problems when wrapping text
+let g:vim_markdown_conceal = 0
 
 function! g:MarkdownFoldExpr()
   ":2 ...
