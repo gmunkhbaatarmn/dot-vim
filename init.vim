@@ -37,6 +37,7 @@ set formatoptions+=n                    " Recognize numbered list in text format
 set nojoinspaces                        " No insert two spaces in line join (gq)
 
 ":1 Searching
+set gdefault                            " Add the g flag to search/replace by default
 set hlsearch                            " Highlight search result
 " endfold
 
