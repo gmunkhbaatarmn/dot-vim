@@ -408,7 +408,7 @@ autocmd vimrc FileType python
 autocmd vimrc FileType python
   \ nmap <buffer> <S-F5> :w<CR>:!time python_universal '%' < '%:r.txt'<CR>
 autocmd vimrc FileType python
-  \ nmap <buffer> <F9>   :w<CR>:!python_universal -m flake8 '%'       <CR>
+  \ nmap <buffer> <F9>   :w<CR>:!python_universal -m flake8 --max-complexity 15 '%'<CR>
 
 ":2 Highlight: `%s %f %d %r`
 autocmd vimrc FileType python
