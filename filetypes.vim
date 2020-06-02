@@ -501,7 +501,7 @@ function! g:YamlFoldExpr()
   endif
 
   " First level label
-  if getline(v:lnum) =~? '^[a-z0-9-_]\+:'
+  if getline(v:lnum) =~? '^[a-z0-9-_]\+:$'
     return '>1'
   endif
 
