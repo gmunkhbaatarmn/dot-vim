@@ -50,9 +50,6 @@ Plug 'junegunn/goyo.vim'
 
 nmap ,g :Goyo<CR>
 
-":1 Plugin: Accelerated `jk`
-Plug 'rhysd/accelerated-jk'
-
 ":1 Plugin: QF (QuickFix)
 Plug 'romainl/vim-qf'
 

@@ -82,10 +82,6 @@ let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
 map h g<down>
 map H 6g<down>
 
-" accelerate on normal mode
-nmap h <Plug>(accelerated_jk_gj)
-nmap H 6<Plug>(accelerated_jk_gj)
-
 " todo: <C-h>
 " todo: handle replaced command: "h" (no mapping)
 " no action needed for no mapping
@@ -102,10 +98,6 @@ nmap H 6<Plug>(accelerated_jk_gj)
 ":1 Dvorak: Move up    (use "t" instead of "k")
 map t g<up>
 map T 6g<up>
-
-" accelerate on normal mode
-nmap t <Plug>(accelerated_jk_gk)
-nmap T 6<Plug>(accelerated_jk_gk)
 
 " todo: <C-t>
 " todo: help page <t>
