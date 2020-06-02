@@ -266,8 +266,6 @@ function! g:SassFoldExpr()
   return '='
 endfunction
 
-let g:ale_sass_stylelint_executable = 'sasslint'
-
 autocmd vimrc FileType sass setlocal foldmethod=expr foldexpr=g:SassFoldExpr() foldtext=g:SassFoldText()
 autocmd vimrc FileType sass setlocal iskeyword-=#,-
 autocmd vimrc FileType sass setlocal iskeyword+=$
@@ -338,29 +336,6 @@ autocmd vimrc FileType markdown hi def link TodoLine Normal
 autocmd vimrc FileType markdown hi def link OpenLine String
 autocmd vimrc FileType markdown hi def link DoneLine htmlTagName
 autocmd vimrc FileType markdown hi def link SkipLine Comment
-" endfold
-
-":1 Plugin: [Disabled] ALE (Asynchronous Lint Engine)
-" Plug 'dense-analysis/ale'
-"
-" let g:ale_linters_explicit = 1         " Linters disabled in default
-" let g:ale_lint_on_save = 1
-" let g:ale_lint_on_text_changed = 0
-" let g:ale_lint_on_enter = 1
-" let g:ale_keep_list_window_open = 0
-" let g:ale_set_signs = 0
-" let g:ale_set_highlights = 0
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-" let g:ale_open_list = 1
-" let g:ale_linters = {}
-"
-" highlight link ALEErrorLine error
-" highlight link ALEWarningLine warning
-"
-" let g:ale_linters['python'] = ['flake8']
-" let g:ale_python_flake8_executable = 'python_universal'
-" let g:ale_python_flake8_options = '-m flake8 --select F --ignore E402,E501'
 " endfold
 
 ":1 SourcePrint
