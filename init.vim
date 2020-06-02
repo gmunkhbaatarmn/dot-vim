@@ -11,7 +11,7 @@ set visualbell                          " Use visual bell instead of beeping
 set autoread                            " Auto update if changed outside of Vim
 set nowritebackup noswapfile            " Disable backup
 
-" Behavior
+":1 Behavior
 set splitbelow splitright               " Splits open bottom right
 
 ":1 Editor UI
@@ -61,8 +61,7 @@ endif
 call plug#end()
 
 if has('gui_running') && has('gui_macvim')
-  set background=light
-  colorscheme PaperColor
+  colorscheme macvim2
 else
   colorscheme jellybeans
 endif
