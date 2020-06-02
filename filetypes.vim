@@ -130,31 +130,20 @@ function! g:PythonFoldExpr()
     " endfold
 
     ":3 +1 | import lines start
-    if getline(v:lnum - 1) !~? '^\(from\|import\) '
-    if getline(v:lnum + 0) =~? '^\(from\|import\) '
-      let s:in_import = 1
-      return '>1'
+    if ! s:in_import
+      if getline(v:lnum + 0) =~? '^\(from\|import\) '
+        let s:in_import = 1
+        return '>1'
+      endif
     endif
-    endif
-
-    ":3 =1 | import lines middle
-    " if getline(v:lnum - 1) =~? '^\(from\|import\) '
-    " if getline(v:lnum + 0) =~? '^\(from\|import\) '
-    "   return '='
-    " endif
-    " endif
 
     ":3 -1 | import lines close
-    " if getline(v:lnum - 1) =~? '^\(from\|import\) '
-    " if getline(v:lnum - 0) !~? '^\(from\|import\) '
-    "   return '<1'
-    " endif
-    " endif
-
     if s:in_import
-      if getline(v:lnum + 0) !~? '\v\S'
-        let s:in_import = 0
-        return '<1'
+      if getline(v:lnum + 1) !~? '^\(from\|import\) '
+        if getline(v:lnum + 2) !~? '^\(from\|import\) '
+          let s:in_import = 0
+          return '<1'
+        endif
       endif
     endif
     " endfold
@@ -394,7 +383,7 @@ function! g:PythonFoldText()
   ":3 finally:
   elseif l:trimmed =~# '^finally:'
     let l:custom_text = 'finally' . substitute(strpart(l:trimmed, 7), ':', ' ', '')
-  " endfold
+  " endfold3
 
   else
     return foldtext()
@@ -403,8 +392,6 @@ function! g:PythonFoldText()
   return l:prefix . l:custom_text
   " endfold2
 endfunction
-
-" endfold2
 
 autocmd vimrc FileType python
   \   setlocal tabstop=4
