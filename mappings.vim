@@ -138,4 +138,4 @@ nmap < <<
 noremap gj gJ
 
 " Fix for column edit
-imap <C-c> <ESC>
+inoremap <C-c> <ESC>
