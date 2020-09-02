@@ -4,8 +4,6 @@ scriptencoding utf-8
 " 1. not decided where to put the code
 " 2. ugly codes that need refactor
 
-Plug 'tpope/vim-git'
-Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
 ":1 Only on: Mac OS
