@@ -16,3 +16,8 @@ snippet while
 	while [[ ${1:condition} ]]; do
 		${2:#statements}
 	done
+
+snippet comment
+	<<'###'
+	${1:write comments here}
+	###
