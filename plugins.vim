@@ -52,39 +52,6 @@ nmap ,g :Goyo<CR>
 " endfold
 
 " Completion and code analysis
-":1 Plugin: AsyncComplete
-Plug 'prabirshrestha/asyncomplete.vim'
-
-" let g:asyncomplete_auto_popup = 0
-
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-imap <c-@>     <Plug>(asyncomplete_force_refresh)
-
-":1 Plugin: AsyncComplete Buffer
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-
-au vimrc User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-  \ 'name': 'buffer',
-  \ 'whitelist': ['*'],
-  \ 'blacklist': ['exe'],
-	\ 'events': ['InsertEnter'],
-  \ 'completor': function('asyncomplete#sources#buffer#completor'),
-  \ }))
-
-":1 Plugin: LSP
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-" Install: pip install python-language-server
-if executable('pyls')
-  autocmd vimrc User lsp_setup call lsp#register_server({
-    \ 'name': 'pyls',
-    \ 'cmd': {server_info->['pyls']},
-    \ 'whitelist': ['python'],
-    \ })
-endif
-
 ":1 Plugin: Snipmate
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
