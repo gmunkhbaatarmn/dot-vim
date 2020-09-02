@@ -525,6 +525,9 @@ autocmd vimrc FileType yaml
 autocmd vimrc FileType yaml
   \ setlocal foldmarker=#\:,endfold
 
+":1 FileType: JSON
+let g:vim_json_conceal = 0                        " Disable quote concealing
+
 ":1 FileType: Shell (sh, zsh)
 function! g:ShellFoldText()
   ":2 ...
