@@ -49,47 +49,6 @@ Plug 'ap/vim-css-color'
 Plug 'junegunn/goyo.vim'
 
 nmap ,g :Goyo<CR>
-
-":1 Plugin: QF (QuickFix)
-Plug 'romainl/vim-qf'
-
-let g:qf_auto_quit = 0
-let g:qf_auto_resize = 0
-
-function! g:QFToggle(stay)
-  " Just a copy of `vim-qf` plugin's `ToggleQfWindow(stay)`
-  " But uses `copen` instead of `cwindow`
-
-  ":2 ...
-  " save the view if the current window is not a quickfix window
-  if get(g:, 'qf_save_win_view', 1)  && !qf#IsQfWindow(winnr())
-    let winview = winsaveview()
-  else
-    let winview = {}
-  endif
-
-  " if one of the windows is a quickfix window close it and return
-  if qf#IsQfWindowOpen()
-    cclose
-    if !empty(winview)
-      call winrestview(winview)
-    endif
-  else
-    copen
-    if qf#IsQfWindowOpen()
-      wincmd p
-      if !empty(winview)
-        call winrestview(winview)
-      endif
-      if !a:stay
-        wincmd p
-      endif
-    endif
-  endif
-  " endfold2
-endfunction
-
-nmap <C-f> :call g:QFToggle(1)<CR>
 " endfold
 
 " Completion and code analysis
