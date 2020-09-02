@@ -80,10 +80,11 @@ noremap <C-H> <nop>
 "   IGNORED
 
 " - Use freed key: "j"
+"   Delete text
+noremap j d
 " - Use freed key: "J"
-"   Easy join lines
-noremap j gJ
-noremap J gJ
+"   Delete line
+noremap J D
 
 ":1 Dvorak: Move up    (use "t" instead of "k")
 noremap t g<up>
@@ -94,11 +95,10 @@ noremap T 6g<up>
 "   IGNORED
 
 " - Use freed key: "k"
-"   Delete text
-noremap k d
 " - Use freed key: "K"
-"   Delete line
-noremap K D
+"   Easy join lines
+noremap k J
+noremap K gJ
 
 ":1 Dvorak: Move left  (use "d" instead of "h")
 noremap d <left>
