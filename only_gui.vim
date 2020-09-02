@@ -1,18 +1,5 @@
 set guifont=FiraCodeNerdFontComplete-Regular:h15
 
-":1 Plugin: Papercolor theme
-Plug 'NLKNguyen/papercolor-theme'
-let g:PaperColor_Theme_Options = {
- \   'theme': {
- \     'default.light': {
- \       'override': {
- \         'folded_bg': ['#eeeeee', '255'],
- \       }
- \     }
- \   }
- \ }
-" endfold
-
 let g:NERDTreePatternMatchHighlightColor = {
   \ '.*_TESTS$': '8700af',
   \ }
