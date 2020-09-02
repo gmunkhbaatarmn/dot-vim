@@ -41,6 +41,10 @@ autocmd vimrc FileType java setlocal foldmethod=marker foldmarker=BEGIN\ CUT\ HE
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <F5>   :w<CR>:!javac "%"; java "%:t:r";             rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 autocmd vimrc BufEnter * if &filetype == 'java' |nmap <S-F5> :w<CR>:!javac "%"; java "%:t:r" < input.txt; rm -f "%:r.class" "%:rHarness.class"<CR>| endif
 
+" use tab. tabsize = 2
+autocmd vimrc FileType java
+  \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
+
 ":1 FileType: PHP
 ":2 PHPFoldExpr
 function! g:PHPFoldExpr()
@@ -210,6 +214,10 @@ autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F9> :w<CR>:!php -l '%'<CR>
 " Highlight `#Regular-word`
 autocmd vimrc FileType php syn match Comment "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e+0 containedin=phpStringSingle contained
 
+" no tab use. tab = 4 space
+autocmd vimrc FileType php
+  \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 ":1 FileType: Sass
 function! g:SassFoldText()
   return getline(v:foldstart)
@@ -271,19 +279,6 @@ autocmd vimrc FileType help nnoremap <buffer> <BS> <C-T>
 ":1 Filetype detection
 autocmd vimrc BufEnter *.gitignore setlocal filetype=gitconfig
 autocmd vimrc BufEnter *.conf setlocal filetype=dosini
-
-":1 Remove trailing spaces
-autocmd vimrc BufWritePre *.py,*.html,*.js,*.sass,*.vim
-  \ :%s/\s\+$//e
-
-":1 Tab configuration for filetypes
-" use tab. tabsize = 2
-autocmd vimrc FileType java
-  \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
-
-" no tab use. tab = 4 space
-autocmd vimrc FileType php
-  \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 " endfold
 
 " Identify the syntax hightlighting group used at the cursor

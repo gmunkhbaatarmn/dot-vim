@@ -4,6 +4,7 @@ let g:mapleader = ','                   " Change the leader map
 nmap ,, :execute 'set number! foldcolumn=' . (!&foldcolumn * 4)<CR>
 nmap ,f :set foldmethod=indent<CR>
 nmap ,m :set foldmethod=marker<CR>
+nmap ,r :set wrap!<CR>
 
 ":1 Window
 " Move between windows
@@ -49,8 +50,14 @@ endfunction
 
 imap <C-l> <ESC>:call ToggleKeymap()<CR>a
  map <C-l>      :call ToggleKeymap()<CR>
-imap <F8>  <ESC>:call ToggleKeymap()<CR>a
- map <F8>       :call ToggleKeymap()<CR>
+
+":1 Trim trailing whitespaces
+function! g:TrimTrailingWhitespaces()
+  %s/\s\+$//e
+endfunction
+
+imap <C-j> <ESC>:call TrimTrailingWhitespaces()<CR>a
+ map <C-j>      :call TrimTrailingWhitespaces()<CR>
 " endfold
 
 ":1 Dvorak: Shortcuts
