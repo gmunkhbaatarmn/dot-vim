@@ -902,6 +902,31 @@ autocmd vimrc FileType vim
 " endfold
 
 " Other
+":1 FileType: R
+Plug 'jalvesaq/R-Vim-runtime'
+
+function! g:RFoldExpr()
+  ":2 ...
+  if getline(v:lnum) =~# '^#: .\+$'
+    return '>1'
+  endif
+
+  if getline(v:lnum) =~# '^# endfold$'
+    return '<1'
+  endif
+
+  return '='
+  " endfold2
+endfunction
+
+autocmd vimrc FileType r
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:RFoldExpr()
+  \ | setlocal foldtext=getline(v:foldstart)
+
+autocmd vimrc FileType r
+  \ nmap <buffer> <F5>   :w<CR>:!time Rscript '%'<CR>
+
 ":1 FileType: Ruby
 Plug 'vim-ruby/vim-ruby'
 
