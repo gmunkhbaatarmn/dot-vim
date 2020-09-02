@@ -210,11 +210,6 @@ autocmd vimrc BufEnter * if &filetype == 'php' |nmap <F9> :w<CR>:!php -l '%'<CR>
 " Highlight `#Regular-word`
 autocmd vimrc FileType php syn match Comment "\#[a-zA-Z0-9_-]\+"hs=s+0,he=e+0 containedin=phpStringSingle contained
 
-":1 FileType: CSS
-Plug 'hail2u/vim-css3-syntax'
-
-autocmd vimrc FileType css setlocal foldmethod=marker foldmarker=\/*:,\/*\ endfold\ *\/
-
 ":1 FileType: Sass
 function! g:SassFoldText()
   return getline(v:foldstart)

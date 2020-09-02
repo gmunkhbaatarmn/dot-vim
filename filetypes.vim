@@ -691,6 +691,37 @@ autocmd vimrc FileType htmljinja
 autocmd vimrc FileType htmljinja
   \ let b:caw_wrap_oneline_comment = ['{#', '#}']
 
+":1 FileType: CSS
+Plug 'hail2u/vim-css3-syntax'
+
+function! g:CSSFoldText()
+  return getline(v:foldstart)[:-2]
+endfunction
+
+function! g:CSSFoldExpr()
+  ":2 ...
+  let l:line = getline(v:lnum)
+
+  ":3 +1 | selector
+  if l:line =~# '^[^{]\+{$'
+    return '>1'
+  endif
+
+  ":3 -1 | \n\n
+  if l:line =~# '^$' && getline(v:lnum + 1) =~# '^$'
+    return '<1'
+  endif
+  " endfold3
+
+  return '='
+  " endfold2
+endfunction
+
+autocmd vimrc FileType css
+  \   setlocal foldmethod=expr
+  \ | setlocal foldexpr=g:CSSFoldExpr()
+  \ | setlocal foldtext=g:CSSFoldText()
+
 ":1 FileType: Javascript
 Plug 'pangloss/vim-javascript'
 
