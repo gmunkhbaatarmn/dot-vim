@@ -4,7 +4,6 @@ let g:mapleader = ','                   " Change the leader map
 nmap ,, :execute 'set number! foldcolumn=' . (!&foldcolumn * 4)<CR>
 nmap ,f :set foldmethod=indent<CR>
 nmap ,m :set foldmethod=marker<CR>
-nmap ,r :set wrap!<CR>
 
 ":1 Window
 " Move between windows
@@ -19,10 +18,7 @@ nmap <C-t> :tabnew<CR>
 ":1 Folding
 " Easy fold toggle
 nmap e za
-
-" todo: Easy fold toggle (fix for `quickfix` filetype)
-autocmd vimrc BufEnter * if &filetype == 'qf' |unmap <CR>|    endif
-autocmd vimrc BufEnter * if &filetype != 'qf' | nmap <CR> za| endif
+nmap <CR> za
 
 ":1 Buffer
 " Save buffer
@@ -68,74 +64,72 @@ noremap - $
 noremap s :
 noremap S :
 
-" Search next (was: move to right character)
-noremap l n
-
-" Search prev (was: move to up line)
-noremap L N
-
 ":1 Dvorak: NERDTree
 let g:NERDTreeMapOpenInTab = '<C-S-t>'
 let g:NERDTreeMapOpenInTabSilent='<C-S-D>'
 
 ":1 Dvorak: Move down  (use "h" instead of "j")
-map h g<down>
-map H 6g<down>
+noremap h g<down>
+noremap H 6g<down>
 
-" todo: <C-h>
-" todo: handle replaced command: "h" (no mapping)
-" no action needed for no mapping
+noremap <C-h> <nop>
+noremap <C-H> <nop>
 
-" todo: handle replaced command: "H" (no mapping)
-" no action needed for no mapping
+" - Decide lost command: "h"
+" - Decide lost command: "H"
+"   IGNORED
 
-" todo: handle replaced key: "j" (move up)
-" noremap j d
-
-" todo: handle replaced key: "J" (join lines, minimum of two lines)
-" noremap J D
+" - Use freed key: "j"
+" - Use freed key: "J"
+"   Easy join lines
+noremap j gJ
+noremap J gJ
 
 ":1 Dvorak: Move up    (use "t" instead of "k")
-map t g<up>
-map T 6g<up>
+noremap t g<up>
+noremap T 6g<up>
 
-" todo: <C-t>
-" todo: help page <t>
+" - Decide lost command: "t"
+" - Decide lost command: "T"
+"   IGNORED
 
-" todo: handle replaced command: "t" (...)
-" todo: handle replaced command: "T" (...)
-
-" todo: handle replaced key: "k"
-noremap k <nop>
-
-" todo: handle replaced key: "K"
-noremap K <nop>
+" - Use freed key: "k"
+"   Delete text
+noremap k d
+" - Use freed key: "K"
+"   Delete line
+noremap K D
 
 ":1 Dvorak: Move left  (use "d" instead of "h")
-map d <left>
+noremap d <left>
+noremap D b
 
-" todo: handle replaced command: "d" (...)
-noremap j d
+" - Decide lost command: "d" (Delete text)
+" - Decide lost command: "D" (Delete line)
+"   IGNORED
 
-" todo: handle replaced command: "D" (...)
-" todo: handle replaced key: "h"
-" todo: handle replaced key: "H"
+" - Use freed key: "h"
+"   USED AS "<down>"
+
+" - Use freed key: "H"
+"   USED AS "<down>"
 
 ":1 Dvorak: Move right (use "n" instead of "l")
-map n <right>
+noremap n <right>
+noremap N w
 
-" todo: handle replaced command: "n" (...)
-" todo: handle replaced command: "N" (...)
-" todo: handle replaced key: "l"
-" todo: handle replaced key: "l"
+" - Decide lost command: "n" (goto next search result)
+" - Use freed key: "l"
+noremap l n
+
+" - Decide lost command: "N" (goto prev search result)
+" - Use freed key: "L"
+noremap L N
 " endfold
 
 " Easy indent
 nmap > >>
 nmap < <<
-
-" Easy join lines
-noremap gj gJ
 
 " Fix for column edit
 " reference: https://stackoverflow.com/a/80761
