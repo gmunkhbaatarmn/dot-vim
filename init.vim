@@ -61,7 +61,7 @@ endif
 call plug#end()
 
 if has('gui_running') && has('gui_macvim')
-  colorscheme macvim2
+  colorscheme nightfly
 else
   colorscheme jellybeans
 endif

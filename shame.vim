@@ -6,6 +6,8 @@ scriptencoding utf-8
 
 Plug 'junegunn/gv.vim'
 
+Plug 'bluz71/vim-nightfly-guicolors'
+
 ":1 Only on: Mac OS
 if system('uname') =~# 'Darwin'
   set clipboard=unnamed,unnamedplus     " Use the OS clipboard by default
