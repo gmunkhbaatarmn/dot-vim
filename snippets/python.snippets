@@ -3,7 +3,7 @@ snippet env
 snippet utf
 	# coding: utf-8
 snippet __main__
-	if __name__ == "__main__":
+	if __name__ == '__main__':
 	    ${1:main()}
 snippet noqa
 	noqa: #${1:F123}
@@ -24,7 +24,28 @@ snippet contest
 	"""
 	Use global keyword when global variable used in function
 	"""
+snippet csv_writer
+	import csv
+	with open('output.csv', 'w') as f:
+	    csv_writer = csv.writer(f)
+	    csv_writer.writerow(['Name', 'Number'])
+	    csv_writer.writerow(['ABC', 123])
+	    csv_writer.writerow(['DEF', 456])
 # endfold
+
+# --------------------------------------
+#                utilities
+# --------------------------------------
+snippet convert
+	import os
+	import glob
+
+	for path in glob.glob('*.jpg'):
+	    cmd = 'convert {} -resize 800x ../resized_3/{}'.format(path, path)
+
+	    print(cmd)
+	    os.system(cmd)
+
 # --------------------------------------
 #              CTF snippets
 # --------------------------------------
@@ -35,10 +56,10 @@ snippet ctf_rsa
 	from Crypto.PublicKey import RSA
 
 
-	cipher = number.bytes_to_long("string")
+	cipher = number.bytes_to_long('string')
 
 	# get "e", "n" from public key
-	k = RSA.importKey(open("public-key.pem").read())
+	k = RSA.importKey(open('public-key.pem').read())
 	e = k.key.e
 	n = k.key.n
 
@@ -64,7 +85,7 @@ snippet ctf_pil
 	#!/usr/bin/env python3
 	from PIL import Image
 
-	img = Image.open("name.jpg")
+	img = Image.open('name.jpg')
 	print(img.size)
 
 	x, y = 0, 0
@@ -75,36 +96,37 @@ snippet ctf_pil
 	img.transpose(Image.ROTATE_90)
 	img.transpose(Image.ROTATE_180)
 	img.transpose(Image.ROTATE_270)
-	img.save("output.png")
+	img.save('output.png')
 
 snippet ctf_nc
 	#!/usr/bin/env python3
 	import pwn
 
-
-	conn = pwn.remote("ip-or-address", port-in-int)
-	r = conn.recvuntil(":")
-	r = conn.recvline(":")
-	conn.send("%s\n" % command)
+	target = 'ip-or-address'
+	port = int
+	conn = pwn.remote(target, port)
+	r = conn.recvuntil(':')
+	r = conn.recvline(':')
+	conn.send('%s\n' % command)
 	conn.interactive
 
 snippet ctf_ssh
 	import pwn
 	import warnings
 
-	warnings.filterwarnings(action="ignore", module=".*paramiko.*")
+	warnings.filterwarnings(action='ignore', module='.*paramiko.*')
 
-	conn = pwn.ssh(host="<HOST>", user="<USER>", password="<PASSWORD>", port=PORT_INTEGER)
+	conn = pwn.ssh(host='<HOST>', user='<USER>', password='<PASSWORD>', port=PORT_INTEGER)
 	conn.interactive()
 
 snippet ctf_irc
 	import pwn
 
-	nick = "name"
-	host = "ip or domain"
-	channel = "#channel"
+	nick = 'name'
+	host = 'ip or domain'
+	channel = '#channel'
 
-	conn = pwn.remote("irc.root-me.org", 6667)
+	conn = pwn.remote('irc.root-me.org', 6667)
 	conn.send("NICK %s\r\n" % nick)
 	conn.send("USER %s %s %s :%s\r\n" % (nick, nick, nick, nick))
 	conn.send("JOIN %s\r\n" % channel)
