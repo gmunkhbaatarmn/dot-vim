@@ -57,4 +57,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 
+" Remove start-up message. Ignore deprecated feature
+let g:snipMate = {'snippet_version': 1}
+
 " Also: ~/.vim/snippets/
