@@ -1,0 +1,17 @@
+diff --git a/colors/nightfly.vim b/colors/nightfly.vim
+index 6132420..35e4014 100644
+--- a/colors/nightfly.vim
++++ b/colors/nightfly.vim
+@@ -231,9 +231,10 @@ exec 'highlight lCursor guifg=bg guibg=' . s:cadet_blue
+ exec 'highlight CursorLineNr cterm=none guibg=' . s:dark_blue . ' guifg=' . s:blue . ' gui=none'
+ exec 'highlight CursorColumn guibg=' . s:dark_blue
+ exec 'highlight CursorLine cterm=none guibg=' . s:dark_blue
+-exec 'highlight Folded guibg=' . s:dark_blue . ' guifg='. s:green
+-exec 'highlight FoldColumn guibg=' . s:slate_blue . ' guifg=' . s:green
++exec 'highlight Folded guibg=' . s:black . ' guifg='. s:blue
++exec 'highlight FoldColumn guibg=' . s:black . ' guifg=' . s:black
+ exec 'highlight SignColumn guibg=bg guifg=' . s:green
++exec 'highlight githubFlavoredMarkdownInProgress guibg=' . s:green . ' guifg=' . s:black
+ exec 'highlight Todo guibg=' . s:yellow . ' guifg=bg'
+ exec 'highlight SpecialKey guibg=bg guifg=' . s:blue
+ if g:nightflyUnderlineMatchParen
