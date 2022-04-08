@@ -1,3 +1,5 @@
+set guifont=FiraCodeNerdFontComplete-Regular:h18
+
 ":1 Plugin: NightFly theme
 Plug 'bluz71/vim-nightfly-guicolors'
 
