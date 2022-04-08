@@ -88,6 +88,7 @@ autocmd vimrc FileType markdown
 
 " General programming
 ":1 FileType: Python
+source $HOME/.vim/filetypes/python.vim
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 
