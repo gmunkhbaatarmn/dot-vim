@@ -552,6 +552,9 @@ autocmd vimrc FileType sh,zsh
 " endfold
 
 " Web development
+":1 FileType: DBML - Database Markup Language
+source $HOME/.vim/filetypes/dbml.vim
+
 ":1 FileType: HTML
 Plug 'mitsuhiko/vim-jinja'
 
