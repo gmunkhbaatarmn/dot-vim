@@ -31,8 +31,13 @@ snippet csv_writer
 	    csv_writer.writerow(['Name', 'Number'])
 	    csv_writer.writerow(['ABC', 123])
 	    csv_writer.writerow(['DEF', 456])
-# endfold
-
+snippet csv_reader
+	import csv
+	with open('input.csv') as f:
+	    csv_reader = csv.reader(f)
+	    for row in csv_reader:
+	        print(', '.join(row))
+#!
 # --------------------------------------
 #                utilities
 # --------------------------------------

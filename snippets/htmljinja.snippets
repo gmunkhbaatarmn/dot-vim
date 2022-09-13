@@ -28,7 +28,7 @@ snippet clr
 	<div style="clear:both"></div>
 snippet nbsp
 	&nbsp;
-# endfold
+#!
 # --------------------------------------
 #             Jinja snippets
 # --------------------------------------
@@ -39,7 +39,7 @@ snippet %
 snippet #
 	{# ${1} #}
 snippet extends
-	% extends ${1:'Layout.html'}
+	%extends ${1:'Layout.html'}
 snippet include
 	% include '${1}'
 snippet block
@@ -60,7 +60,7 @@ snippet for
 	{% for ${1} in ${2} %}
 	${3}
 	{% endfor %}
-# endfold
+#!
 # --------------------------------------
 #          Simple HTML elements
 # --------------------------------------
@@ -90,7 +90,7 @@ snippet form
 	<form method="post" action="${1}">
 	  <button type="submit">submit</button>
 	</form>
-# endfold
+#!
 # --------------------------------------
 #             HTML elements
 # {el}    - element
@@ -115,7 +115,7 @@ snippet ast
 	</a>
 snippet asti
 	<a href="${1}" style="${2}">${3}</a>
-# endfold
+#!
 
 snippet div
 	<div>
@@ -133,7 +133,7 @@ snippet divst
 	</div>
 snippet divsti
 	<div style="${1}">${2}</div>
-# endfold
+#!
 
 snippet p
 	<p>
@@ -154,7 +154,7 @@ snippet pst
 	</p>
 snippet psti
 	<p class="${1}">${2}</p>
-# endfold
+#!
 
 snippet span
 	<span>
@@ -172,7 +172,7 @@ snippet spanst
 	</span>
 snippet spansti
 	<span style="${1}">${2}</span>
-# endfold
+#!
 
 snippet label
 	<label>
@@ -190,7 +190,7 @@ snippet labelst
 	</label>
 snippet labelsti
 	<label style="${1}">${2}</label>
-# endfold
+#!
 
 snippet h1
 	<h1>
@@ -208,7 +208,7 @@ snippet h1st
 	</h1>
 snippet h1sti
 	<h1 style="${1}">${2}</h1>
-# endfold
+#!
 
 snippet h2
 	<h2>
@@ -226,7 +226,7 @@ snippet h2st
 	</h2>
 snippet h2sti
 	<h2 style="${1}">${2}</h2>
-# endfold
+#!
 
 snippet h3
 	<h3>
@@ -244,7 +244,7 @@ snippet h3st
 	</h3>
 snippet h3sti
 	<h3 style="${1}">${2}</h3>
-# endfold
+#!
 
 snippet ul
 	<ul>
@@ -262,7 +262,7 @@ snippet ulst
 	</ul>
 snippet ulsti
 	<ul style="${1}">${2}</ul>
-# endfold
+#!
 
 snippet li
 	<li>
@@ -280,7 +280,7 @@ snippet list
 	</li>
 snippet listi
 	<li style="${1}">${2}</li>
-# endfold
+#!
 
 snippet table
 	<table>
@@ -298,7 +298,7 @@ snippet tablest
 	</table>
 snippet tablesti
 	<table style="${1}">${2}</table>
-# endfold
+#!
 
 snippet thead
 	<thead>
@@ -316,7 +316,7 @@ snippet theadst
 	</thead>
 snippet theadsti
 	<thead style="${1}">${2}</thead>
-# endfold
+#!
 
 snippet tbody
 	<tbody>
@@ -334,7 +334,7 @@ snippet tbodyst
 	</tbody>
 snippet tbodysti
 	<tbody style="${1}">${2}</tbody>
-# endfold
+#!
 
 snippet tr
 	<tr>
@@ -352,7 +352,7 @@ snippet trst
 	</tr>
 snippet trsti
 	<tr style="${1}">${2}</tr>
-# endfold
+#!
 
 snippet th
 	<th>
@@ -370,7 +370,7 @@ snippet thst
 	</th>
 snippet thsti
 	<th style="${1}">${2}</th>
-# endfold
+#!
 
 snippet td
 	<td>
@@ -388,7 +388,7 @@ snippet tdst
 	</td>
 snippet tdsti
 	<td style="${1}">${2}</td>
-# endfold
+#!
 
 snippet td
 	<td>
@@ -406,7 +406,7 @@ snippet tdst
 	</td>
 snippet tdsti
 	<td style="${1}">${2}</td>
-# endfold
+#!
 
 snippet button
 	<button>
@@ -424,4 +424,4 @@ snippet buttonst
 	</button>
 snippet buttonsti
 	<button style="${1}">${2}</button>
-# endfold
+#!
