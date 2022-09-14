@@ -1,10 +1,10 @@
 set guifont=FiraCodeNerdFontComplete-Regular:h18
 
-":1 Plugin: NightFly theme
+"1 Plugin: NightFly theme
 Plug 'bluz71/vim-nightfly-guicolors'
 
 " also: patches/vim-nightfly-guicolors.patch
-" endfold
+"!
 
 let g:NERDTreePatternMatchHighlightColor = {
   \ '.*_TESTS$': '8700af',
