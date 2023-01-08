@@ -1,5 +1,7 @@
 autocmd vimrc BufEnter .flake8
   \   setlocal filetype=cfg
+Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 autocmd vimrc FileType python
   \   setlocal tabstop=4
