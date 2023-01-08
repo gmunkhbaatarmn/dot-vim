@@ -10,7 +10,7 @@ Plug 'tyru/caw.vim'
 let g:caw_no_default_keymappings = 1
 map c <Plug>(caw:hatpos:toggle)
 
-":1 Plugin: NERDTree
+"1 Plugin: NERDTree
 Plug 'preservim/nerdtree'
 
 " Fast toggle
