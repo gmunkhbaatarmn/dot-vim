@@ -395,11 +395,6 @@ function! g:PythonFoldText()
 endfunction
 
 autocmd vimrc FileType python
-  \   setlocal tabstop=4
-  \ | setlocal shiftwidth=4
-  \ | setlocal expandtab
-
-autocmd vimrc FileType python
   \   setlocal foldmethod=expr
   \ | setlocal foldexpr=g:PythonFoldExpr()
   \ | setlocal foldtext=g:PythonFoldText()
