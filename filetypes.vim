@@ -9,7 +9,7 @@ scriptencoding utf-8
 "   - Syntax
 
 " General purpose usage
-":1 FileType: Markdown
+"1 FileType: Markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'rhysd/vim-gfm-syntax'
 
@@ -84,10 +84,10 @@ autocmd vimrc FileType markdown
   \   setlocal foldmethod=expr
   \ | setlocal foldexpr=g:MarkdownFoldExpr()
   \ | setlocal foldtext=g:MarkdownFoldText2()
-" endfold
+"!
 
 " General programming
-":1 FileType: Python
+"1 FileType: Python
 source $HOME/.vim/filetypes/python.vim
 
 " ENV variables for GUI
@@ -433,7 +433,7 @@ autocmd vimrc FileType python
   \ containedin=pythonString contained
 " endfold2
 
-":1 FileType: Make (Makefile)
+"1 FileType: Make (Makefile)
 function! g:MakefileFoldExpr()
   ":2 ...
   " Case: start with 'COMMAND:'
@@ -463,7 +463,7 @@ autocmd vimrc FileType make
 autocmd vimrc FileType make
   \ nmap <buffer> <F5> :w<CR>:!make<CR>
 
-":1 FileType: Yaml
+"1 FileType: Yaml
 function! g:YamlFoldText()
   ":2 ...
   let l:line = getline(v:foldstart)
@@ -512,10 +512,10 @@ autocmd vimrc FileType yaml
 autocmd vimrc FileType yaml
   \ setlocal foldmarker=#\:,endfold
 
-":1 FileType: JSON
+"1 FileType: JSON
 let g:vim_json_conceal = 0                        " Disable quote concealing
 
-":1 FileType: Shell (sh, zsh)
+"1 FileType: Shell (sh, zsh)
 function! g:ShellFoldText()
   ":2 ...
   let l:line = getline(v:foldstart)
@@ -536,13 +536,13 @@ autocmd vimrc FileType sh,zsh
   \   setlocal foldmethod=marker
   \ | setlocal foldmarker=#:,#\ endfold
   \ | setlocal foldtext=g:ShellFoldText()
-" endfold
+"!
 
 " Web development
-":1 FileType: DBML - Database Markup Language
+"1 FileType: DBML - Database Markup Language
 source $HOME/.vim/filetypes/dbml.vim
 
-":1 FileType: HTML
+"1 FileType: HTML
 Plug 'mitsuhiko/vim-jinja'
 
 function! g:HTMLFoldExpr()
