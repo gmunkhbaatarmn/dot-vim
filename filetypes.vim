@@ -784,9 +784,6 @@ autocmd vimrc FileType javascript
   \ | setlocal foldexpr=g:JavascriptFoldExpr()
   \ | setlocal foldtext=g:JavascriptFoldText()
 
-autocmd vimrc FileType javascript
-  \ nmap <buffer> <F5> :w<CR>:!time node '%'<CR>
-
 " Highlight: `[selector]`
 " Highlight: `[selector=attribute]`
 autocmd vimrc FileType javascript
