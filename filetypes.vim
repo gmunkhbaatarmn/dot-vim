@@ -684,7 +684,7 @@ autocmd vimrc FileType htmljinja
 autocmd vimrc FileType htmljinja
   \ let b:caw_wrap_oneline_comment = ['{#', '#}']
 
-":1 FileType: CSS
+"1 FileType: CSS
 Plug 'hail2u/vim-css3-syntax'
 
 function! g:CSSFoldText()
@@ -715,7 +715,7 @@ autocmd vimrc FileType css
   \ | setlocal foldexpr=g:CSSFoldExpr()
   \ | setlocal foldtext=g:CSSFoldText()
 
-":1 FileType: Javascript
+"1 FileType: Javascript
 Plug 'pangloss/vim-javascript'
 
 function! g:JavascriptFoldExpr()
@@ -793,20 +793,20 @@ autocmd vimrc FileType javascript
   \ syntax match Constant "\[[a-zA-Z0-9_-]\+=\"[a-zA-Z0-9_\ -]\+\"\]"hs=s+0,he=e-0
   \ containedin=JsString contained
 
-":1 FileType: Requirements
+"1 FileType: Requirements
 Plug 'raimon49/requirements.txt.vim'
 
-":1 FileType: Log
+"1 FileType: Log
 Plug 'MTDL9/vim-log-highlighting'
 
 autocmd vimrc BufEnter *.log setlocal filetype=log
 
-":1 FileType: Docker
+"1 FileType: Docker
 Plug 'ekalinin/Dockerfile.vim'
-" endfold
+"!
 
 " Competitive programming
-":1 FileType: C++
+"1 FileType: C++
 function! g:CppFoldText()
   ":2 ...
   let l:line = getline(v:foldstart)
@@ -849,7 +849,7 @@ autocmd vimrc FileType cpp syn keyword cType Long
 autocmd vimrc FileType cpp syn keyword cType stringstream
 autocmd vimrc FileType cpp syn keyword cRepeat For Rep
 autocmd vimrc FileType cpp syn match cComment /;/
-" endfold
+"!
 
 " Vim (to sharpen the saw)
 ":1 FileType: Snippet
@@ -923,7 +923,7 @@ autocmd vimrc FileType vim
 " endfold
 
 " Other
-":1 FileType: R
+"1 FileType: R
 Plug 'jalvesaq/R-Vim-runtime'
 
 function! g:RFoldExpr()
@@ -948,7 +948,7 @@ autocmd vimrc FileType r
 autocmd vimrc FileType r
   \ nmap <buffer> <F5>   :w<CR>:!time Rscript '%'<CR>
 
-":1 FileType: Ruby
+"1 FileType: Ruby
 Plug 'vim-ruby/vim-ruby'
 
 " Improve rendering speed
@@ -960,7 +960,7 @@ autocmd vimrc FileType ruby
 autocmd vimrc FileType ruby
   \ nmap <buffer> <S-F5> :w<CR>:!time ruby '%' < input.txt<CR>
 
-":1 FileType: Lua
+"1 FileType: Lua
 Plug 'tbastos/vim-lua'
 
 ":2 LuaFoldExpr
@@ -978,10 +978,8 @@ function! g:LuaFoldExpr()
   endif
 
   return '='
-endfunction
-
-":2 LuaFoldText
-function! g:LuaFoldText()
+endfunction "!2
+function! g:LuaFoldText() "2
   let l:line = getline(v:foldstart)
 
   return l:line
@@ -993,8 +991,7 @@ function! g:LuaFoldText()
   else
     return '▸   ' . l:line[4:]
   endif
-endfunction
-" endfold2
+endfunction "!2
 
 autocmd vimrc FileType lua
   \   setlocal foldmethod=expr
