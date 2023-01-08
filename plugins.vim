@@ -4,7 +4,7 @@
 "   - Mapping
 
 " Commands
-":1 Plugin: CommentAnyWay
+"1 Plugin: CommentAnyWay
 Plug 'tyru/caw.vim'
 
 let g:caw_no_default_keymappings = 1
@@ -25,7 +25,7 @@ let g:NERDTreeBookmarksFile = $HOME . '/.vim/.nerdtree-bookmarks'
 " Also: ~/.vim/.nerdtree-bookmarks
 " Also: ~/.vim/nerdtree_plugin/path_filters.vim
 
-":1 Plugin: NERDTree syntax hightlight
+"1 Plugin: NERDTree syntax hightlight
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 let g:NERDTreeSyntaxDisableDefaultExtensions = 1
